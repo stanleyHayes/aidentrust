@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {KeyboardArrowDown, Notifications} from "@mui/icons-material";
 import {useState} from "react";
 import Feint from "../shared/feint";
-import { purple} from "@mui/material/colors";
+import {grey, purple} from "@mui/material/colors";
 
 const DesktopHeader = () => {
 
@@ -80,7 +80,7 @@ const DesktopHeader = () => {
                                     color="purple"
                                     children={
                                         <KeyboardArrowDown
-                                            sx={{color: purple[600]}}
+                                            sx={{color: purple[600], cursor: 'pointer'}}
                                             onClick={handleMenuClick} color="primary"/>
                                     }/>
                                 <Menu
@@ -89,11 +89,68 @@ const DesktopHeader = () => {
                                     onClose={handleMenuClose}
                                     anchorEl={anchorEl}>
                                     <MenuItem>
-                                        <Link to="/account/profile" className={classes.dropDownLink}>
+                                        <Link to="/profile" className={classes.dropDownLink}>
                                             <Button
+                                                fullWidth={true}
+                                                sx={{color: grey[600]}}
                                                 variant="text"
                                                 size="small">
                                                 Profile
+                                            </Button>
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Link to="/about-us" className={classes.dropDownLink}>
+                                            <Button
+                                                fullWidth={true}
+                                                sx={{color: grey[600]}}
+                                                variant="text"
+                                                size="small">
+                                                About Us
+                                            </Button>
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Link to="/privacy" className={classes.dropDownLink}>
+                                            <Button
+                                                fullWidth={true}
+                                                sx={{color: grey[600]}}
+                                                variant="text"
+                                                size="small">
+                                                Privacy Policy
+                                            </Button>
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Link to="/terms" className={classes.dropDownLink}>
+                                            <Button
+                                                fullWidth={true}
+                                                sx={{color: grey[600]}}
+                                                variant="text"
+                                                size="small">
+                                                Terms
+                                            </Button>
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Link to="/contact" className={classes.dropDownLink}>
+                                            <Button
+                                                fullWidth={true}
+                                                sx={{color: grey[600]}}
+                                                variant="text"
+                                                size="small">
+                                                Contact Us
+                                            </Button>
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Link to="/faq" className={classes.dropDownLink}>
+                                            <Button
+                                                fullWidth={true}
+                                                sx={{color: grey[600]}}
+                                                variant="text"
+                                                size="small">
+                                                FAQ
                                             </Button>
                                         </Link>
                                     </MenuItem>

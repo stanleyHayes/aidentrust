@@ -113,9 +113,16 @@ const TransactionsPage = () => {
                         <Button
                             fullWidth={true}
                             variant="outlined"
-                            color="primary"
-                            size="large"
-                            sx={{textTransform: 'capitalize', fontWeight: 'bold'}}>
+                            size="medium"
+                            sx={{
+                                backgroundColor: 'primary.main',
+                                textTransform: 'capitalize',
+                                fontWeight: 'bold',
+                                color: 'white',
+                                '&:hover': {
+                                    color: 'primary.main'
+                                }
+                        }}>
                             Search
                         </Button>
                     </Grid>
