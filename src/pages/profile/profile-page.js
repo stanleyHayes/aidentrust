@@ -3,8 +3,9 @@ import {Avatar, Button, Card, CardContent, Container, Divider, Grid, Stack, Typo
 import {makeStyles} from "@mui/styles";
 import Feint from "../../components/shared/feint";
 import {Edit, Person} from "@mui/icons-material";
-import {green, grey} from "@mui/material/colors";
+import {grey, purple} from "@mui/material/colors";
 import Info from "../../components/shared/info";
+import {Link} from "react-router-dom";
 
 const ProfilePage = () => {
 
@@ -13,6 +14,9 @@ const ProfilePage = () => {
             container: {
                 paddingTop: 16,
                 paddingBottom: 16
+            },
+            link: {
+                textDecoration: 'none'
             }
         }
     });
@@ -27,23 +31,26 @@ const ProfilePage = () => {
                         <Typography variant="h4">Profile</Typography>
                     </Grid>
                     <Grid item={true} xs={12} md="auto">
-                        <Button
-                            sx={{
-                                textTransform: 'capitalize',
-                                color: green[600],
-                                backgroundColor: 'white'
-                            }}
-                            startIcon={
-                                <Feint
-                                    padding={0.1}
-                                    color="green"
-                                    children={<Edit fontSize="small" sx={{color: green[600]}}/>}/>}
-                            variant="outlined"
-                            fullWidth={true}
-                            disableElevation={true}
-                            size="large">
-                            Update Profile
-                        </Button>
+                        <Link to="/edit-profile" className={classes.link}>
+                            <Button
+                                sx={{
+                                    textTransform: 'capitalize',
+                                    color: purple[600],
+                                    backgroundColor: 'white',
+                                    borderWidth: 2
+                                }}
+                                startIcon={
+                                    <Feint
+                                        padding={0.1}
+                                        color="purple"
+                                        children={<Edit fontSize="small" sx={{color: purple[600]}}/>}/>}
+                                variant="outlined"
+                                fullWidth={true}
+                                disableElevation={true}
+                                size="large">
+                                Update Profile
+                            </Button>
+                        </Link>
                     </Grid>
                 </Grid>
 
@@ -82,9 +89,6 @@ const ProfilePage = () => {
                                     alignItems="center">
                                     <Button variant="text" size="small" startIcon={<Person/>}>
                                         Account Details
-                                    </Button>
-                                    <Button variant="text" size="small" startIcon={<Edit/>}>
-                                        Edit
                                     </Button>
                                 </Stack>
 
@@ -148,9 +152,6 @@ const ProfilePage = () => {
                                                 startIcon={<Person/>}>
                                                 Personal Details
                                             </Button>
-                                            <Button variant="text" size="small" startIcon={<Edit/>}>
-                                                Edit
-                                            </Button>
                                         </Stack>
 
                                         <Divider light={true} sx={{my: 1}} variant="middle"/>
@@ -206,9 +207,6 @@ const ProfilePage = () => {
                                                 startIcon={<Person/>}>
                                                 Contact Details
                                             </Button>
-                                            <Button variant="text" size="small" startIcon={<Edit/>}>
-                                                Edit
-                                            </Button>
                                         </Stack>
 
                                         <Divider light={true} sx={{my: 1}} variant="middle"/>
@@ -263,9 +261,6 @@ const ProfilePage = () => {
                                                 size="small"
                                                 startIcon={<Person/>}>
                                                 Address Details
-                                            </Button>
-                                            <Button variant="text" size="small" startIcon={<Edit/>}>
-                                                Edit
                                             </Button>
                                         </Stack>
 

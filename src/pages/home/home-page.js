@@ -1,14 +1,35 @@
 import Layout from "../../components/layout/layout";
-import {Avatar, Box, Button, Card, CardContent, Container, Divider, Grid, Stack, Typography} from "@mui/material";
+import {
+    Avatar,
+    Box,
+    Button,
+    Card,
+    CardContent,
+    Container,
+    Divider,
+    Grid,
+    LinearProgress,
+    Stack,
+    Typography
+} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import Stat from "../../components/shared/stat";
 import {Link} from "react-router-dom";
 import Feint from "../../components/shared/feint";
-import {Add, Call, CreditCard, Mail, MoreHoriz, VerifiedUser} from "@mui/icons-material";
+import {
+    Call,
+    Mail, MonetizationOn,
+    MoreHoriz,
+    Paid,
+    ShoppingCartCheckout,
+    VerifiedUser
+} from "@mui/icons-material";
 import {green, grey, purple, red} from "@mui/material/colors";
 import {useSelector} from "react-redux";
 import {selectTransaction} from "../../redux/transactions/transaction-reducer";
 import TransactionItem from "../../components/shared/transaction-item";
+import {selectDashboard} from "../../redux/dashboard/dashboard-reducer";
+import {Alert, AlertTitle} from "@mui/lab";
 
 const HomePage = () => {
 
@@ -30,61 +51,114 @@ const HomePage = () => {
     const classes = useStyles();
 
     const {transactions} = useSelector(selectTransaction);
+    const {dashboard, dashboardLoading, dashboardError} = useSelector(selectDashboard);
+
+    const renderColor = color => {
+        switch (color) {
+            case 'red':
+                return red[600];
+            case 'green':
+                return green[600];
+            case 'grey':
+                return grey[600];
+            case 'purple':
+                return purple[600];
+            default:
+                return grey[600];
+        }
+    }
 
     return (
         <Layout>
             <Container className={classes.container}>
+                {dashboardLoading && <LinearProgress color="secondary" variant="query"/>}
+                    {dashboardError && (<Alert severity="error" variant="standard">
+                        <AlertTitle>Error</AlertTitle>
+                        <Typography variant="h6" align="center">
+                            {dashboardError}
+                        </Typography>
+                    </Alert>)
+                    }
                 <Box mb={2}>
                     <Typography mb={1} variant="h6">Overview</Typography>
                     <Grid container={true} spacing={2} alignItems="center">
-                        <Grid item={true} xs={12} md={6} lg={3}>
-                            <Stat color="green" title="Income" value="$40,00"/>
+                        <Grid item={true} xs={12} md={6} lg={4}>
+                            <Stat
+                                icon={
+                                    <Paid
+                                        fontSize="large"
+                                        sx={{color: renderColor('green')}}
+                                    />}
+                                color="green"
+                                title="Income"
+                                value={`$${dashboard.income}`}
+                            />
                         </Grid>
-                        <Grid item={true} xs={12} md={6} lg={3}>
-                            <Stat color="red" title="Spending" value="$40,00"/>
+                        <Grid item={true} xs={12} md={6} lg={4}>
+                            <Stat
+                                icon={<ShoppingCartCheckout
+                                    fontSize="large"
+                                    sx={{color: renderColor('red')}}
+                                />} color="red"
+                                title="Spending"
+                                value={`$${dashboard.spending}`}
+                            />
                         </Grid>
-                        <Grid item={true} xs={12} md={6} lg={3}>
-                            <Stat color="grey" title="Balance" value="$40,00"/>
-                        </Grid>
-                        <Grid item={true} xs={12} md={6} lg={3}>
-                            <Stat color="purple" title="Transactions" value="$40,00"/>
+                        <Grid item={true} xs={12} md={6} lg={4}>
+                            <Stat
+                                icon={
+                                    <MonetizationOn
+                                        fontSize="large"
+                                        sx={{color: renderColor('grey')}}
+                                    />}
+                                color="grey"
+                                title="Balance"
+                                value={`$${dashboard.currentBalance}`}
+                            />
                         </Grid>
                     </Grid>
                 </Box>
 
-                <Grid
-                    container={true}
-                    spacing={2}>
-                    <Grid item={true} xs={12} md={8}>
-                        <Box mb={2}>
-                            <Grid
-                                container={true}
-                                spacing={2}
-                                alignItems="stretch">
-                                <Grid item={true} xs={12}>
-                                    <Card elevation={0} mb={4}>
-                                        <CardContent>
-                                            <Typography mb={1} variant="h6">Spending</Typography>
-                                            <Stat color="green" title="Income" value="$40,00"/>
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-                                <Grid item={true} xs={12}>
-                                    <Card elevation={0} mb={4}>
-                                        <CardContent>
-                                            <Typography mb={1} variant="h6">Income</Typography>
-                                            <Stat color="red" title="Spending" value="$40,00"/>
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Grid>
-                    <Grid
-                        item={true}
-                        xs={12}
-                        md={4}>
+                <Grid container={true} spacing={2}>
+
+                    <Grid item={true} xs={12} md={6}>
                         <Card elevation={0}>
+                            <CardContent>
+                                <Stack justifyContent="space-between" alignItems="center" direction="row">
+                                    <Typography variant="h6">Recent Transactions</Typography>
+                                    <Link className={classes.link} to="/transactions">
+                                        <Button variant="text">See all</Button>
+                                    </Link>
+                                </Stack>
+                                {transactions && transactions.length === 0 ? (
+                                    <Box>
+                                        <Typography variant="body2" align="center">
+                                            No recent transactions
+                                        </Typography>
+                                    </Box>
+                                ) : (
+                                    <Stack
+                                        direction="column"
+                                        divider={<Divider variant="middle" light={true}/>}>
+                                        {
+                                            transactions && transactions.map((transaction, index) => {
+                                                return (
+                                                    <TransactionItem
+                                                        key={index}
+                                                        transaction={transaction}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                    </Stack>
+                                )}
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid item={true} xs={12} md={6}>
+
+                        <Card sx={{mb: 2}} elevation={0}>
                             <CardContent>
                                 <Stack mb={2} justifyContent="center" alignItems="center">
                                     <Avatar
@@ -153,170 +227,126 @@ const HomePage = () => {
                                         </Typography>
                                     </Grid>
                                     <Grid item={true} xs={6} md={3}>
+                                        <Link to="/profile" className={classes.link}>
+                                            <Stack justifyContent="center" direction="row">
+                                                <Feint
+                                                    mb={1}
+                                                    padding={0.4}
+                                                    children={<MoreHoriz sx={{color: grey[600]}}/>}
+                                                    color="grey"/>
+                                            </Stack>
+
+                                            <Typography
+                                                align="center"
+                                                variant="body2"
+                                                sx={{
+                                                    cursor: 'pointer',
+                                                    fontSize: 10,
+                                                    color: grey[600]
+                                                }}>
+                                                More
+                                            </Typography>
+                                        </Link>
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+                        </Card>
+
+                        <Grid container={true} spacing={2}>
+                            <Grid xs={6} item={true}>
+                                <Card elevation={0}>
+                                    <CardContent>
                                         <Stack justifyContent="center" direction="row">
                                             <Feint
-                                                mb={1}
+                                                mb={2}
                                                 padding={0.4}
-                                                children={<MoreHoriz sx={{color: grey[600]}}/>}
-                                                color="grey"/>
+                                                children={<Call sx={{color: purple[600]}}/>}
+                                                color="purple"/>
                                         </Stack>
                                         <Typography
                                             align="center"
                                             variant="body2"
                                             sx={{
-                                                fontSize: 10,
+                                                fontSize: 14,
                                                 color: grey[600]
                                             }}>
-                                            More
+                                            Deposit Money
                                         </Typography>
-                                    </Grid>
-                                </Grid>
-
-                                <Divider variant="middle" light={true} sx={{my: 3}}/>
-
-                                <Stack direction="column" spacing={1}>
-                                    <Button
-                                        fullWidth={true}
-                                        disableElevation={true}
-                                        variant="contained"
-                                        sx={{
-                                            justifyContent: "space-between",
-                                            borderRadius: 0,
-                                            backgroundColor: purple[600],
-                                            color: 'white'
-                                        }}
-                                        startIcon={
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                            <Grid xs={6} item={true}>
+                                <Card elevation={0}>
+                                    <CardContent>
+                                        <Stack justifyContent="center" direction="row">
                                             <Feint
+                                                mb={2}
                                                 padding={0.4}
-                                                color="purple"
-                                                children={
-                                                    <CreditCard
-                                                        fontSize="small"
-                                                        sx={{color: purple[600]}}/>}
-                                            />}
-                                        endIcon={
-                                            <Feint
-                                                padding={0.4}
-                                                color="purple"
-                                                children={
-                                                    <Add
-                                                        fontSize="small"
-                                                        sx={{color: purple[600]}}/>}
-                                            />}>
-                                        Deposit Money
-                                    </Button>
-
-                                    <Button
-                                        fullWidth={true}
-                                        disableElevation={true}
-                                        variant="contained"
-                                        sx={{
-                                            justifyContent: "space-between",
-                                            borderRadius: 0,
-                                            backgroundColor: red[600],
-                                            color: 'white'
-                                        }}
-                                        startIcon={
-                                            <Feint
-                                                padding={0.4}
-                                                color="red"
-                                                children={
-                                                    <CreditCard
-                                                        fontSize="small"
-                                                        sx={{color: red[600]}}/>}/>}
-                                        endIcon={
-                                            <Feint
-                                                padding={0.4}
-                                                color="red"
-                                                children={
-                                                    <Add fontSize="small" sx={{color: red[600]}}/>}/>}>
-                                        Transfer Money
-                                    </Button>
-
-                                    <Button
-                                        fullWidth={true}
-                                        disableElevation={true}
-                                        variant="outlined"
-                                        sx={{
-                                            justifyContent: "space-between",
-                                            borderRadius: 0,
-                                            backgroundColor: grey[600],
-                                            color: 'white'
-                                        }}
-                                        startIcon={
-                                            <Feint
-                                                padding={0.4}
-                                                color="grey"
-                                                children={
-                                                    <CreditCard fontSize="small" sx={{color: grey[600]}}/>}/>}
-                                        endIcon={
-                                            <Feint
-                                                padding={0.4}
-                                                color="grey"
-                                                children={
-                                                    <Add fontSize="small" sx={{color: grey[600]}}/>}/>}>
-                                        Make Payment
-                                    </Button>
-
-                                    <Button
-                                        fullWidth={true}
-                                        disableElevation={true}
-                                        variant="outlined"
-                                        sx={{
-                                            justifyContent: "space-between",
-                                            borderRadius: 0,
-                                            backgroundColor: green[600],
-                                            color: 'white'
-                                        }}
-                                        startIcon={
-                                            <Feint
-                                                padding={0.4}
-                                                color="green"
-                                                children={
-                                                    <CreditCard fontSize="small" sx={{color: green[600]}}/>}/>}
-                                        endIcon={
-                                            <Feint
-                                                padding={0.4}
-                                                color="green"
-                                                children={
-                                                    <Add fontSize="small" sx={{color: green[600]}}/>}/>}>
-                                        Receive Money
-                                    </Button>
-                                </Stack>
-
-                                <Divider variant="middle" light={true} sx={{my: 3}}/>
-
-                                <Stack justifyContent="space-between" alignItems="center" direction="row">
-                                    <Typography variant="h6">Recent Transactions</Typography>
-                                    <Link className={classes.link} to="/transactions">
-                                        <Button variant="text">See all</Button>
-                                    </Link>
-                                </Stack>
-                                {transactions && transactions.length === 0 ? (
-                                    <Box>
-                                        <Typography variant="body2" align="center">
-                                            No recent transactions
+                                                children={<Call sx={{color: purple[600]}}/>}
+                                                color="purple"/>
+                                        </Stack>
+                                        <Typography
+                                            align="center"
+                                            variant="body2"
+                                            sx={{
+                                                fontSize: 14,
+                                                color: grey[600]
+                                            }}>
+                                            Transfer Money
                                         </Typography>
-                                    </Box>
-                                ) : (
-                                    <Stack
-                                        direction="column"
-                                        divider={<Divider variant="middle" light={true}/>}>
-                                        {
-                                            transactions && transactions.slice(5).map((transaction, index) => {
-                                                return (
-                                                    <TransactionItem
-                                                        key={index}
-                                                        transaction={transaction}
-                                                    />
-                                                )
-                                            })
-                                        }
-                                    </Stack>
-                                )}
-                            </CardContent>
-                        </Card>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+
+                            <Grid xs={6} item={true}>
+                                <Card elevation={0}>
+                                    <CardContent>
+
+                                        <Stack justifyContent="center" direction="row">
+                                            <Feint
+                                                mb={2}
+                                                padding={0.4}
+                                                children={<Call sx={{color: purple[600]}}/>}
+                                                color="purple"/>
+                                        </Stack>
+                                        <Typography
+                                            align="center"
+                                            variant="body2"
+                                            sx={{
+                                                fontSize: 14,
+                                                color: grey[600]
+                                            }}>
+                                            Make Payment
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                            <Grid xs={6} item={true}>
+                                <Card elevation={0}>
+                                    <CardContent>
+                                        <Stack justifyContent="center" direction="row">
+                                            <Feint
+                                                mb={2}
+                                                padding={0.4}
+                                                children={<Call sx={{color: purple[600]}}/>}
+                                                color="purple"/>
+                                        </Stack>
+                                        <Typography
+                                            align="center"
+                                            variant="body2"
+                                            sx={{
+                                                fontSize: 14,
+                                                color: grey[600]
+                                            }}>
+                                            Receive Money
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        </Grid>
+
                     </Grid>
+
                 </Grid>
             </Container>
         </Layout>

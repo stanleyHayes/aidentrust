@@ -1,160 +1,79 @@
-import {Box, Button, Stack, Typography} from "@mui/material";
+import {Box, Button, Divider, Stack} from "@mui/material";
 import SidebarLink from "../shared/sidebar-link";
 import {useLocation} from "react-router";
 import {
-    AccountBalance,
-    AccountBalanceOutlined,
     CompareArrows,
     CompareArrowsOutlined,
     CreditCard,
     CreditCardOutlined,
+    Edit,
+    EditOutlined,
     Home,
     HomeOutlined,
+    Lock,
+    LockOutlined,
     Logout,
-    Settings,
-    SettingsOutlined,
-    VerifiedUser,
-    VerifiedUserOutlined
+    Person,
+    PersonOutline,
 } from "@mui/icons-material";
-import {green, grey, purple} from "@mui/material/colors";
-import {makeStyles} from "@mui/styles";
+import {purple, grey} from "@mui/material/colors";
 
 const DesktopDrawer = () => {
 
     const {pathname} = useLocation();
 
-    const useStyles = makeStyles(theme => {
-        return {
-            inactive: {
-                color: 'text.secondary',
-                backgroundColor: grey[200],
-                padding: 5,
-                borderRadius: 4
-            },
-            active: {
-                color: 'text.primary',
-                backgroundColor: purple[100],
-                padding: 5,
-                borderRadius: 4
-            }
-        }
-    });
-
-    const classes = useStyles();
-
-    return (
-        <Box
+    return (<Box
             sx={{
-                minHeight: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-                pt: 2,
-                width: '100%'
+                minHeight: '92vh', display: 'flex', flexDirection: 'column', mt: 3, width: '100%'
             }}>
             <Box sx={{flex: 1}}>
-                <Stack mb={2} direction="column">
-                    <Typography
-                        sx={{
-                            color: 'primary.main',
-                            pl: 4,
-                            fontWeight: 400,
-                        }} fontWeight="normal" variant="h4">
-                        Aiden Trust
-                    </Typography>
-                </Stack>
-
                 <Stack
-                    mt={2} direction="column">
+                    divider={<Divider variant="fullWidth" light={true}/>}
+                    direction="column">
                     <SidebarLink
-                        icon={
-                            pathname === '/' ?
-                                <Home
-                                    sx={{
-                                        color: green[600],
-                                        backgroundColor: green[200],
-                                        padding: .1,
-                                        borderRadius: .4
-                                    }}/> :
-                                <HomeOutlined
-                                    sx={{
-                                        color: grey[600],
-                                        backgroundColor: grey[200],
-                                        padding: 0.1,
-                                        borderRadius: 0.4
-                                    }}/>
-                        }
+                        icon={pathname === '/' ? <Home
+                            sx={{
+                                color: purple[600],
+                                backgroundColor: purple[200],
+                                padding: .2,
+                                borderRadius: .4,
+                                fontSize: 36
+                            }}/> : <HomeOutlined
+                            sx={{
+                                color: grey[600],
+                                backgroundColor: grey[200],
+                                padding: 0.2,
+                                borderRadius: 0.4,
+                                fontSize: 36
+                            }}/>}
                         path="/"
                         label="Home"
                         active={pathname === '/'}
                     />
                     <SidebarLink
-                        icon={
-                            pathname === '/transactions' ?
-                                <CompareArrows
-                                    sx={{
-                                        color: green[600],
-                                        backgroundColor: green[200],
-                                        padding: .1,
-                                        borderRadius: .4
-                                    }}/> :
-                                <CompareArrowsOutlined
-                                    sx={{
-                                        color: grey[600],
-                                        backgroundColor: grey[200],
-                                        padding: .1,
-                                        borderRadius: .4
-                                    }}/>
-                        }
+                        icon={pathname === '/transactions' ? <CompareArrows
+                            sx={{
+                                color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
+                            }}/> : <CompareArrowsOutlined
+                            sx={{
+                                color: grey[600], backgroundColor: grey[200], padding: .1, borderRadius: .4
+                            }}/>}
                         path="/transactions"
                         label="Transactions"
                         active={pathname === '/transactions'}
                     />
-                    <SidebarLink
-                        icon={
-                            pathname === '/stats' ?
-                                <AccountBalance
-                                    sx={{
-                                        color: green[600],
-                                        backgroundColor: green[200],
-                                        padding: .1,
-                                        borderRadius: .4
-                                    }}/> :
-                                <AccountBalanceOutlined
-                                    fontSize="large"
-                                    sx={{
-                                        color: grey[600],
-                                        backgroundColor: grey[200],
-                                        padding: 0.1,
-                                        borderRadius: 0.4
-                                    }}
-                                />
-                        }
-                        path="/stats"
-                        label="Stats"
-                        active={pathname === '/stats'}
-                    />
 
                     <SidebarLink
-                        icon={
-                            pathname === '/statements' ?
-                                <CreditCard
-                                    sx={{
-                                        color: green[600],
-                                        backgroundColor: green[200],
-                                        padding: .1,
-                                        borderRadius: .4
-                                    }}
-                                /> :
-                                <CreditCardOutlined
-                                    fontSize="large"
-                                    sx={{
-                                        color: grey[600],
-                                        backgroundColor: grey[200],
-                                        padding: 0.1,
-                                        borderRadius: 0.4
-                                    }}
-                                />
-                        }
+                        icon={pathname === '/statements' ? <CreditCard
+                            sx={{
+                                color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
+                            }}
+                        /> : <CreditCardOutlined
+                            fontSize="large"
+                            sx={{
+                                color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
+                            }}
+                        />}
                         path="/statements"
                         label="Statements"
                         active={pathname === '/statements'}
@@ -162,70 +81,62 @@ const DesktopDrawer = () => {
                 </Stack>
             </Box>
 
-            <Box sx={{pb: 4}}>
+            <Box sx={{pb: 2}}>
                 <Stack
-                    mt={2} direction="column">
-                    <SidebarLink
-                        icon={
-                            pathname === '/settings' ?
-                                <Settings
-                                    sx={{
-                                        color: green[600],
-                                        backgroundColor: green[200],
-                                        padding: .1,
-                                        borderRadius: .4
-                                    }}
-                                /> :
-                                <SettingsOutlined
-                                    fontSize="large"
-                                    sx={{
-                                        color: grey[600],
-                                        backgroundColor: grey[200],
-                                        padding: 0.1,
-                                        borderRadius: 0.4
-                                    }}
-                                />
-                        }
-                        path="/settings"
-                        label="Settings"
-                        active={pathname === '/settings'}
-                    />
+                    divider={<Divider variant="fullWidth" light={true}/>}
+                    direction="column">
 
                     <SidebarLink
-                        icon={
-                            pathname === '/profile' ?
-                                <VerifiedUser
-                                    sx={{
-                                        color: green[600],
-                                        backgroundColor: green[200],
-                                        padding: .1,
-                                        borderRadius: .4
-                                    }}/> :
-                                <VerifiedUserOutlined
-                                    fontSize="large"
-                                    sx={{
-                                        color: grey[600],
-                                        backgroundColor: grey[200],
-                                        padding: 0.1,
-                                        borderRadius: 0.4
-                                    }}
-                                />
-                        }
+                        icon={pathname === '/profile' ? <Person
+                            sx={{
+                                color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
+                            }}/> : <PersonOutline
+                            fontSize="large"
+                            sx={{
+                                color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
+                            }}
+                        />}
                         path="/profile"
                         label="Profile"
                         active={pathname === '/profile'}
                     />
 
+                    <SidebarLink
+                        icon={pathname === '/edit-profile' ? <Edit
+                            sx={{
+                                color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
+                            }}/> : <EditOutlined
+                            fontSize="large"
+                            sx={{
+                                color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
+                            }}
+                        />}
+                        path="/edit-profile"
+                        label="Edit Profile"
+                        active={pathname === '/edit-profile'}
+                    />
+
+                    <SidebarLink
+                        icon={pathname === '/change-password' ? <Lock
+                            sx={{
+                                color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
+                            }}/> : <LockOutlined
+                            fontSize="large"
+                            sx={{
+                                color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
+                            }}
+                        />}
+                        path="/change-password"
+                        label="Change Password"
+                        active={pathname === '/change-password'}
+                    />
+
                     <Button
-                        startIcon={
-                            <Logout
-                                sx={{
-                                    color: green[600],
-                                    backgroundColor: green[100],
-                                    padding: .1,
-                                    borderRadius: .4
-                                }}
-                            />}
+                        startIcon={<Logout
+                            sx={{
+                                color: purple[600], padding: .1, borderRadius: .4
+                            }}
+                        />}
                         sx={{
                             fontWeight: 'bold',
                             borderRadius: 0,
@@ -243,8 +154,8 @@ const DesktopDrawer = () => {
                     </Button>
                 </Stack>
             </Box>
-        </Box>
-    )
+
+        </Box>)
 }
 
 export default DesktopDrawer;

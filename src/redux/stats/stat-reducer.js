@@ -1,13 +1,13 @@
-import {transactions} from "./transaction-data";
+import {transactions} from "./stat-data";
 
 const INITIAL_STATE = {
-    transactions: [],
+    transactions: [...transactions],
     transactionDetail: {},
     transactionLoading: false,
     transactionError: false,
-    totalTransactions: 0
+    totalTransactions: transactions.length
 }
-const transactionReducer = (state = INITIAL_STATE, action) => {
+const statReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
 
         default:
@@ -17,4 +17,4 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
 
 export const selectTransaction = state => state.transaction;
 
-export default transactionReducer;
+export default statReducer;

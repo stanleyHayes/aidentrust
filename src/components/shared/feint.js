@@ -31,7 +31,9 @@ const Feint = ({
                 borderRadius,
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                fontSize: 36,
+                color: 'primary.main',
             }}>
             {children}
         </Box>

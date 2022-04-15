@@ -1,24 +1,8 @@
 import {Card, CardContent, Stack, Typography} from "@mui/material";
 import Feint from "./feint";
-import {Send} from "@mui/icons-material";
-import {green, grey, purple, red} from "@mui/material/colors";
+import {grey} from "@mui/material/colors";
 
-const Stat = ({title, value, color}) => {
-
-    const renderColor = color => {
-        switch (color) {
-            case 'red':
-                return red[600];
-            case 'green':
-                return green[600];
-            case 'grey':
-                return grey[600];
-            case 'purple':
-                return purple[600];
-            default:
-                return grey[600];
-        }
-    }
+const Stat = ({title, value, color, icon}) => {
 
     return (
         <Card elevation={0}>
@@ -27,11 +11,7 @@ const Stat = ({title, value, color}) => {
 
                     <Feint
                         color={color}
-                        children={
-                        <Send
-                            fontSize="large"
-                            sx={{color: renderColor(color)}}
-                        />} />
+                        children={icon}/>
 
                     <Stack direction="column">
                         <Typography

@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {KeyboardArrowDown, Notifications} from "@mui/icons-material";
 import {useState} from "react";
 import Feint from "../shared/feint";
-import {green} from "@mui/material/colors";
+import { purple} from "@mui/material/colors";
 
 const DesktopHeader = () => {
 
@@ -42,7 +42,14 @@ const DesktopHeader = () => {
             <Container>
                 <Grid container={true} alignItems="center" justifyContent="space-around">
                     <Grid item={true} lg={3}>
-
+                        <Typography
+                            sx={{
+                                color: 'primary.main',
+                                pl: 4,
+                                fontWeight: 400,
+                            }} fontWeight="normal" variant="h4">
+                            Aiden Trust
+                        </Typography>
                     </Grid>
 
                     <Grid alignItems="center" container={true} lg={9} spacing={2} justifyContent="flex-end">
@@ -50,10 +57,10 @@ const DesktopHeader = () => {
                             <Stack spacing={3} direction="row" alignItems="center">
                                 <Badge badgeContent={5} color="primary" variant="dot">
                                     <Feint
-                                        color="green"
+                                        color="purple"
                                         children={
                                             <Notifications
-                                                sx={{color: green[600]}}/>
+                                                sx={{color: purple[600]}}/>
                                         }/>
                                 </Badge>
 
@@ -63,19 +70,31 @@ const DesktopHeader = () => {
                                     variant="rounded"
                                 />
 
-                                <Typography sx={{fontWeight: 'bold'}} variant="body2">{"Stanley Hayford"}</Typography>
+                                <Typography
+                                    sx={{fontWeight: 'bold', color: purple[600]}}
+                                    variant="body2">
+                                    {"Stanley Hayford"}
+                                </Typography>
 
                                 <Feint
-                                    color="green"
+                                    color="purple"
                                     children={
                                         <KeyboardArrowDown
-                                            sx={{color: green[600]}}
+                                            sx={{color: purple[600]}}
                                             onClick={handleMenuClick} color="primary"/>
                                     }/>
-                                <Menu open={menuOpen} onClose={handleMenuClose} anchorEl={anchorEl}>
+                                <Menu
+                                    elevation={1}
+                                    open={menuOpen}
+                                    onClose={handleMenuClose}
+                                    anchorEl={anchorEl}>
                                     <MenuItem>
                                         <Link to="/account/profile" className={classes.dropDownLink}>
-                                            <Button variant="text" size="large">Profile</Button>
+                                            <Button
+                                                variant="text"
+                                                size="small">
+                                                Profile
+                                            </Button>
                                         </Link>
                                     </MenuItem>
                                 </Menu>

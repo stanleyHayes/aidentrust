@@ -5,25 +5,25 @@ const lightTheme = createTheme({
         borderRadius: 8
     },
     typography: {
-        fontFamily: 'Raleway'
+        fontFamily: 'Chakra Petch, Raleway'
     },
     palette: {
         mode: "light",
         primary: {
-            main: '#47AB43',
+            main: '#5D3EBC',
         },
         secondary: {
             main: '#FFCD31',
         },
         background: {
-            default: '#EAEAEA',
+            default: '#F5F6FA',
             paper: '#ffffff'
         },
         text: {
-            primary: '#484848',
-            secondary: '#EAEAEA',
-            title: '#484848',
-            light: '#EAEAEA',
+            primary: '#323130',
+            secondary: '#909091',
+            title: '#323130',
+            light: '#909091',
             link: '#5D3EBC'
         },
         action: {
@@ -41,7 +41,7 @@ const darkTheme = createTheme({
         borderRadius: 8
     },
     typography: {
-        fontFamily: 'Raleway'
+        fontFamily: 'Chakra Petch,Raleway'
     },
     palette: {
         mode: "dark",

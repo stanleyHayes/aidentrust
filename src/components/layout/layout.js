@@ -13,7 +13,7 @@ const Layout = ({children}) => {
 
     return (
         <Box>
-            <Box sx={{display: 'flex', minHeight: '100vh', maxWidth: '100vw'}}>
+            <Box sx={{display: 'flex', maxWidth: '100vw'}}>
                 <Box
                     sx={{
                         flexBasis: {
@@ -22,8 +22,8 @@ const Layout = ({children}) => {
                             md: '25%',
                             lg: '15%'
                         },
+                        marginTop: 5,
                         backgroundColor: 'background.paper',
-                        maxHeight: '100vh',
                         display: {xs: "none", md: "block"}
                     }}>
                     <DesktopDrawer/>
@@ -31,10 +31,12 @@ const Layout = ({children}) => {
                 <Box
                     sx={{
                         flexGrow: 1,
-                        overflowY: 'scroll',
-                        maxHeight: '100vh',
                         backgroundColor: "background.default",
-                        maxWidth: '100%'
+                        maxWidth: '100%',
+                        paddingTop: 12,
+                        paddingBottom: 12,
+                        maxHeight: '100vh',
+                        overflowY: 'scroll',
                 }}>
                     <Header />
                     {children}

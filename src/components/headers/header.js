@@ -7,14 +7,16 @@ const Header = () => {
 
     return (
         <React.Fragment>
-            <AppBar variant="elevation" elevation={0} color="primary">
+            <AppBar
+                variant="outlined"
+                sx={{backgroundColor: 'white'}}>
                 <Hidden mdUp={true}>
                     <MobileHeader/>
                 </Hidden>
+                <Hidden mdDown={true}>
+                    <DesktopHeader/>
+                </Hidden>
             </AppBar>
-            <Hidden mdDown={true}>
-                <DesktopHeader/>
-            </Hidden>
         </React.Fragment>
     )
 }
