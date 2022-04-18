@@ -14,7 +14,8 @@ import {
     TableHead,
     TableRow,
     TextField,
-    Typography
+    Typography,
+    Alert, AlertTitle,
 } from "@mui/material";
 import {useState} from "react";
 import {Download, Visibility} from "@mui/icons-material";
@@ -22,7 +23,7 @@ import {green, grey, purple, red} from "@mui/material/colors";
 import {useSelector} from "react-redux";
 import {selectTransaction} from "../../redux/transactions/transaction-reducer";
 import {makeStyles} from "@mui/styles";
-import {Alert, AlertTitle, DatePicker} from "@mui/lab";
+import { DatePicker} from "@mui/lab";
 import moment from "moment";
 
 const StatementsPage = () => {
