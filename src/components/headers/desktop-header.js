@@ -92,7 +92,11 @@ const DesktopHeader = () => {
                                         <Link to="/profile" className={classes.dropDownLink}>
                                             <Button
                                                 fullWidth={true}
-                                                sx={{color: grey[600]}}
+                                                sx={{
+                                                    color: grey[600],
+                                                    textTransform: 'capitalize',
+                                                    justifyContent: 'flex-start',
+                                                }}
                                                 variant="text"
                                                 size="small">
                                                 Profile
@@ -103,7 +107,11 @@ const DesktopHeader = () => {
                                         <Link to="/about-us" className={classes.dropDownLink}>
                                             <Button
                                                 fullWidth={true}
-                                                sx={{color: grey[600]}}
+                                                sx={{
+                                                    color: grey[600],
+                                                    textTransform: 'capitalize',
+                                                    justifyContent: 'flex-start',
+                                                }}
                                                 variant="text"
                                                 size="small">
                                                 About Us
@@ -114,7 +122,11 @@ const DesktopHeader = () => {
                                         <Link to="/privacy" className={classes.dropDownLink}>
                                             <Button
                                                 fullWidth={true}
-                                                sx={{color: grey[600]}}
+                                                sx={{
+                                                    color: grey[600],
+                                                    textTransform: 'capitalize',
+                                                    justifyContent: 'flex-start',
+                                                }}
                                                 variant="text"
                                                 size="small">
                                                 Privacy Policy
@@ -125,7 +137,11 @@ const DesktopHeader = () => {
                                         <Link to="/terms" className={classes.dropDownLink}>
                                             <Button
                                                 fullWidth={true}
-                                                sx={{color: grey[600]}}
+                                                sx={{
+                                                    color: grey[600],
+                                                    textTransform: 'capitalize',
+                                                    justifyContent: 'flex-start',
+                                                }}
                                                 variant="text"
                                                 size="small">
                                                 Terms
@@ -136,7 +152,11 @@ const DesktopHeader = () => {
                                         <Link to="/contact" className={classes.dropDownLink}>
                                             <Button
                                                 fullWidth={true}
-                                                sx={{color: grey[600]}}
+                                                sx={{
+                                                    color: grey[600],
+                                                    textTransform: 'capitalize',
+                                                    justifyContent: 'flex-start',
+                                                }}
                                                 variant="text"
                                                 size="small">
                                                 Contact Us
@@ -147,7 +167,11 @@ const DesktopHeader = () => {
                                         <Link to="/faq" className={classes.dropDownLink}>
                                             <Button
                                                 fullWidth={true}
-                                                sx={{color: grey[600]}}
+                                                sx={{
+                                                    color: grey[600],
+                                                    textTransform: 'capitalize',
+                                                    justifyContent: 'flex-start',
+                                                }}
                                                 variant="text"
                                                 size="small">
                                                 FAQ

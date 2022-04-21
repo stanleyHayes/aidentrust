@@ -24,7 +24,7 @@ const MobileDrawer = () => {
 
     return (<Box
             sx={{
-                display: 'flex', flexDirection: 'column', mt: 3, width: '100%', minWidth: '80vw', minHeight: '96vh'
+                display: 'flex', flexDirection: 'column', mt: 3, width: '100%', height: '100%', minWidth: '80vw', maxHeight: '100vh'
             }}>
             <Box sx={{flex: 1}}>
                 <Stack
