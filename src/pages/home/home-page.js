@@ -134,9 +134,9 @@ const HomePage = () => {
                 <Grid container={true} spacing={2}>
 
                     <Grid item={true} xs={12} md={6}>
-                        <Card elevation={0}>
+                        <Card elevation={0} sx={{height: '100%'}}>
                             <CardContent>
-                                <Stack justifyContent="space-between" alignItems="center" direction="row">
+                                <Stack mb={2} justifyContent="space-between" alignItems="center" direction="row">
                                     <Typography variant="h6">Recent Transactions</Typography>
                                     <Link className={classes.link} to="/transactions">
                                         <Button variant="text">See all</Button>
@@ -144,7 +144,7 @@ const HomePage = () => {
                                 </Stack>
                                 {transactions && transactions.length === 0 ? (
                                     <Box sx={{backgroundColor: purple[50]}} py={5}>
-                                        <Typography sx={{color: purple[600]}} variant="body2" align="center">
+                                        <Typography sx={{color: purple[600]}} variant="body1" align="center">
                                             No transactions available
                                         </Typography>
                                     </Box>
@@ -268,7 +268,7 @@ const HomePage = () => {
                             <Grid xs={6} item={true}>
                                 <Card
                                     elevation={0}
-                                    sx={{cursor: 'pointer'}}
+                                    sx={{cursor: 'pointer', height: '100%'}}
                                     onClick={() => setInternationalTransferDialogOpen(true)}>
                                     <CardContent>
                                         <Stack
@@ -294,7 +294,7 @@ const HomePage = () => {
                             </Grid>
                             <Grid xs={6} item={true}>
                                 <Card
-                                    sx={{cursor: 'pointer'}}
+                                    sx={{cursor: 'pointer', height: '100%'}}
                                     onClick={() => setLocalTransferDialogOpen(true)}
                                     elevation={0}>
                                     <CardContent>
@@ -319,7 +319,7 @@ const HomePage = () => {
 
                             <Grid xs={6} item={true}>
                                 <Card
-                                    sx={{cursor: 'pointer'}}
+                                    sx={{cursor: 'pointer', height: '100%'}}
                                     onClick={() => setPaymentDialogOpen(true)}
                                     elevation={0}>
                                     <CardContent>
@@ -343,7 +343,7 @@ const HomePage = () => {
                             </Grid>
                             <Grid xs={6} item={true}>
                                 <Card
-                                    sx={{cursor: 'pointer'}}
+                                    sx={{cursor: 'pointer', height: '100%'}}
                                     onClick={() => setReceiveMoneyDialogOpen(true)}
                                     elevation={0}>
                                     <CardContent>
@@ -366,7 +366,6 @@ const HomePage = () => {
                                 </Card>
                             </Grid>
                         </Grid>
-
                     </Grid>
                 </Grid>
 

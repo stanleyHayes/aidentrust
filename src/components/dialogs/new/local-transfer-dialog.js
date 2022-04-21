@@ -26,7 +26,6 @@ const LocalTransferDialog = ({open, handleClose}) => {
         number,
         amount,
         routingNumber,
-        swiftCode,
         addressLine1,
         addressLine2,
         city,
@@ -106,22 +105,6 @@ const LocalTransferDialog = ({open, handleClose}) => {
                         type="text"
                         color="secondary"
                         placeholder="Enter routing number"
-                        size="medium"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="Swift Code"
-                        fullWidth={true}
-                        name="swiftCode"
-                        required={true}
-                        variant="outlined"
-                        value={swiftCode}
-                        error={Boolean(error.swiftCode)}
-                        helperText={error.swiftCode}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter swift code"
                         size="medium"
                         onChange={handleChange}
                     />

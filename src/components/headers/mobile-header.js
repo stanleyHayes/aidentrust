@@ -1,4 +1,4 @@
-import {Button, Grid, MenuItem, Toolbar, Typography,Menu as MenuComponent} from "@mui/material";
+import {Button, Grid, MenuItem, Toolbar, Typography, Menu as MenuComponent} from "@mui/material";
 import {KeyboardArrowDown, Menu} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {makeStyles} from "@mui/styles";
@@ -56,7 +56,10 @@ const MobileHeader = () => {
                     <Link to="/" className={classes.link}>
                         <Typography
                             sx={{
-                                color: 'primary.main', fontFamily: 'Chakra Petch'
+                                color: 'primary.main',
+                                fontWeight: 700,
+                                fontSmooth: "large",
+                                fontSizeAdjust: "from-front"
                             }}
                             variant="h5">
                             Aiden Trust
@@ -81,7 +84,11 @@ const MobileHeader = () => {
                             <Link to="/profile" className={classes.dropDownLink}>
                                 <Button
                                     fullWidth={true}
-                                    sx={{color: grey[600]}}
+                                    sx={{
+                                        color: grey[600],
+                                        textTransform: 'capitalize',
+                                        justifyContent: 'flex-start'
+                                    }}
                                     variant="text"
                                     size="small">
                                     Profile
@@ -92,7 +99,11 @@ const MobileHeader = () => {
                             <Link to="/about-us" className={classes.dropDownLink}>
                                 <Button
                                     fullWidth={true}
-                                    sx={{color: grey[600]}}
+                                    sx={{
+                                        color: grey[600],
+                                        textTransform: 'capitalize',
+                                        justifyContent: 'flex-start'
+                                    }}
                                     variant="text"
                                     size="small">
                                     About Us
@@ -103,7 +114,11 @@ const MobileHeader = () => {
                             <Link to="/privacy" className={classes.dropDownLink}>
                                 <Button
                                     fullWidth={true}
-                                    sx={{color: grey[600]}}
+                                    sx={{
+                                        color: grey[600],
+                                        textTransform: 'capitalize',
+                                        justifyContent: 'flex-start'
+                                    }}
                                     variant="text"
                                     size="small">
                                     Privacy Policy
@@ -114,7 +129,11 @@ const MobileHeader = () => {
                             <Link to="/terms" className={classes.dropDownLink}>
                                 <Button
                                     fullWidth={true}
-                                    sx={{color: grey[600]}}
+                                    sx={{
+                                        color: grey[600],
+                                        textTransform: 'capitalize',
+                                        justifyContent: 'flex-start'
+                                    }}
                                     variant="text"
                                     size="small">
                                     Terms
@@ -125,7 +144,11 @@ const MobileHeader = () => {
                             <Link to="/contact" className={classes.dropDownLink}>
                                 <Button
                                     fullWidth={true}
-                                    sx={{color: grey[600]}}
+                                    sx={{
+                                        color: grey[600],
+                                        textTransform: 'capitalize',
+                                        justifyContent: 'flex-start'
+                                    }}
                                     variant="text"
                                     size="small">
                                     Contact Us
@@ -136,7 +159,11 @@ const MobileHeader = () => {
                             <Link to="/faq" className={classes.dropDownLink}>
                                 <Button
                                     fullWidth={true}
-                                    sx={{color: grey[600]}}
+                                    sx={{
+                                        color: grey[600],
+                                        textTransform: 'capitalize',
+                                        justifyContent: 'flex-start'
+                                    }}
                                     variant="text"
                                     size="small">
                                     FAQ

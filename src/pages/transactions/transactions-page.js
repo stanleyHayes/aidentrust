@@ -143,7 +143,7 @@ const TransactionsPage = () => {
                 <Grid xs={6} md={3} item={true}>
                     <Card
                         elevation={0}
-                        sx={{cursor: 'pointer'}}
+                        sx={{cursor: 'pointer', height: '100%'}}
                         onClick={() => setInternationalTransferDialogOpen(true)}>
                         <CardContent>
                             <Stack justifyContent="center" direction="row">
@@ -165,7 +165,7 @@ const TransactionsPage = () => {
                 </Grid>
                 <Grid xs={6} md={3} item={true}>
                     <Card
-                        sx={{cursor: 'pointer'}}
+                        sx={{cursor: 'pointer', height: '100%'}}
                         elevation={0}
                         onClick={() => setInternationalTransferDialogOpen(true)}>
                         <CardContent>
@@ -189,7 +189,7 @@ const TransactionsPage = () => {
 
                 <Grid xs={6} md={3} item={true}>
                     <Card
-                        sx={{cursor: 'pointer'}}
+                        sx={{cursor: 'pointer', height: '100%'}}
                         elevation={0}
                         onClick={() => setPaymentDialogOpen(true)}>
                         <CardContent>
@@ -213,7 +213,7 @@ const TransactionsPage = () => {
                 </Grid>
                 <Grid xs={6} md={3} item={true}>
                     <Card
-                        sx={{cursor: 'pointer'}}
+                        sx={{cursor: 'pointer', height: '100%'}}
                         elevation={0}
                         onClick={() => setReceiveMoneyDialogOpen(true)}>
                         <CardContent>

@@ -25,13 +25,7 @@ const MakePaymentDialog = ({open, handleClose}) => {
     const {
         number,
         amount,
-        routingNumber,
-        swiftCode,
-        addressLine1,
-        addressLine2,
-        city,
-        country,
-        stateOrRegionOrProvince,
+        service,
         password
     } = transfer;
 
@@ -58,7 +52,7 @@ const MakePaymentDialog = ({open, handleClose}) => {
                     <Alert severity="error"><AlertTitle>{transactionError}</AlertTitle></Alert>
                 )}
                 <Typography mb={2} variant="h4" align="center">
-                    International Transfer
+                    Payment
                 </Typography>
 
                 <Stack my={3} spacing={2} direction="column">
@@ -95,119 +89,21 @@ const MakePaymentDialog = ({open, handleClose}) => {
                     />
 
                     <TextField
-                        label="Routing Number"
+                        label="Service"
                         fullWidth={true}
-                        name="routingNumber"
+                        name="service"
                         required={true}
                         variant="outlined"
-                        value={routingNumber}
-                        error={Boolean(error.routingNumber)}
-                        helperText={error.routingNumber}
+                        value={service}
+                        error={Boolean(error.service)}
+                        helperText={error.service}
                         type="text"
                         color="secondary"
-                        placeholder="Enter routing number"
+                        placeholder="Enter service"
                         size="medium"
                         onChange={handleChange}
                     />
 
-                    <TextField
-                        label="Swift Code"
-                        fullWidth={true}
-                        name="swiftCode"
-                        required={true}
-                        variant="outlined"
-                        value={swiftCode}
-                        error={Boolean(error.swiftCode)}
-                        helperText={error.swiftCode}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter swift code"
-                        size="medium"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="Country"
-                        fullWidth={true}
-                        name="country"
-                        required={true}
-                        variant="outlined"
-                        value={country}
-                        error={Boolean(error.country)}
-                        helperText={error.country}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter country"
-                        size="medium"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="State/Region/Province"
-                        fullWidth={true}
-                        name="stateOrRegionOrProvince"
-                        required={true}
-                        variant="outlined"
-                        value={stateOrRegionOrProvince}
-                        error={Boolean(error.stateOrRegionOrProvince)}
-                        helperText={error.stateOrRegionOrProvince}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter swift code"
-                        size="medium"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="City"
-                        fullWidth={true}
-                        name="city"
-                        required={true}
-                        variant="outlined"
-                        value={city}
-                        error={Boolean(error.city)}
-                        helperText={error.city}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter city"
-                        size="medium"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="Address Line 1"
-                        fullWidth={true}
-                        name="text"
-                        required={true}
-                        variant="outlined"
-                        value={addressLine1}
-                        error={Boolean(error.addressLine1)}
-                        helperText={error.addressLine1}
-                        type="number"
-                        color="secondary"
-                        placeholder="Address line 1"
-                        size="medium"
-                        multiline={true}
-                        minRows={2}
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="Address Line 2"
-                        fullWidth={true}
-                        name="text"
-                        required={true}
-                        variant="outlined"
-                        minRows={2}
-                        value={addressLine2}
-                        error={Boolean(error.addressLine2)}
-                        helperText={error.addressLine2}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter address line 2"
-                        size="medium"
-                        onChange={handleChange}
-                    />
 
                     <FormControl variant="outlined">
                         <InputLabel htmlFor="password">Password</InputLabel>

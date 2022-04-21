@@ -85,7 +85,9 @@ const ChangePasswordPage = () => {
         <Container sx={{my: 4}}>
             <Grid container={true} alignItems="center" spacing={2} justifyContent="space-between">
                 <Grid item={true} xs={12} md="auto">
-                    <Typography color="text.title" variant="h4">Change Password</Typography>
+                    <Typography color="text.title" variant="h4">
+                        Change Password
+                    </Typography>
                 </Grid>
                 <Grid item={true} xs={12} md="auto">
                     <Button
@@ -94,29 +96,27 @@ const ChangePasswordPage = () => {
                             textTransform: 'capitalize',
                             borderWidth: 2,
                             borderStyle: 'solid',
-                            borderColor: 'secondary.main',
-                            color: 'secondary.main',
+                            borderColor: 'primary.main',
+                            color: 'primary.main',
                             '&:hover': {
                                 backgroundColor: 'light.secondary',
-                                color: 'secondary.main',
+                                color: 'primary.main',
                                 transition: 'all 500ms 150ms ease-in-out',
                                 borderWidth: 2,
                                 borderStyle: 'solid',
-                                borderColor: 'secondary.main',
+                                borderColor: 'primary.main',
                             },
                             '&:focus': {
                                 borderWidth: 2,
                                 borderStyle: 'solid',
-                                borderColor: 'secondary.main',
-                                backgroundColor: 'light.secondary',
-                                color: 'secondary.main'
+                                borderColor: 'primary.main',
+                                color: 'primary.main'
                             },
                             '&:active': {
                                 borderWidth: 2,
                                 borderStyle: 'solid',
-                                borderColor: 'secondary.main',
-                                backgroundColor: 'light.secondary',
-                                color: 'secondary.main'
+                                borderColor: 'primary.main',
+                                color: 'primary.main'
                             }
                         }}
                         size="large"

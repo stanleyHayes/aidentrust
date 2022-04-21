@@ -221,16 +221,16 @@ const ProfilePage = () => {
                                                 />
                                             </Grid>
                                             <Grid item={true} xs={12} md={6}>
-                                                <Call
-                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                <Info
+                                                    icon={<Call sx={{color: grey[600]}}/>}
                                                     title="Phone"
                                                     value="+2332 7004 8319"
 
                                                 />
                                             </Grid>
                                             <Grid item={true} xs={12} md={6}>
-                                                <Call
-                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                <Info
+                                                    icon={<Call sx={{color: grey[600]}}/>}
                                                     title="Emergency Phone"
                                                     value="+2335 5518 0048"
                                                 />

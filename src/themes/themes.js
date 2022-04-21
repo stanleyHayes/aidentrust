@@ -3,7 +3,7 @@ import {grey} from "@mui/material/colors";
 
 const lightTheme = createTheme({
     shape: {
-        borderRadius: 8
+        borderRadius: 0
     },
     typography: {
         fontFamily: 'Chakra Petch, Raleway'
