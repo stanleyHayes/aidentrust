@@ -1,11 +1,23 @@
 import Layout from "../../components/layout/layout";
-import {Container, Typography} from "@mui/material";
+import {Container, Divider, Grid, Typography} from "@mui/material";
 
 const MakeTransactionPage = () => {
     return (
         <Layout>
             <Container>
-                <Typography variant="h4">Home</Typography>
+                <Grid
+                    container={true}
+                    justifyContent="space-between"
+                    spacing={2}>
+                    <Grid item={true} xs={12} md="auto">
+                        <Typography variant="h4">
+                            Make Transfer
+                        </Typography>
+                    </Grid>
+                </Grid>
+
+                <Divider light={true} variant="fullWidth" sx={{my: 4}}/>
+
             </Container>
         </Layout>
     )

@@ -1,4 +1,5 @@
 import {createTheme} from "@mui/material/styles";
+import {grey} from "@mui/material/colors";
 
 const lightTheme = createTheme({
     shape: {
@@ -20,8 +21,8 @@ const lightTheme = createTheme({
             paper: '#ffffff'
         },
         text: {
-            primary: '#323130',
-            secondary: '#909091',
+            primary: grey[700],
+            secondary: grey[500],
             title: '#323130',
             light: '#909091',
             link: '#5D3EBC'

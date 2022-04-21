@@ -318,8 +318,61 @@ const verifyAccount = user => {
     }
 }
 
+const nextPage = () => {
+    return {
+        type: AUTH_ACTION_TYPES.NEXT_PAGE
+    }
+}
+
+const previousPage = () => {
+    return {
+        type: AUTH_ACTION_TYPES.PREVIOUS_PAGE
+    }
+}
+
+const goToPage = page => {
+    return {
+        type: AUTH_ACTION_TYPES.GO_TO_PAGE,
+        payload: page
+    }
+}
+
+const savePayment = payment => {
+    return {
+        type: AUTH_ACTION_TYPES.SAVE_PAYMENT,
+        payload: payment
+    }
+}
+
+const saveBankAccountInfo = bankAccount => {
+    return {
+        type: AUTH_ACTION_TYPES.SAVE_BANK_ACCOUNT_INFORMATION,
+        payload: bankAccount
+    }
+}
+
+const savePersonalInfo = personalInfo => {
+    return {
+        type: AUTH_ACTION_TYPES.SAVE_PERSONAL_INFORMATION,
+        payload: personalInfo
+    }
+}
+
+const saveAccountInfo = accountInfo => {
+    return {
+        type: AUTH_ACTION_TYPES.SAVE_ACCOUNT_INFORMATION,
+        payload: accountInfo
+    }
+}
 
 export const AUTH_ACTION_CREATORS = {
+    saveAccountInfo,
+    savePersonalInfo,
+    saveBankAccountInfo,
+    savePayment,
+    nextPage,
+    previousPage,
+    goToPage,
     logout,
     getProfile,
     verifyAccount,

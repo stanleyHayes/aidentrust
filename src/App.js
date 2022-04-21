@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router";
 import {useLocation} from "react-router";
 import './App.css';
 import {THEMES} from "./themes/themes";
@@ -11,7 +11,6 @@ import HomePage from "./pages/home/home-page";
 import ForgotPasswordPage from "./pages/auth/forgot-password-page";
 import ResetPasswordPage from "./pages/auth/reset-password-page";
 import SignInPage from "./pages/auth/sign-in-page";
-import SignUpPage from "./pages/auth/sign-up-page";
 import VerifyAccountPage from "./pages/auth/verify-account-page";
 import AboutPage from "./pages/more/about-page";
 import ContactPage from "./pages/more/contact-page";
@@ -25,9 +24,9 @@ import StatementsPage from "./pages/settings/statements-page";
 import TransactionDetailPage from "./pages/transactions/transaction-detail-page";
 import TransactionsPage from "./pages/transactions/transactions-page";
 import MakeTransactionPage from "./pages/transactions/make-transaction-page";
-import StatsPage from "./pages/stats/stats-page";
 import ChangePasswordPage from "./pages/profile/change-password-page";
 import EditProfilePage from "./pages/profile/edit-profile-page";
+import ClientSignUpResponse from "./pages/auth/sign-up-page";
 
 function App() {
 
@@ -49,7 +48,7 @@ function App() {
                 <Route element={<ChangePasswordPage/>} path="/change-password"/>
                 <Route element={<EditProfilePage/>} path="/edit-profile"/>
                 <Route element={<SignInPage/>} path="/auth/login"/>
-                <Route element={<SignUpPage/>} path="/auth/register"/>
+                <Route element={<ClientSignUpResponse/>} path="/auth/invitations/:invitationID/:code"/>
                 <Route element={<VerifyAccountPage/>} path="/auth/verify"/>
                 <Route element={<AboutPage/>} path="/about"/>
                 <Route element={<ContactPage/>} path="/contact"/>
@@ -60,7 +59,6 @@ function App() {
                 <Route element={<NotificationsPage/>} path="/notifications"/>
                 <Route element={<SettingsPage/>} path="/settings"/>
                 <Route element={<StatementsPage/>} path="/statements"/>
-                <Route element={<StatsPage/>} path="/stats"/>
                 <Route element={<TransactionDetailPage/>} path="/transactions/:transactionID"/>
                 <Route element={<TransactionsPage/>} path="/transactions"/>
                 <Route element={<MakeTransactionPage/>} path="/transaction/new"/>

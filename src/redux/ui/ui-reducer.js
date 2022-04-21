@@ -1,5 +1,4 @@
 import UI_ACTION_TYPES from "./ui-action-types";
-import {CONSTANTS} from "../../constants/constants";
 
 const INITIAL_STATE = {
     path: '/',

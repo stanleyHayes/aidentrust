@@ -2,7 +2,7 @@ import Layout from "../../components/layout/layout";
 import {Avatar, Button, Card, CardContent, Container, Divider, Grid, Stack, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import Feint from "../../components/shared/feint";
-import {Edit, Person} from "@mui/icons-material";
+import {Call, Contacts, Edit, Mail, Male, Map, Person} from "@mui/icons-material";
 import {grey, purple} from "@mui/material/colors";
 import Info from "../../components/shared/info";
 import {Link} from "react-router-dom";
@@ -37,13 +37,13 @@ const ProfilePage = () => {
                                     textTransform: 'capitalize',
                                     color: purple[600],
                                     backgroundColor: 'white',
-                                    borderWidth: 2
+                                    borderWidth: 2,
+                                    '&:hover':{
+                                        borderWidth: 2,
+                                    }
                                 }}
                                 startIcon={
-                                    <Feint
-                                        padding={0.1}
-                                        color="purple"
-                                        children={<Edit fontSize="small" sx={{color: purple[600]}}/>}/>}
+                                    <Edit fontSize="small" sx={{color: purple[600]}}/>}
                                 variant="outlined"
                                 fullWidth={true}
                                 disableElevation={true}
@@ -175,7 +175,7 @@ const ProfilePage = () => {
                                             </Grid>
                                             <Grid item={true} xs={12} md={6}>
                                                 <Info
-                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                    icon={<Male sx={{color: grey[600]}}/>}
                                                     title="Gender"
                                                     value="Male"
                                                 />
@@ -204,7 +204,7 @@ const ProfilePage = () => {
                                                 disableRipple={true}
                                                 variant="text"
                                                 size="small"
-                                                startIcon={<Person/>}>
+                                                startIcon={<Contacts/>}>
                                                 Contact Details
                                             </Button>
                                         </Stack>
@@ -214,14 +214,14 @@ const ProfilePage = () => {
                                         <Grid spacing={2} container={true}>
                                             <Grid item={true} xs={12} md={6}>
                                                 <Info
-                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                    icon={<Mail sx={{color: grey[600]}}/>}
                                                     title="Email"
                                                     value="dev.stanley.hayford@gmail.com"
 
                                                 />
                                             </Grid>
                                             <Grid item={true} xs={12} md={6}>
-                                                <Info
+                                                <Call
                                                     icon={<Person sx={{color: grey[600]}}/>}
                                                     title="Phone"
                                                     value="+2332 7004 8319"
@@ -229,7 +229,7 @@ const ProfilePage = () => {
                                                 />
                                             </Grid>
                                             <Grid item={true} xs={12} md={6}>
-                                                <Info
+                                                <Call
                                                     icon={<Person sx={{color: grey[600]}}/>}
                                                     title="Emergency Phone"
                                                     value="+2335 5518 0048"
@@ -259,7 +259,7 @@ const ProfilePage = () => {
                                                 disableRipple={true}
                                                 variant="text"
                                                 size="small"
-                                                startIcon={<Person/>}>
+                                                startIcon={<Map/>}>
                                                 Address Details
                                             </Button>
                                         </Stack>

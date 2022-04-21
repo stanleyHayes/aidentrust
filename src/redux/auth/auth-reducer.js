@@ -1,10 +1,19 @@
 import {AUTH_ACTION_TYPES} from "./auth-action-types";
 
 const INITIAL_STATE = {
-    authData: {},
+    authData: {
+        email: 'dev.stanley.hayford@gmail.com',
+        phoneNumber: '+233270048319',
+        status: 'Active'
+    },
     authLoading: false,
     authError: null,
-    token: null
+    token: null,
+    page: 0,
+    accountInfo: {},
+    paymentInfo: {},
+    bankAccountInfo: {},
+    personalInfo: {}
 }
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -109,7 +118,6 @@ const authReducer = (state = INITIAL_STATE, action) => {
             }
 
 
-
         case AUTH_ACTION_TYPES.UPDATE_PROFILE_REQUEST:
             return {
                 ...state,
@@ -209,6 +217,45 @@ const authReducer = (state = INITIAL_STATE, action) => {
                 authData: null
             }
 
+        case AUTH_ACTION_TYPES.PREVIOUS_PAGE:
+            return {
+                ...state,
+                page: state.page - 1
+            }
+
+        case AUTH_ACTION_TYPES.NEXT_PAGE:
+            return {
+                ...state,
+                page: state.page + 1
+            }
+        case AUTH_ACTION_TYPES.GO_TO_PAGE:
+            return {
+                ...state,
+                page: action.payload
+            }
+
+        case AUTH_ACTION_TYPES.SAVE_PERSONAL_INFORMATION:
+            return {
+                ...state,
+                personalInfo: action.payload
+            }
+
+        case AUTH_ACTION_TYPES.SAVE_BANK_ACCOUNT_INFORMATION:
+            return {
+                ...state,
+                bankAccountInfo: action.payload
+            }
+        case AUTH_ACTION_TYPES.SAVE_PAYMENT:
+            return {
+                ...state,
+                paymentInfo: action.payload
+            }
+
+        case AUTH_ACTION_TYPES.SAVE_ACCOUNT_INFORMATION:
+            return {
+                ...state,
+                accountInfo: action.payload
+            }
         default:
             return state;
     }

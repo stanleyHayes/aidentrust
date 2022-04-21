@@ -1,8 +1,24 @@
-import {Box, Button, Card, CardContent, Container, Grid, Stack, TextField, Typography} from "@mui/material";
+import {
+    Alert, AlertTitle,
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CircularProgress,
+    Container,
+    Grid, LinearProgress,
+    Stack,
+    TextField,
+    Typography
+} from "@mui/material";
 import {useState} from "react";
-import {Link} from "react-router-dom";
 import {ChevronLeft} from "@mui/icons-material";
 import {useNavigate} from "react-router";
+import validator from "validator";
+import {useDispatch, useSelector} from "react-redux";
+import {AUTH_ACTION_CREATORS} from "../../redux/auth/auth-action-creators";
+import {LoadingButton} from "@mui/lab";
+import {selectAuth} from "../../redux/auth/auth-reducer";
 
 const ForgotPasswordPage = () => {
 
@@ -10,6 +26,29 @@ const ForgotPasswordPage = () => {
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const {authLoading, authError} = useSelector(selectAuth);
+
+    const handleSubmit = event => {
+        event.preventDefault();
+
+        if (!email) {
+            setError({error, password: 'Field required'});
+            return;
+        } else {
+            setError({error, password: null});
+        }
+
+        if (!validator.isEmail(email)) {
+            setError({error, email: 'Invalid email'});
+            return;
+        } else {
+            setError({error, email: null});
+        }
+
+        dispatch(AUTH_ACTION_CREATORS.forgotPassword({email}));
+    }
 
     return (
         <Box
@@ -22,25 +61,37 @@ const ForgotPasswordPage = () => {
             <Container>
                 <Grid container={true} justifyContent="center">
                     <Grid item={true} xs={12} md={6} lg={4}>
-                        <Card elevation={1} variant="elevation">
+                        <Card elevation={0} variant="elevation">
+                            {authLoading && <LinearProgress color="secondary" variant="query"/>}
                             <CardContent>
+                                {
+                                    authError && (
+                                        <Alert sx={{my: 1}} severity="error" color="error" variant="standard">
+                                            <AlertTitle>{authError}</AlertTitle>
+                                        </Alert>
+                                    )
+                                }
                                 <Button
                                     onClick={() => navigate(-1)}
-                                    sx={{fontWeight: 'bold', textTransform: 'capitalize'}}
-                                    color="primary"
+                                    sx={{
+                                        fontWeight: 'bold',
+                                        textTransform: 'capitalize',
+                                        color: 'white'
+                                    }}
+                                    color="secondary"
                                     mb={4}
-                                    startIcon={<ChevronLeft fontSize="medium" />} variant="text">
+                                    startIcon={<ChevronLeft sx={{color: 'white'}} fontSize="medium"/>} variant="text">
                                     Back
                                 </Button>
 
                                 <Typography
-                                    sx={{color: 'primary.main', fontWeight: 'bold'}}
+                                    sx={{color: 'secondary.main', fontWeight: 'bold'}}
                                     gutterBottom={true}
                                     align="center"
                                     variant="h4">
-                                    Aiden Trust
+                                    Birth Registry
                                 </Typography>
-                                <Typography gutterBottom={true} align="center" variant="h6">
+                                <Typography mb={1} gutterBottom={true} align="center" variant="body1">
                                     Forgot Password
                                 </Typography>
                                 <Typography
@@ -65,13 +116,33 @@ const ForgotPasswordPage = () => {
                                     />
                                 </Stack>
 
-                                <Button
-                                    sx={{backgroundColor: 'primary.main', color: 'white'}}
+                                <LoadingButton
+                                    startIcon={authLoading ? <CircularProgress color="secondary"/> : null}
+                                    loading={authLoading}
+                                    loadingIndicator={<CircularProgress color="secondary"/>}
+                                    loadingPosition="start"
+                                    onClick={handleSubmit}
+                                    sx={{
+                                        fontWeight: 'bold',
+                                        textTransform: 'capitalize',
+                                        backgroundColor: 'primary.main',
+                                        color: 'secondary.main',
+                                        '&:hover': {
+                                            color: 'secondary.main'
+                                        },
+                                        '&:focus': {
+                                            color: 'secondary.main'
+                                        },
+                                        '&:active': {
+                                            color: 'secondary.main'
+                                        },
+                                        py: 1.5
+                                    }}
                                     size="large"
                                     fullWidth={true}
                                     variant="outlined">
                                     Get Reset Link
-                                </Button>
+                                </LoadingButton>
                             </CardContent>
                         </Card>
                     </Grid>

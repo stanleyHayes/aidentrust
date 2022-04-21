@@ -30,8 +30,19 @@ import {selectTransaction} from "../../redux/transactions/transaction-reducer";
 import TransactionItem from "../../components/shared/transaction-item";
 import {selectDashboard} from "../../redux/dashboard/dashboard-reducer";
 import {Alert, AlertTitle} from "@mui/lab";
+import InternationalTransferDialog from "../../components/dialogs/new/international-transfer-dialog";
+import LocalTransferDialog from "../../components/dialogs/new/local-transfer-dialog";
+import MakePaymentDialog from "../../components/dialogs/new/make-payment-dialog";
+import ReceiveMoneyDialog from "../../components/dialogs/new/receive-money-dialog";
+import {useState} from "react";
+import {selectAuth} from "../../redux/auth/auth-reducer";
 
 const HomePage = () => {
+
+    const [internationalTransferDialogOpen, setInternationalTransferDialogOpen] = useState(false);
+    const [localTransferDialogOpen, setLocalTransferDialogOpen] = useState(false);
+    const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
+    const [receiveMoneyDialogOpen, setReceiveMoneyDialogOpen] = useState(false);
 
     const useStyles = makeStyles(theme => {
         return {
@@ -51,6 +62,7 @@ const HomePage = () => {
     const classes = useStyles();
 
     const {transactions} = useSelector(selectTransaction);
+    const {authData} = useSelector(selectAuth);
     const {dashboard, dashboardLoading, dashboardError} = useSelector(selectDashboard);
 
     const renderColor = color => {
@@ -72,13 +84,13 @@ const HomePage = () => {
         <Layout>
             <Container className={classes.container}>
                 {dashboardLoading && <LinearProgress color="secondary" variant="query"/>}
-                    {dashboardError && (<Alert severity="error" variant="standard">
-                        <AlertTitle>Error</AlertTitle>
-                        <Typography variant="h6" align="center">
-                            {dashboardError}
-                        </Typography>
-                    </Alert>)
-                    }
+                {dashboardError && (<Alert severity="error" variant="standard">
+                    <AlertTitle>Error</AlertTitle>
+                    <Typography variant="h6" align="center">
+                        {dashboardError}
+                    </Typography>
+                </Alert>)
+                }
                 <Box mb={2}>
                     <Typography mb={1} variant="h6">Overview</Typography>
                     <Grid container={true} spacing={2} alignItems="center">
@@ -131,9 +143,9 @@ const HomePage = () => {
                                     </Link>
                                 </Stack>
                                 {transactions && transactions.length === 0 ? (
-                                    <Box>
-                                        <Typography variant="body2" align="center">
-                                            No recent transactions
+                                    <Box sx={{backgroundColor: purple[50]}} py={5}>
+                                        <Typography sx={{color: purple[600]}} variant="body2" align="center">
+                                            No transactions available
                                         </Typography>
                                     </Box>
                                 ) : (
@@ -177,7 +189,7 @@ const HomePage = () => {
                                             <Feint
                                                 mb={1}
                                                 padding={0.4}
-                                                children={<Call sx={{color: purple[600]}}/>}
+                                                children={<VerifiedUser sx={{color: purple[600]}}/>}
                                                 color="purple"/>
                                         </Stack>
                                         <Typography
@@ -187,7 +199,7 @@ const HomePage = () => {
                                                 fontSize: 10,
                                                 color: grey[600]
                                             }}>
-                                            +2332748319
+                                            {authData && authData.status}
                                         </Typography>
                                     </Grid>
                                     <Grid item={true} xs={6} md={3}>
@@ -195,7 +207,7 @@ const HomePage = () => {
                                             <Feint
                                                 mb={1}
                                                 padding={0.4}
-                                                children={<VerifiedUser sx={{color: red[600]}}/>}
+                                                children={<Call sx={{color: red[600]}}/>}
                                                 color="red"/>
                                         </Stack>
                                         <Typography
@@ -205,7 +217,7 @@ const HomePage = () => {
                                                 fontSize: 10,
                                                 color: grey[600]
                                             }}>
-                                            +2332748319
+                                            {authData && authData.phoneNumber}
                                         </Typography>
                                     </Grid>
                                     <Grid item={true} xs={6} md={3}>
@@ -223,7 +235,7 @@ const HomePage = () => {
                                                 fontSize: 10,
                                                 color: grey[600]
                                             }}>
-                                            dev.stanley@gmail.com
+                                            {authData && authData.email}
                                         </Typography>
                                     </Grid>
                                     <Grid item={true} xs={6} md={3}>
@@ -254,14 +266,19 @@ const HomePage = () => {
 
                         <Grid container={true} spacing={2}>
                             <Grid xs={6} item={true}>
-                                <Card elevation={0}>
+                                <Card
+                                    elevation={0}
+                                    sx={{cursor: 'pointer'}}
+                                    onClick={() => setInternationalTransferDialogOpen(true)}>
                                     <CardContent>
-                                        <Stack justifyContent="center" direction="row">
-                                            <Feint
-                                                mb={2}
-                                                padding={0.4}
-                                                children={<Call sx={{color: purple[600]}}/>}
-                                                color="purple"/>
+                                        <Stack
+                                            mb={2}
+                                            justifyContent="center"
+                                            direction="row">
+                                            <Avatar
+                                                variant="rounded"
+                                                src="/assets/images/international-transfer.png"
+                                                sx={{color: purple[600]}}/>
                                         </Stack>
                                         <Typography
                                             align="center"
@@ -270,20 +287,22 @@ const HomePage = () => {
                                                 fontSize: 14,
                                                 color: grey[600]
                                             }}>
-                                            Deposit Money
+                                            International Transfer
                                         </Typography>
                                     </CardContent>
                                 </Card>
                             </Grid>
                             <Grid xs={6} item={true}>
-                                <Card elevation={0}>
+                                <Card
+                                    sx={{cursor: 'pointer'}}
+                                    onClick={() => setLocalTransferDialogOpen(true)}
+                                    elevation={0}>
                                     <CardContent>
-                                        <Stack justifyContent="center" direction="row">
-                                            <Feint
-                                                mb={2}
-                                                padding={0.4}
-                                                children={<Call sx={{color: purple[600]}}/>}
-                                                color="purple"/>
+                                        <Stack mb={2} justifyContent="center" direction="row">
+                                            <Avatar
+                                                variant="rounded"
+                                                src="/assets/images/local-transfer.png"
+                                                sx={{color: purple[600]}}/>
                                         </Stack>
                                         <Typography
                                             align="center"
@@ -292,22 +311,23 @@ const HomePage = () => {
                                                 fontSize: 14,
                                                 color: grey[600]
                                             }}>
-                                            Transfer Money
+                                            Local Transfer
                                         </Typography>
                                     </CardContent>
                                 </Card>
                             </Grid>
 
                             <Grid xs={6} item={true}>
-                                <Card elevation={0}>
+                                <Card
+                                    sx={{cursor: 'pointer'}}
+                                    onClick={() => setPaymentDialogOpen(true)}
+                                    elevation={0}>
                                     <CardContent>
-
-                                        <Stack justifyContent="center" direction="row">
-                                            <Feint
-                                                mb={2}
-                                                padding={0.4}
-                                                children={<Call sx={{color: purple[600]}}/>}
-                                                color="purple"/>
+                                        <Stack mb={2} justifyContent="center" direction="row">
+                                            <Avatar
+                                                variant="rounded"
+                                                src="/assets/images/payment.png"
+                                                sx={{color: purple[600]}}/>
                                         </Stack>
                                         <Typography
                                             align="center"
@@ -322,14 +342,16 @@ const HomePage = () => {
                                 </Card>
                             </Grid>
                             <Grid xs={6} item={true}>
-                                <Card elevation={0}>
+                                <Card
+                                    sx={{cursor: 'pointer'}}
+                                    onClick={() => setReceiveMoneyDialogOpen(true)}
+                                    elevation={0}>
                                     <CardContent>
-                                        <Stack justifyContent="center" direction="row">
-                                            <Feint
-                                                mb={2}
-                                                padding={0.4}
-                                                children={<Call sx={{color: purple[600]}}/>}
-                                                color="purple"/>
+                                        <Stack mb={2} justifyContent="center" direction="row">
+                                            <Avatar
+                                                src="/assets/images/receive-money.png"
+                                                sx={{color: purple[600]}}
+                                            />
                                         </Stack>
                                         <Typography
                                             align="center"
@@ -346,8 +368,35 @@ const HomePage = () => {
                         </Grid>
 
                     </Grid>
-
                 </Grid>
+
+                {internationalTransferDialogOpen && (
+                    <InternationalTransferDialog
+                        handleClose={() => setInternationalTransferDialogOpen(false)}
+                        open={internationalTransferDialogOpen}
+                    />
+                )}
+
+                {localTransferDialogOpen && (
+                    <LocalTransferDialog
+                        handleClose={() => setLocalTransferDialogOpen(false)}
+                        open={localTransferDialogOpen}
+                    />
+                )}
+
+                {paymentDialogOpen && (
+                    <MakePaymentDialog
+                        handleClose={() => setPaymentDialogOpen(false)}
+                        open={paymentDialogOpen}
+                    />
+                )}
+
+                {receiveMoneyDialogOpen && (
+                    <ReceiveMoneyDialog
+                        handleClose={() => setReceiveMoneyDialogOpen(false)}
+                        open={receiveMoneyDialogOpen}
+                    />
+                )}
             </Container>
         </Layout>
     )
