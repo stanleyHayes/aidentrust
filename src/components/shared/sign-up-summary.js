@@ -1,29 +1,22 @@
 import {
-    Alert, AlertTitle, Avatar,
+    Alert,
+    AlertTitle,
+    Avatar,
     Box,
     Button,
     Card,
     CardContent,
-    CardMedia, CircularProgress,
+    CircularProgress,
     Container,
     Divider,
     Grid,
-    LinearProgress, Stack,
+    LinearProgress,
+    Stack,
     Typography
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    Call,
-    CheckCircle,
-    ChevronLeft,
-    Contacts,
-    Lock,
-    Mail,
-    Male,
-    Map,
-    Password,
-    Person,
-    Pin
+    Call, CheckCircle, ChevronLeft, Mail, Male, Map, Password, Person, Pin
 } from "@mui/icons-material";
 import {selectRequest} from "../../redux/requests/request-reducer";
 import {REQUEST_ACTION_CREATORS} from "../../redux/requests/request-action-creators";
@@ -36,13 +29,7 @@ import Info from "./info";
 const SignUpSummary = ({requestID}) => {
 
     const {
-        accountInfo,
-        paymentInfo,
-        bankAccountInfo,
-        personalInfo,
-        addressInfo,
-        requestLoading,
-        requestError
+        accountInfo, paymentInfo, bankAccountInfo, personalInfo, addressInfo, requestLoading, requestError
     } = useSelector(selectRequest);
 
     const dispatch = useDispatch();
@@ -64,15 +51,13 @@ const SignUpSummary = ({requestID}) => {
         setRejectDialogOpen(true);
     }
 
-    return (
-        <Box my={4}>
+    return (<Box my={4}>
             <Container>
                 <Card sx={{mb: 2}} elevation={0} variant="elevation">
                     {requestLoading && <LinearProgress variant="query" color="primary"/>}
                     <CardContent>
                         {requestError && (
-                            <Alert severity="error" sx={{my: 2}}><AlertTitle>{requestError}</AlertTitle></Alert>
-                        )}
+                            <Alert severity="error" sx={{my: 2}}><AlertTitle>{requestError}</AlertTitle></Alert>)}
                         <Typography variant="h4" align="center">Summary</Typography>
 
                         <Divider sx={{my: 2}} variant="fullWidth" light={true}/>
@@ -108,16 +93,13 @@ const SignUpSummary = ({requestID}) => {
                                         backgroundColor: red[600],
                                         color: 'white',
                                         '&:hover': {
-                                            backgroundColor: red[800],
-                                            color: 'secondary.main'
+                                            backgroundColor: red[800], color: 'secondary.main'
                                         },
                                         '&:focus': {
-                                            backgroundColor: red[800],
-                                            color: 'secondary.main'
+                                            backgroundColor: red[800], color: 'secondary.main'
                                         },
                                         '&:active': {
-                                            backgroundColor: red[800],
-                                            color: 'secondary.main'
+                                            backgroundColor: red[800], color: 'secondary.main'
                                         },
                                     }}
                                     fullWidth={true}
@@ -375,15 +357,13 @@ const SignUpSummary = ({requestID}) => {
                                                     value={addressInfo.addressLine1}
                                                 />
                                             </Grid>
-                                            {addressInfo.addressLine2 && (
-                                                <Grid item={true} xs={12} md={6}>
+                                            {addressInfo.addressLine2 && (<Grid item={true} xs={12} md={6}>
                                                     <Info
                                                         icon={<Person sx={{color: grey[600]}}/>}
                                                         title="Address Line 2"
                                                         value={addressInfo.addressLine2}
                                                     />
-                                                </Grid>
-                                            )}
+                                                </Grid>)}
                                         </Grid>
                                     </CardContent>
                                 </Card>
@@ -445,17 +425,14 @@ const SignUpSummary = ({requestID}) => {
                     </Grid>
                 </Grid>
 
-                {rejectDialogOpen && (
-                    <RejectDialog
+                {rejectDialogOpen && (<RejectDialog
                         open={rejectDialogOpen}
                         handleClose={() => setRejectDialogOpen(false)}
                         handleDelete={() => dispatch(REQUEST_ACTION_CREATORS.rejectRequest(requestID))}
-                        message="Are you sure you want to reject this invitation?"/>
-                )}
+                        message="Are you sure you want to reject this invitation?"/>)}
 
             </Container>
-        </Box>
-    )
+        </Box>)
 }
 
 export default SignUpSummary;

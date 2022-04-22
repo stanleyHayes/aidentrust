@@ -1,10 +1,14 @@
 import {
-    Alert, AlertTitle,
-    Button, CircularProgress,
+    Alert,
+    AlertTitle,
+    CircularProgress,
     Dialog,
     DialogContent,
-    FormControl, IconButton, InputAdornment,
-    InputLabel, LinearProgress,
+    FormControl,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    LinearProgress,
     OutlinedInput,
     Stack,
     TextField,
@@ -36,10 +40,10 @@ const ReceiveMoneyDialog = ({open, handleClose}) => {
     } = transfer;
 
     const handleClick = () => {
-        if(!number){
+        if (!number) {
             setError({error, number: 'Field required'});
             return;
-        }else{
+        } else {
             setError({error, number: null});
         }
     }
@@ -50,13 +54,10 @@ const ReceiveMoneyDialog = ({open, handleClose}) => {
 
     const {transactionLoading, transactionError} = useSelector(selectTransaction);
 
-    return (
-        <Dialog open={open} onClose={handleClose}>
-            {transactionLoading && <LinearProgress color="primary" variant="query" />}
+    return (<Dialog open={open} onClose={handleClose}>
+            {transactionLoading && <LinearProgress color="primary" variant="query"/>}
             <DialogContent>
-                {transactionError && (
-                    <Alert severity="error"><AlertTitle>{transactionError}</AlertTitle></Alert>
-                )}
+                {transactionError && (<Alert severity="error"><AlertTitle>{transactionError}</AlertTitle></Alert>)}
                 <Typography mb={2} variant="h4" align="center">
                     Account Information
                 </Typography>
@@ -224,19 +225,17 @@ const ReceiveMoneyDialog = ({open, handleClose}) => {
                             type={visiblePassword ? 'text' : 'password'}
                             value={password}
                             onChange={handleChange}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        sx={{color: 'secondary.main'}}
-                                        aria-label="toggle password visibility"
-                                        onClick={() => setVisiblePassword(!visiblePassword)}
-                                        onMouseDown={() => setVisiblePassword(!visiblePassword)}
-                                        edge="end"
-                                    >
-                                        {visiblePassword ? <VisibilityOff/> : <Visibility/>}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
+                            endAdornment={<InputAdornment position="end">
+                                <IconButton
+                                    sx={{color: 'secondary.main'}}
+                                    aria-label="toggle password visibility"
+                                    onClick={() => setVisiblePassword(!visiblePassword)}
+                                    onMouseDown={() => setVisiblePassword(!visiblePassword)}
+                                    edge="end"
+                                >
+                                    {visiblePassword ? <VisibilityOff/> : <Visibility/>}
+                                </IconButton>
+                            </InputAdornment>}
                         />
                     </FormControl>
                 </Stack>
@@ -272,8 +271,7 @@ const ReceiveMoneyDialog = ({open, handleClose}) => {
                     Get Account Information
                 </LoadingButton>
             </DialogContent>
-        </Dialog>
-    )
+        </Dialog>)
 }
 
 export default ReceiveMoneyDialog;

@@ -1,10 +1,14 @@
 import {
-    Alert, AlertTitle,
-    Button, CircularProgress,
+    Alert,
+    AlertTitle,
+    CircularProgress,
     Dialog,
     DialogContent,
-    FormControl, IconButton, InputAdornment,
-    InputLabel, LinearProgress,
+    FormControl,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    LinearProgress,
     OutlinedInput,
     Stack,
     TextField,
@@ -23,22 +27,14 @@ const LocalTransferDialog = ({open, handleClose}) => {
     const [error, setError] = useState({});
 
     const {
-        number,
-        amount,
-        routingNumber,
-        addressLine1,
-        addressLine2,
-        city,
-        country,
-        stateOrRegionOrProvince,
-        password
+        number, amount, routingNumber, addressLine1, addressLine2, city, country, state, password, name
     } = transfer;
 
     const handleClick = () => {
-        if(!number){
+        if (!number) {
             setError({error, number: 'Field required'});
             return;
-        }else{
+        } else {
             setError({error, number: null});
         }
     }
@@ -49,18 +45,32 @@ const LocalTransferDialog = ({open, handleClose}) => {
 
     const {transactionLoading, transactionError} = useSelector(selectTransaction);
 
-    return (
-        <Dialog open={open} onClose={handleClose}>
-            {transactionLoading && <LinearProgress color="primary" variant="query" />}
+    return (<Dialog open={open} onClose={handleClose}>
+            {transactionLoading && <LinearProgress color="primary" variant="query"/>}
             <DialogContent>
-                {transactionError && (
-                    <Alert severity="error"><AlertTitle>{transactionError}</AlertTitle></Alert>
-                )}
+                {transactionError && (<Alert severity="error"><AlertTitle>{transactionError}</AlertTitle></Alert>)}
                 <Typography mb={2} variant="h4" align="center">
                     Local Transfer
                 </Typography>
 
                 <Stack my={3} spacing={2} direction="column">
+
+                    <TextField
+                        label="Name"
+                        fullWidth={true}
+                        name="name"
+                        required={true}
+                        variant="outlined"
+                        value={name}
+                        error={Boolean(error.name)}
+                        helperText={error.name}
+                        type="text"
+                        color="secondary"
+                        placeholder="Enter name"
+                        size="medium"
+                        onChange={handleChange}
+                    />
+
                     <TextField
                         label="Account Number"
                         fullWidth={true}
@@ -126,14 +136,14 @@ const LocalTransferDialog = ({open, handleClose}) => {
                     />
 
                     <TextField
-                        label="State/Region/Province"
+                        label="State"
                         fullWidth={true}
-                        name="stateOrRegionOrProvince"
+                        name="state"
                         required={true}
                         variant="outlined"
-                        value={stateOrRegionOrProvince}
-                        error={Boolean(error.stateOrRegionOrProvince)}
-                        helperText={error.stateOrRegionOrProvince}
+                        value={state}
+                        error={Boolean(error.state)}
+                        helperText={error.state}
                         type="text"
                         color="secondary"
                         placeholder="Enter swift code"
@@ -207,19 +217,17 @@ const LocalTransferDialog = ({open, handleClose}) => {
                             type={visiblePassword ? 'text' : 'password'}
                             value={password}
                             onChange={handleChange}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        sx={{color: 'secondary.main'}}
-                                        aria-label="toggle password visibility"
-                                        onClick={() => setVisiblePassword(!visiblePassword)}
-                                        onMouseDown={() => setVisiblePassword(!visiblePassword)}
-                                        edge="end"
-                                    >
-                                        {visiblePassword ? <VisibilityOff/> : <Visibility/>}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
+                            endAdornment={<InputAdornment position="end">
+                                <IconButton
+                                    sx={{color: 'secondary.main'}}
+                                    aria-label="toggle password visibility"
+                                    onClick={() => setVisiblePassword(!visiblePassword)}
+                                    onMouseDown={() => setVisiblePassword(!visiblePassword)}
+                                    edge="end"
+                                >
+                                    {visiblePassword ? <VisibilityOff/> : <Visibility/>}
+                                </IconButton>
+                            </InputAdornment>}
                         />
                     </FormControl>
                 </Stack>
@@ -255,8 +263,7 @@ const LocalTransferDialog = ({open, handleClose}) => {
                     Transfer
                 </LoadingButton>
             </DialogContent>
-        </Dialog>
-    )
+        </Dialog>)
 }
 
 export default LocalTransferDialog;

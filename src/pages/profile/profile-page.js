@@ -1,7 +1,6 @@
 import Layout from "../../components/layout/layout";
 import {Avatar, Button, Card, CardContent, Container, Divider, Grid, Stack, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
-import Feint from "../../components/shared/feint";
 import {Call, Contacts, Edit, Mail, Male, Map, Person} from "@mui/icons-material";
 import {grey, purple} from "@mui/material/colors";
 import Info from "../../components/shared/info";
