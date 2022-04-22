@@ -21,9 +21,9 @@ import {REQUEST_ACTION_CREATORS} from "../../redux/requests/request-action-creat
 
 const AccountInfoForm = ({code}) => {
 
-    const {accountIno} = useSelector(selectRequest);
+    const {accountInfo} = useSelector(selectRequest);
 
-    const [user, setUser] = useState({...accountIno, code});
+    const [user, setUser] = useState({...accountInfo, code});
     const [error, setError] = useState({});
 
     const [visiblePassword, setVisiblePassword] = useState(false);
@@ -87,14 +87,15 @@ const AccountInfoForm = ({code}) => {
     const dispatch = useDispatch();
 
     return (
-        <Card elevation={1}>
+        <Card elevation={0}>
             <CardContent>
-                <Typography gutterBottom={true} align="center" variant="h6">
+                <Typography gutterBottom={true} align="center" variant="h5">
                     Account Information
                 </Typography>
                 <Stack my={3} spacing={2} direction="column">
 
                     <TextField
+                        autoComplete="off"
                         label="Pin"
                         fullWidth={true}
                         name="pin"
@@ -104,13 +105,14 @@ const AccountInfoForm = ({code}) => {
                         error={Boolean(error.pin)}
                         helperText={error.pin}
                         type="text"
-                        color="secondary"
+                        color="primary"
                         placeholder="Enter pin"
                         size="medium"
                         onChange={handleChange}
                     />
 
                     <TextField
+                        autoComplete="off"
                         label="Code"
                         fullWidth={true}
                         name="code"
@@ -121,7 +123,7 @@ const AccountInfoForm = ({code}) => {
                         error={Boolean(error.code)}
                         helperText={error.code}
                         type="number"
-                        color="secondary"
+                        color="primary"
                         placeholder="Enter code"
                         size="medium"
                         onChange={handleChange}
@@ -131,12 +133,13 @@ const AccountInfoForm = ({code}) => {
                     <FormControl variant="outlined">
                         <InputLabel htmlFor="password">Password</InputLabel>
                         <OutlinedInput
+                            autoComplete="off"
                             id="password"
                             label="Password"
                             fullWidth={true}
                             name="password"
                             required={true}
-                            color="secondary"
+                            color="primary"
                             placeholder="Enter password"
                             variant="outlined"
                             error={Boolean(error.password)}
@@ -160,12 +163,13 @@ const AccountInfoForm = ({code}) => {
                     <FormControl variant="outlined">
                         <InputLabel htmlFor="confirm-password">Confirm Password</InputLabel>
                         <OutlinedInput
+                            autoComplete="off"
                             id="confirm-password"
                             label="Confirm Password"
                             fullWidth={true}
                             name="confirmPassword"
                             required={true}
-                            color="secondary"
+                            color="primary"
                             placeholder="Enter password"
                             variant="outlined"
                             error={Boolean(error.confirmPassword)}
@@ -229,7 +233,7 @@ const AccountInfoForm = ({code}) => {
                             size="large"
                             onClick={handleSubmit}
                             endIcon={<ChevronRight color="secondary"/>}
-                            variant="outlined">Next</Button>
+                            variant="contained">Next</Button>
                     </Grid>
                 </Grid>
 

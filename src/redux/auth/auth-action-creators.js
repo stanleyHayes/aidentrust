@@ -34,8 +34,8 @@ const signIn = (user, navigate) => {
             const {data, token, message} = response.data;
             dispatch(signInSuccess(data, token, message));
             navigate('/');
-            localStorage.setItem(CONSTANTS.WINDY_CRAFT_ADMIN_TOKEN_KEY, token);
-            localStorage.setItem(CONSTANTS.WINDY_CRAFT_ADMIN_AUTH_KEY, JSON.stringify(data));
+            localStorage.setItem(CONSTANTS.AIDEN_TRUST_CLIENT_TOKEN_KEY, token);
+            localStorage.setItem(CONSTANTS.AIDEN_TRUST_CLIENT_AUTH_DATA_KEY, JSON.stringify(data));
         } catch (e) {
             const {message} = e.response.data;
             dispatch(signInFail(message));

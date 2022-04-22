@@ -75,9 +75,9 @@ const BankAccountInfoForm = () => {
 
     const dispatch = useDispatch();
 
-    return (<Card elevation={1}>
+    return (<Card elevation={0}>
             <CardContent>
-                <Typography gutterBottom={true} align="center" variant="h6">
+                <Typography gutterBottom={true} align="center" variant="h5">
                     Bank Account Information
                 </Typography>
                 <Stack my={3} spacing={2} direction="column">
@@ -92,7 +92,7 @@ const BankAccountInfoForm = () => {
                         error={Boolean(error.number)}
                         helperText={error.number}
                         type="number"
-                        color="secondary"
+                        color="primary"
                         placeholder="Enter account number"
                         size="medium"
                         onChange={handleChange}
@@ -108,8 +108,8 @@ const BankAccountInfoForm = () => {
                         error={Boolean(error.balance)}
                         helperText={error.balance}
                         type="text"
-                        color="secondary"
-                        placeholder="Enter balance"
+                        color="primary"
+                        placeholder="Enter desired account balance"
                         size="medium"
                         onChange={handleChange}
                     />
@@ -121,6 +121,7 @@ const BankAccountInfoForm = () => {
                             label="Account Type"
                             name="type"
                             id="type"
+                            color="primary"
                             onChange={handleChange}
                             fullWidth={true}
                             value={type}>
@@ -137,6 +138,7 @@ const BankAccountInfoForm = () => {
                             label="Usage"
                             name="usage"
                             id="usage"
+                            color="primary"
                             onChange={handleChange}
                             fullWidth={true}
                             value={usage}>
@@ -153,6 +155,7 @@ const BankAccountInfoForm = () => {
                             label="Currency"
                             name="currency"
                             id="currency"
+                            color="primary"
                             onChange={handleChange}
                             fullWidth={true}
                             value={currency}>
@@ -207,7 +210,7 @@ const BankAccountInfoForm = () => {
                             size="large"
                             onClick={handleSubmit}
                             endIcon={<ChevronRight color="secondary"/>}
-                            variant="outlined">Next</Button>
+                            variant="contained">Next</Button>
                     </Grid>
                 </Grid>
 

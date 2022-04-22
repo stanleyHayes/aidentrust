@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import {Navigate, useLocation, useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {selectAuth} from "../../redux/authentication/auth-reducer";
-import {AUTH_ACTION_CREATORS} from "../../redux/authentication/auth-action-creators";
+import {selectAuth} from "../../redux/auth/auth-reducer";
+import {AUTH_ACTION_CREATORS} from "../../redux/auth/auth-action-creators";
 import Splash from "./splash";
 
 const RequireAuth = ({children}) => {

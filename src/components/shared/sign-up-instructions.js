@@ -10,25 +10,44 @@ const SignUpInstructions = () => {
     return (
         <Box>
             <Container>
-                <Card elevation={1} variant="elevation">
+                <Card elevation={0} variant="elevation">
                     <CardContent>
-                        <Typography variant="h4" align="center">Instructions</Typography>
+                        <Typography variant="h5" align="center">Instructions</Typography>
 
-                        <Divider sx={{my: 2}} variant="fullWidth" light={true}/>
+                        <Divider sx={{my: 3}} variant="fullWidth" light={true}/>
 
                         <Box mb={4}>
-                            <Typography mb={1} variant="h6" align="center">
+                            <Typography mb={2} variant="body1">
                                 Follow these instructions carefully
                             </Typography>
-                            <Typography sx={{color: 'primary.main'}} fontWeight={700} mb={2} variant="body2"
-                                        align="center">
-                                Send 3000GHS to the Momo Account +233270048319 or +233555180048 or +233502595892
+                            <Typography
+                                sx={{color: 'primary'}}
+                                mb={2}
+                                variant="body1">
+                                Send the amount specified in the invitation email to one of the following Mobile Money
+                                Accounts
                             </Typography>
-                            <Typography sx={{color: 'primary.main'}} fontWeight={700} mb={2} variant="body2"
-                                        align="center">
-                                The name associated with the accounts are Stanley Asoku Hayford
+
+                            <Typography
+                                sx={{color: 'primary.main'}}
+                                fontWeight={700} mb={2}
+                                variant="body2">
+                                MTN Momo - +233555180048 - Stanley Asoku Hayford
                             </Typography>
-                            <Typography mb={1} variant="body2" align="center">
+                            <Typography
+                                sx={{color: 'primary.main'}}
+                                fontWeight={700} mb={2}
+                                variant="body2">
+                                AirtelTigo - +233270048319 - Stanley Asoku Hayford
+                            </Typography>
+                            <Typography
+                                sx={{color: 'primary.main'}}
+                                fontWeight={700} mb={2}
+                                variant="body2">
+                                Vodafone Cash - +233502595892 - Stanley Asoku Hayford
+                            </Typography>
+
+                            <Typography mb={1} variant="body2">
                                 Fill in the information correctly and wait for confirmation email and text message.
                             </Typography>
                         </Box>
@@ -50,7 +69,6 @@ const SignUpInstructions = () => {
                                     size="large"
                                     startIcon={<ChevronLeft color="primary"/>}
                                     fullWidth={true}
-                                    disabled={true}
                                     disableElevation={true}
                                     onClick={() => dispatch(REQUEST_ACTION_CREATORS.previousPage())}
                                     variant="contained">
@@ -78,7 +96,7 @@ const SignUpInstructions = () => {
                                     size="large"
                                     onClick={() => dispatch(REQUEST_ACTION_CREATORS.nextPage())}
                                     endIcon={<ChevronRight color="secondary"/>}
-                                    variant="outlined">Next</Button>
+                                    variant="contained">Next</Button>
                             </Grid>
                         </Grid>
                     </CardContent>

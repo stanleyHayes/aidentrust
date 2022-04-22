@@ -8,10 +8,10 @@ const acceptRequestRequest = () => {
     }
 }
 
-const acceptRequestSuccess = (data, token, message) => {
+const acceptRequestSuccess = (message) => {
     return {
         type: REQUEST_ACTION_TYPES.ACCEPT_REQUEST_SUCCESS,
-        payload: {data, token, message}
+        payload: message
     }
 }
 
@@ -22,23 +22,60 @@ const acceptRequestFail = message => {
     }
 }
 
-const acceptRequest = (user, navigate) => {
+const acceptRequest = (request, ID) => {
     return async dispatch => {
         try {
             dispatch(acceptRequestRequest());
             const response = await axios({
                 method: 'POST',
-                url: `${CONSTANTS.URL_BASE_SERVER}/auth/login`,
-                data: user
+                url: `${CONSTANTS.URL_BASE_SERVER}/requests/${ID}/accept`,
+                data: request
             });
-            const {data, token, message} = response.data;
-            dispatch(acceptRequestSuccess(data, token, message));
-            navigate('/');
-            localStorage.setItem(CONSTANTS.WINDY_CRAFT_ADMIN_TOKEN_KEY, token);
-            localStorage.setItem(CONSTANTS.WINDY_CRAFT_ADMIN_AUTH_KEY, JSON.stringify(data));
+            const {message} = response.data;
+            dispatch(acceptRequestSuccess(message));
+            goToPage(8);
         } catch (e) {
             const {message} = e.response.data;
             dispatch(acceptRequestFail(message));
+        }
+    }
+}
+
+
+const rejectRequestRequest = () => {
+    return {
+        type: REQUEST_ACTION_TYPES.REJECT_REQUEST_REQUEST
+    }
+}
+
+const rejectRequestSuccess = (message) => {
+    return {
+        type: REQUEST_ACTION_TYPES.REJECT_REQUEST_SUCCESS,
+        payload: message
+    }
+}
+
+const rejectRequestFail = message => {
+    return {
+        type: REQUEST_ACTION_TYPES.REJECT_REQUEST_FAIL,
+        payload: message
+    }
+}
+
+const rejectRequest = (ID) => {
+    return async dispatch => {
+        try {
+            dispatch(rejectRequestRequest());
+            const response = await axios({
+                method: 'POST',
+                url: `${CONSTANTS.URL_BASE_SERVER}/requests/${ID}/reject`
+            });
+            const {message} = response.data;
+            dispatch(rejectRequestSuccess(message));
+            goToPage(9);
+        } catch (e) {
+            const {message} = e.response.data;
+            dispatch(rejectRequestFail(message));
         }
     }
 }
@@ -90,6 +127,13 @@ const saveAccountInfo = accountInfo => {
     }
 }
 
+const saveAddressInfo = addressInfo => {
+    return {
+        type: REQUEST_ACTION_TYPES.SAVE_ADDRESS_INFORMATION,
+        payload: addressInfo
+    }
+}
+
 export const REQUEST_ACTION_CREATORS = {
     saveAccountInfo,
     savePersonalInfo,
@@ -99,4 +143,6 @@ export const REQUEST_ACTION_CREATORS = {
     previousPage,
     goToPage,
     acceptRequest,
+    saveAddressInfo,
+    rejectRequest
 };

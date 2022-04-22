@@ -1,205 +1,84 @@
-import {Box, Button, Card, CardContent, CardMedia, Container, Divider, Grid, Typography} from "@mui/material";
+import {
+    Alert, AlertTitle, Avatar,
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CardMedia, CircularProgress,
+    Container,
+    Divider,
+    Grid,
+    LinearProgress, Stack,
+    Typography
+} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {CheckCircle, ChevronLeft} from "@mui/icons-material";
+import {
+    Call,
+    CheckCircle,
+    ChevronLeft,
+    Contacts,
+    Lock,
+    Mail,
+    Male,
+    Map,
+    Password,
+    Person,
+    Pin
+} from "@mui/icons-material";
 import {selectRequest} from "../../redux/requests/request-reducer";
 import {REQUEST_ACTION_CREATORS} from "../../redux/requests/request-action-creators";
+import {LoadingButton} from "@mui/lab";
+import {grey, red} from "@mui/material/colors";
+import {useState} from "react";
+import RejectDialog from "../dialogs/reject/reject-dialog";
+import Info from "./info";
 
-const SignUpSummary = ({invitationID}) => {
+const SignUpSummary = ({requestID}) => {
 
-    const {accountInfo, paymentInfo, bankAccountInfo, personalInfo} = useSelector(selectRequest);
+    const {
+        accountInfo,
+        paymentInfo,
+        bankAccountInfo,
+        personalInfo,
+        addressInfo,
+        requestLoading,
+        requestError
+    } = useSelector(selectRequest);
 
     const dispatch = useDispatch();
 
-    const handleSubmit = event => {
-        event.preventDefault();
+    const handleSubmit = () => {
 
+        dispatch(REQUEST_ACTION_CREATORS.acceptRequest({
+            userDetails: {...personalInfo},
+            paymentDetails: {...paymentInfo},
+            accountDetails: {...accountInfo},
+            bankAccountDetails: {...bankAccountInfo},
+            addressDetails: {...addressInfo}
+        }, requestID))
+    }
 
+    const [rejectDialogOpen, setRejectDialogOpen] = useState(false);
+
+    const handleReject = () => {
+        setRejectDialogOpen(true);
     }
 
     return (
-        <Box>
+        <Box my={4}>
             <Container>
-                <Card elevation={1} variant="elevation">
+                <Card sx={{mb: 2}} elevation={0} variant="elevation">
+                    {requestLoading && <LinearProgress variant="query" color="primary"/>}
                     <CardContent>
+                        {requestError && (
+                            <Alert severity="error" sx={{my: 2}}><AlertTitle>{requestError}</AlertTitle></Alert>
+                        )}
                         <Typography variant="h4" align="center">Summary</Typography>
 
                         <Divider sx={{my: 2}} variant="fullWidth" light={true}/>
 
-                        <Box mb={4}>
-                            <Typography gutterBottom={true} variant="h6">
-                                Personal Information
-                            </Typography>
-                            <Divider sx={{my: 2}} variant="fullWidth" light={true}/>
-
-                            <CardMedia
-                                sx={{
-                                    height: 250,
-                                    mb: 1,
-                                    borderRadius: 2,
-                                    objectPosition: 'top',
-                                    objectFit: 'cover'
-                                }} component="img" src={personalInfo.image}/>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                First Name
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {personalInfo.firstName}
-                            </Typography>
-
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Last Name
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {personalInfo.lastName}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Email
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {personalInfo.email}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Username
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {personalInfo.username}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Date of Birth
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {new Date(personalInfo.dateOfBirth).toLocaleDateString()}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Gender
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {personalInfo.gender}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Phone
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {personalInfo.phone}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Emergency Phone
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {personalInfo.emergencyPhoneNumber}
-                            </Typography>
-                        </Box>
-
-                        <Box mb={4}>
-                            <Typography  gutterBottom={true} variant="h6">
-                                Bank Account Information
-                            </Typography>
-                            <Divider sx={{my: 2}} variant="fullWidth" light={true}/>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Number
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {bankAccountInfo.number}
-                            </Typography>
-
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Type
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {bankAccountInfo.type}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Usage
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {bankAccountInfo.usage}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Balance
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                ${bankAccountInfo.balance}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Currency
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {bankAccountInfo.currency}
-                            </Typography>
-                        </Box>
-
-                        <Box mb={4}>
-                            <Typography  gutterBottom={true} variant="h6">
-                                Payment Information
-                            </Typography>
-                            <Divider sx={{my: 2}} variant="fullWidth" light={true}/>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Transaction ID
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {paymentInfo.transactionID}
-                            </Typography>
-
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Provider
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {paymentInfo.provider}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Phone
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {paymentInfo.phone}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Amount
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {paymentInfo.amount} GHS
-                            </Typography>
-                        </Box>
-
-                        <Box mb={4}>
-                            <Typography gutterBottom={true} variant="h6" align="center">
-                                Account Information
-                            </Typography>
-                            <Divider sx={{my: 2}} variant="fullWidth" light={true}/>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Code
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {accountInfo.code}
-                            </Typography>
-
-                            <Typography sx={{color: 'text.secondary'}} mb={1} variant="body2">
-                                Pin
-                            </Typography>
-                            <Typography sx={{color: 'text.primary'}} mb={2} variant="body1">
-                                {accountInfo.pin}
-                            </Typography>
-                        </Box>
-
-                        <Grid container={true} spacing={1} alignItems="center">
-                            <Grid item={true} xs={12} md={6}>
+                        <Grid container={true} spacing={2} alignItems="center">
+                            <Grid item={true} xs={12} md={4}>
                                 <Button
                                     sx={{
                                         textTransform: 'capitalize',
@@ -221,32 +100,359 @@ const SignUpSummary = ({invitationID}) => {
                                     Previous
                                 </Button>
                             </Grid>
-                            <Grid item={true} xs={12} md={6}>
+                            <Grid item={true} xs={12} md={4}>
                                 <Button
                                     sx={{
                                         fontWeight: 'bold',
                                         textTransform: 'capitalize',
-                                        backgroundColor: 'primary.main',
-                                        color: 'secondary.main',
+                                        backgroundColor: red[600],
+                                        color: 'white',
                                         '&:hover': {
+                                            backgroundColor: red[800],
                                             color: 'secondary.main'
                                         },
                                         '&:focus': {
+                                            backgroundColor: red[800],
                                             color: 'secondary.main'
                                         },
                                         '&:active': {
+                                            backgroundColor: red[800],
                                             color: 'secondary.main'
                                         },
                                     }}
                                     fullWidth={true}
                                     size="large"
+                                    disableElevation={true}
+                                    onClick={handleReject}
+                                    variant="contained">Reject Invitation</Button>
+                            </Grid>
+                            <Grid item={true} xs={12} md={4}>
+                                <LoadingButton
+                                    loading={requestLoading}
+                                    loadingIndicator={<CircularProgress color="secondary" size={20}/>}
+                                    sx={{
+                                        fontWeight: 'bold',
+                                        textTransform: 'capitalize',
+                                        backgroundColor: 'primary.main',
+                                        color: 'secondary.main',
+                                    }}
+                                    fullWidth={true}
+                                    size="large"
+                                    disableElevation={true}
                                     onClick={handleSubmit}
                                     endIcon={<CheckCircle color="secondary"/>}
-                                    variant="outlined">Submit Information</Button>
+                                    variant="contained">Submit Information</LoadingButton>
                             </Grid>
                         </Grid>
                     </CardContent>
                 </Card>
+
+                <Grid spacing={2} container={true}>
+                    <Grid item={true} xs={12} md={4}>
+                        <Card elevation={0} sx={{mb: 2}}>
+                            <CardContent>
+                                <Stack mb={2} direction="row" justifyContent="center">
+                                    <Avatar
+                                        sx={{width: 100, height: 100}}
+                                        src={personalInfo.image}
+                                    />
+                                </Stack>
+                                <Typography
+                                    variant="body1"
+                                    align="center">
+                                    {`${personalInfo.firstName} ${personalInfo.lastName}`}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                        <Card elevation={0} sx={{mb: 2}}>
+                            <CardContent>
+                                <Stack
+                                    direction="row"
+                                    justifyContent="space-between"
+                                    alignItems="center">
+                                    <Button variant="text" size="small" startIcon={<Person/>}>
+                                        Bank Account Details
+                                    </Button>
+                                </Stack>
+
+                                <Divider light={true} sx={{my: 1}} variant="middle"/>
+
+                                <Stack
+                                    divider={<Divider light={true} variant="middle"/>}
+                                    direction="column">
+                                    <Info
+                                        icon={<Person sx={{color: grey[600]}}/>}
+                                        title="Account holding name"
+                                        value={`${personalInfo.firstName} ${personalInfo.lastName}`}
+
+                                    />
+                                    <Info
+                                        icon={<Person sx={{color: grey[600]}}/>}
+                                        title="Account Number"
+                                        value={bankAccountInfo.number}
+
+                                    />
+                                    <Info
+                                        icon={<Person sx={{color: grey[600]}}/>}
+                                        title="Account Usage"
+                                        value={bankAccountInfo.usage}
+                                    />
+                                    <Info
+                                        icon={<Person sx={{color: grey[600]}}/>}
+                                        title="Account Type"
+                                        value={bankAccountInfo.type}
+
+                                    />
+                                    <Info
+                                        icon={<Person sx={{color: grey[600]}}/>}
+                                        title="Balance"
+                                        value={`${bankAccountInfo.balance}USD`}
+                                    />
+                                    <Info
+                                        icon={<Person sx={{color: grey[600]}}/>}
+                                        title="Currency"
+                                        value={bankAccountInfo.currency}
+                                    />
+                                </Stack>
+                            </CardContent>
+                        </Card>
+                        <Card elevation={0}>
+                            <CardContent>
+                                <Stack
+                                    mb={1}
+                                    direction="row"
+                                    justifyContent="space-between"
+                                    alignItems="center">
+                                    <Button
+                                        disableRipple={true}
+                                        variant="text"
+                                        size="small"
+                                        startIcon={<Map/>}>
+                                        Account Details
+                                    </Button>
+                                </Stack>
+
+                                <Divider light={true} sx={{my: 1}} variant="middle"/>
+
+                                <Stack
+                                    divider={<Divider light={true} variant="middle"/>}
+                                    direction="column">
+                                    <Info
+                                        icon={<Pin sx={{color: grey[600]}}/>}
+                                        title="Pin"
+                                        value={accountInfo.pin}
+
+                                    />
+
+                                    <Info
+                                        icon={<Password sx={{color: grey[600]}}/>}
+                                        title="Password"
+                                        value={accountInfo.password}
+
+                                    />
+                                </Stack>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid item={true} xs={12} md={8}>
+                        <Grid spacing={2} container={true}>
+                            <Grid item={true} xs={12}>
+                                <Card elevation={0}>
+                                    <CardContent>
+                                        <Stack
+                                            mb={1}
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center">
+                                            <Button
+                                                disableRipple={true}
+                                                variant="text"
+                                                size="small"
+                                                startIcon={<Person/>}>
+                                                Personal Details
+                                            </Button>
+                                        </Stack>
+
+                                        <Divider light={true} sx={{my: 1}} variant="middle"/>
+
+                                        <Grid spacing={2} container={true}>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Mail sx={{color: grey[600]}}/>}
+                                                    title="Email"
+                                                    value={personalInfo.email}
+
+                                                />
+                                            </Grid>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Call sx={{color: grey[600]}}/>}
+                                                    title="Phone"
+                                                    value={personalInfo.phoneNumber}
+
+                                                />
+                                            </Grid>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Male sx={{color: grey[600]}}/>}
+                                                    title="Gender"
+                                                    value={personalInfo.gender}
+                                                />
+                                            </Grid>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Call sx={{color: grey[600]}}/>}
+                                                    title="Emergency Phone"
+                                                    value={personalInfo.emergencyPhoneNumber}
+                                                />
+                                            </Grid>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Call sx={{color: grey[600]}}/>}
+                                                    title="DOB"
+                                                    value={new Date(personalInfo.dateOfBirth).toLocaleDateString()}
+                                                />
+                                            </Grid>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Call sx={{color: grey[600]}}/>}
+                                                    title="Username"
+                                                    value={personalInfo.username}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                            <Grid item={true} xs={12}>
+                                <Card elevation={0}>
+                                    <CardContent>
+                                        <Stack
+                                            mb={1}
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center">
+                                            <Button
+                                                disableRipple={true}
+                                                variant="text"
+                                                size="small"
+                                                startIcon={<Map/>}>
+                                                Address Details
+                                            </Button>
+                                        </Stack>
+
+                                        <Divider light={true} sx={{my: 1}} variant="middle"/>
+
+                                        <Grid spacing={2} container={true}>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                    title="Country"
+                                                    value={addressInfo.country}
+
+                                                />
+                                            </Grid>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                    title="State"
+                                                    value={addressInfo.state}
+
+                                                />
+                                            </Grid>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                    title="City"
+                                                    value={addressInfo.city}
+                                                />
+                                            </Grid>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                    title="Address Line 1"
+                                                    value={addressInfo.addressLine1}
+                                                />
+                                            </Grid>
+                                            {addressInfo.addressLine2 && (
+                                                <Grid item={true} xs={12} md={6}>
+                                                    <Info
+                                                        icon={<Person sx={{color: grey[600]}}/>}
+                                                        title="Address Line 2"
+                                                        value={addressInfo.addressLine2}
+                                                    />
+                                                </Grid>
+                                            )}
+                                        </Grid>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                            <Grid item={true} xs={12}>
+                                <Card elevation={0}>
+                                    <CardContent>
+                                        <Stack
+                                            mb={1}
+                                            direction="row"
+                                            justifyContent="space-between"
+                                            alignItems="center">
+                                            <Button
+                                                disableRipple={true}
+                                                variant="text"
+                                                size="small"
+                                                startIcon={<Map/>}>
+                                                Payment Details
+                                            </Button>
+                                        </Stack>
+
+                                        <Divider light={true} sx={{my: 1}} variant="middle"/>
+
+                                        <Grid spacing={2} container={true}>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                    title="Amount"
+                                                    value={`${paymentInfo.amount} GHS`}
+                                                />
+                                            </Grid>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                    title="Transaction ID"
+                                                    value={paymentInfo.transactionID}
+
+                                                />
+                                            </Grid>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                    title="Provider"
+                                                    value={paymentInfo.provider}
+                                                />
+                                            </Grid>
+                                            <Grid item={true} xs={12} md={6}>
+                                                <Info
+                                                    icon={<Person sx={{color: grey[600]}}/>}
+                                                    title="Phone"
+                                                    value={paymentInfo.paymentPhoneNumber}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                {rejectDialogOpen && (
+                    <RejectDialog
+                        open={rejectDialogOpen}
+                        handleClose={() => setRejectDialogOpen(false)}
+                        handleDelete={() => dispatch(REQUEST_ACTION_CREATORS.rejectRequest(requestID))}
+                        message="Are you sure you want to reject this invitation?"/>
+                )}
+
             </Container>
         </Box>
     )

@@ -23,15 +23,15 @@ import {DatePicker} from "@mui/lab";
 import {selectRequest} from "../../redux/requests/request-reducer";
 import {REQUEST_ACTION_CREATORS} from "../../redux/requests/request-action-creators";
 
-const PersonalInfoForm = () => {
+const PersonalInfoForm = ({email}) => {
 
     const {personalInfo} = useSelector(selectRequest);
 
-    const [user, setUser] = useState({...personalInfo});
+    const [user, setUser] = useState({...personalInfo, email});
     const [error, setError] = useState({});
     const [dateOfBirth, setDateOfBirth] = useState(personalInfo.dateOfBirth);
 
-    const {firstName, phone, emergencyPhoneNumber, username, image, gender = "", lastName, email} = user;
+    const {firstName, phoneNumber, emergencyPhoneNumber, username, image, gender = "", lastName} = user;
 
     const handleChange = event => {
         setUser({...user, [event.target.name]: event.target.value});
@@ -84,19 +84,19 @@ const PersonalInfoForm = () => {
             setError({error, email: null});
         }
 
-        if (!phone) {
-            setError({error, phone: 'Field required'});
+        if (!phoneNumber) {
+            setError({error, phoneNumber: 'Field required'});
             return;
         } else {
-            setError({error, phone: null});
+            setError({error, phoneNumber: null});
         }
 
 
-        if (!validator.isMobilePhone(phone)) {
-            setError({error, phone: 'Field required'});
+        if (!validator.isMobilePhone(phoneNumber)) {
+            setError({error, phoneNumber: 'Invalid phone number'});
             return;
         } else {
-            setError({error, phone: null});
+            setError({error, phoneNumber: null});
         }
 
         if (!emergencyPhoneNumber) {
@@ -107,7 +107,7 @@ const PersonalInfoForm = () => {
         }
 
         if (!validator.isMobilePhone(emergencyPhoneNumber)) {
-            setError({error, emergencyPhoneNumber: 'Field required'});
+            setError({error, emergencyPhoneNumber: 'Invalid phone number'});
             return;
         } else {
             setError({error, emergencyPhoneNumber: null});
@@ -137,8 +137,7 @@ const PersonalInfoForm = () => {
     }
 
 
-
-    return (<Card elevation={1}>
+    return (<Card elevation={0}>
         <CardContent>
             {error.image && (<Alert sx={{my: 3}} severity="error" color="error" variant="standard">
                 <AlertTitle>{error.image}</AlertTitle>
@@ -152,7 +151,7 @@ const PersonalInfoForm = () => {
                 <AlertTitle>{error.dateOfBirth}</AlertTitle>
             </Alert>)}
 
-            <Typography gutterBottom={true} align="center" variant="h6">
+            <Typography gutterBottom={true} align="center" variant="h5">
                 Personal Information
             </Typography>
             <Stack my={3} spacing={2} direction="column">
@@ -178,7 +177,6 @@ const PersonalInfoForm = () => {
                             borderRadius: 4,
                             paddingTop: 8,
                             paddingBottom: 8,
-                            fontFamily: 'Chakra Petch'
                         }}
                     />
                 </Box>
@@ -193,7 +191,7 @@ const PersonalInfoForm = () => {
                     error={Boolean(error.firstName)}
                     helperText={error.firstName}
                     type="text"
-                    color="secondary"
+                    color="primary"
                     placeholder="Enter first name"
                     size="medium"
                     onChange={handleChange}
@@ -209,7 +207,7 @@ const PersonalInfoForm = () => {
                     error={Boolean(error.lastName)}
                     helperText={error.lastName}
                     type="text"
-                    color="secondary"
+                    color="primary"
                     placeholder="Enter last name"
                     size="medium"
                     onChange={handleChange}
@@ -225,7 +223,8 @@ const PersonalInfoForm = () => {
                     error={Boolean(error.email)}
                     helperText={error.email}
                     type="email"
-                    color="secondary"
+                    disabled={true}
+                    color="primary"
                     placeholder="Enter email"
                     size="medium"
                     onChange={handleChange}
@@ -241,24 +240,24 @@ const PersonalInfoForm = () => {
                     error={Boolean(error.username)}
                     helperText={error.username}
                     type="text"
-                    color="secondary"
+                    color="primary"
                     placeholder="Enter username"
                     size="medium"
                     onChange={handleChange}
                 />
 
                 <TextField
-                    label="Phone"
+                    label="Phone Number"
                     fullWidth={true}
-                    name="phone"
+                    name="phoneNumber"
                     required={true}
                     variant="outlined"
-                    value={phone}
-                    error={Boolean(error.phone)}
-                    helperText={error.phone}
+                    value={phoneNumber}
+                    error={Boolean(error.phoneNumber)}
+                    helperText={error.phoneNumber}
                     type="tel"
-                    color="secondary"
-                    placeholder="Enter phone"
+                    color="primary"
+                    placeholder="Enter phone number"
                     size="medium"
                     onChange={handleChange}
                 />
@@ -273,7 +272,7 @@ const PersonalInfoForm = () => {
                     error={Boolean(error.emergencyPhoneNumber)}
                     helperText={error.emergencyPhoneNumber}
                     type="tel"
-                    color="secondary"
+                    color="primary"
                     placeholder="Enter emergency phone"
                     size="medium"
                     onChange={handleChange}
@@ -289,6 +288,7 @@ const PersonalInfoForm = () => {
                         }}
                         renderInput={(params) => <TextField
                             size="medium"
+                            color="primary"
                             variant="outlined"
                             fullWidth={true}
                             placeholder="Date of birth"
@@ -306,6 +306,7 @@ const PersonalInfoForm = () => {
                         label="Gender"
                         name="gender"
                         id="gender"
+                        color="primary"
                         onChange={handleChange}
                         fullWidth={true}
                         value={gender}>
@@ -359,7 +360,7 @@ const PersonalInfoForm = () => {
                         size="large"
                         onClick={handleSubmit}
                         endIcon={<ChevronRight color="secondary"/>}
-                        variant="outlined">Next</Button>
+                        variant="contained">Next</Button>
                 </Grid>
             </Grid>
 

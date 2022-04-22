@@ -24,7 +24,7 @@ const PaymentInfoForm = () => {
     const [payment, setPayment] = useState({...paymentInfo});
     const [error, setError] = useState({});
 
-    const {amount, provider = "", transactionID, phone} = payment;
+    const {amount, provider = "", transactionID, paymentPhoneNumber} = payment;
 
     const handleChange = event => {
         setPayment({...payment, [event.target.name]: event.target.value});
@@ -61,26 +61,25 @@ const PaymentInfoForm = () => {
             setError({error, transactionID: null});
         }
 
-        if (!phone) {
-            setError({error, phone: 'Field required'});
+        if (!paymentPhoneNumber) {
+            setError({error, paymentPhoneNumber: 'Field required'});
             return;
         } else {
-            setError({error, phone: null});
+            setError({error, paymentPhoneNumber: null});
         }
 
-        dispatch(REQUEST_ACTION_CREATORS.savePayment({amount, provider, transactionID}));
+        dispatch(REQUEST_ACTION_CREATORS.savePayment({amount, provider, transactionID, paymentPhoneNumber}));
         dispatch(REQUEST_ACTION_CREATORS.nextPage());
     }
 
     const dispatch = useDispatch();
 
-    return (<Card elevation={1}>
+    return (<Card elevation={0}>
             <CardContent>
-                <Typography gutterBottom={true} align="center" variant="h6">
+                <Typography gutterBottom={true} align="center" variant="h5">
                     Payment Information
                 </Typography>
                 <Stack my={3} spacing={2} direction="column">
-
 
                     <TextField
                         label="Transaction ID"
@@ -92,7 +91,7 @@ const PaymentInfoForm = () => {
                         error={Boolean(error.transactionID)}
                         helperText={error.transactionID || "Enter mobile money transaction ID"}
                         type="text"
-                        color="secondary"
+                        color="primary"
                         placeholder="Enter transaction name"
                         size="medium"
                         onChange={handleChange}
@@ -108,24 +107,24 @@ const PaymentInfoForm = () => {
                         error={Boolean(error.amount)}
                         helperText={error.amount || "Enter amount paid"}
                         type="number"
-                        color="secondary"
+                        color="primary"
                         placeholder="Enter amount"
                         size="medium"
                         onChange={handleChange}
                     />
 
                     <TextField
-                        label="Phone"
+                        label="Payment Phone"
                         fullWidth={true}
-                        name="phone"
+                        name="paymentPhoneNumber"
                         required={true}
                         variant="outlined"
-                        value={phone}
-                        error={Boolean(error.phone)}
-                        helperText={error.phone || "Enter payment phone number"}
+                        value={paymentPhoneNumber}
+                        error={Boolean(error.paymentPhoneNumber)}
+                        helperText={error.paymentPhoneNumber || "Enter payment phone number"}
                         type="tel"
-                        color="secondary"
-                        placeholder="Enter payment phone"
+                        color="primary"
+                        placeholder="Enter payment phone number"
                         size="medium"
                         onChange={handleChange}
                     />
@@ -138,6 +137,7 @@ const PaymentInfoForm = () => {
                             label="Provider"
                             name="provider"
                             id="provider"
+                            color="primary"
                             onChange={handleChange}
                             fullWidth={true}
                             value={provider}>
@@ -192,7 +192,7 @@ const PaymentInfoForm = () => {
                             size="large"
                             onClick={handleSubmit}
                             endIcon={<ChevronRight color="secondary"/>}
-                            variant="outlined">Next</Button>
+                            variant="contained">Next</Button>
                     </Grid>
                 </Grid>
 

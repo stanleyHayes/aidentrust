@@ -76,20 +76,20 @@ const ForgotPasswordPage = () => {
                                     sx={{
                                         fontWeight: 'bold',
                                         textTransform: 'capitalize',
-                                        color: 'white'
+                                        color: 'primary'
                                     }}
-                                    color="secondary"
+                                    color="primary"
                                     mb={4}
-                                    startIcon={<ChevronLeft sx={{color: 'white'}} fontSize="medium"/>} variant="text">
+                                    startIcon={<ChevronLeft sx={{color: 'primary'}} fontSize="medium"/>} variant="text">
                                     Back
                                 </Button>
 
                                 <Typography
-                                    sx={{color: 'secondary.main', fontWeight: 'bold'}}
+                                    sx={{color: 'primary.main', fontWeight: 'bold'}}
                                     gutterBottom={true}
                                     align="center"
                                     variant="h4">
-                                    Birth Registry
+                                    Aiden Trust
                                 </Typography>
                                 <Typography mb={1} gutterBottom={true} align="center" variant="body1">
                                     Forgot Password

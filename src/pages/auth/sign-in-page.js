@@ -81,7 +81,7 @@ const SignInPage = () => {
     const {authLoading, authError} = useSelector(selectAuth);
 
     return (<Box>
-            {authLoading && <LinearProgress variant="query" color="secondary"/>}
+            {authLoading && <LinearProgress variant="query" color="primary"/>}
             <Box
                 sx={{
                     display: 'flex', maxWidth: '100%', maxHeight: '100vh', height: '100vh', flexDirection: {
@@ -97,11 +97,11 @@ const SignInPage = () => {
                     <Container maxWidth="sm">
                         <Typography
                             sx={{
-                                color: 'secondary.main', fontWeight: 'bold', textTransform: 'uppercase'
+                                color: 'primary.main', fontWeight: 'bold', textTransform: 'uppercase'
                             }}
                             gutterBottom={true}
                             align="center"
-                            variant="h4">
+                            variant="h3">
                             Aiden Trust
                         </Typography>
                         {authError && (<Alert sx={{my: 1}} severity="error" color="error" variant="standard">
@@ -134,7 +134,7 @@ const SignInPage = () => {
                                     error={Boolean(error.email)}
                                     helperText={error.email}
                                     type="email"
-                                    color="secondary"
+                                    color="primary"
                                     placeholder="Enter email"
                                     size="medium"
                                     onChange={handleChange}
@@ -144,7 +144,7 @@ const SignInPage = () => {
 
                                     <Link className={classes.link} to="/auth/forgot-password">
                                         <Button
-                                            color="secondary"
+                                            color="primary"
                                             sx={{textTransform: 'capitalize'}}
                                             variant="text" size="small">
                                             Forgot Password
@@ -161,7 +161,7 @@ const SignInPage = () => {
                                         fullWidth={true}
                                         name="password"
                                         required={true}
-                                        color="secondary"
+                                        color="primary"
                                         placeholder="Enter password"
                                         variant="outlined"
                                         error={Boolean(error.password)}
@@ -170,12 +170,11 @@ const SignInPage = () => {
                                         onChange={handleChange}
                                         endAdornment={<InputAdornment position="end">
                                             <IconButton
-                                                sx={{color: 'secondary.main'}}
+                                                sx={{color: 'primary.main'}}
                                                 aria-label="toggle password visibility"
                                                 onClick={() => setVisiblePassword(!visiblePassword)}
                                                 onMouseDown={() => setVisiblePassword(!visiblePassword)}
-                                                edge="end"
-                                            >
+                                                edge="end">
                                                 {visiblePassword ? <VisibilityOff/> : <Visibility/>}
                                             </IconButton>
                                         </InputAdornment>}
@@ -189,28 +188,19 @@ const SignInPage = () => {
                                     textTransform: 'capitalize',
                                     backgroundColor: 'primary.main',
                                     color: 'secondary.main',
-                                    '&:hover': {
-                                        color: 'secondary.main'
-                                    },
-                                    '&:focus': {
-                                        color: 'secondary.main'
-                                    },
-                                    '&:active': {
-                                        color: 'secondary.main'
-                                    },
                                     py: 1.5
                                 }}
                                 size="large"
-                                startIcon={authLoading && <CircularProgress color="secondary"/>}
+                                startIcon={authLoading && <CircularProgress size={20} color="secondary"/>}
                                 loadingPosition="start"
                                 loading={authLoading}
-                                loadingIndicator={<CircularProgress color="secondary"/>}
+                                loadingIndicator={<CircularProgress size={20} color="secondary"/>}
                                 onSubmit={handleSubmit}
                                 onClick={handleSubmit}
                                 fullWidth={true}
                                 disableElevation={true}
                                 disabled={authLoading}
-                                variant="outlined">
+                                variant="contained">
                                 Login
                             </LoadingButton>
                         </form>

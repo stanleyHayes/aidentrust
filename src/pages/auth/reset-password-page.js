@@ -82,14 +82,14 @@ const ResetPasswordPage = () => {
             <Grid container={true} justifyContent="center">
                 <Grid item={true} xs={12} md={6} lg={4}>
                     <Card elevation={1} variant="elevation">
-                        {authLoading && <LinearProgress color="secondary" variant="query"/>}
+                        {authLoading && <LinearProgress color="primary" variant="query"/>}
                         <CardContent>
                             <Typography
-                                sx={{color: 'white', fontWeight: 'bold'}}
+                                sx={{color: 'primary.main', fontWeight: 'bold'}}
                                 gutterBottom={true}
                                 align="center"
                                 variant="h4">
-                                Birth Registry
+                                Aiden Trust
                             </Typography>
                             <Typography gutterBottom={true} align="center" variant="h6">
                                 Reset Password
@@ -115,7 +115,7 @@ const ResetPasswordPage = () => {
                                         onChange={handleChange}
                                         endAdornment={<InputAdornment position="end">
                                             <IconButton
-                                                color="secondary"
+                                                color="primary"
                                                 aria-label="toggle password visibility"
                                                 onClick={() => setVisiblePassword(!visiblePassword)}
                                                 onMouseDown={() => setVisiblePassword(!visiblePassword)}
@@ -143,7 +143,7 @@ const ResetPasswordPage = () => {
                                         onChange={handleChange}
                                         endAdornment={<InputAdornment position="end">
                                             <IconButton
-                                                color="secondary"
+                                                color="primary"
                                                 aria-label="toggle password visibility"
                                                 onClick={() => setVisibleConfirmPassword(!confirmVisiblePassword)}
                                                 onMouseDown={() => setVisibleConfirmPassword(!confirmVisiblePassword)}

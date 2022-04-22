@@ -5,7 +5,10 @@ const INITIAL_STATE = {
     accountInfo: {},
     paymentInfo: {},
     bankAccountInfo: {},
-    personalInfo: {}
+    personalInfo: {},
+    addressInfo: {},
+    requestLoading: false,
+    requestError: null
 }
 
 const requestReducer = (state = INITIAL_STATE, action) => {
@@ -22,6 +25,7 @@ const requestReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 page: state.page + 1
             }
+
         case REQUEST_ACTION_TYPES.GO_TO_PAGE:
             return {
                 ...state,
@@ -50,6 +54,55 @@ const requestReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 accountInfo: action.payload
             }
+
+        case REQUEST_ACTION_TYPES.SAVE_ADDRESS_INFORMATION:
+            return {
+                ...state,
+                addressInfo: action.payload
+            }
+
+        case REQUEST_ACTION_TYPES.ACCEPT_REQUEST_REQUEST:
+            return {
+                ...state,
+                requestLoading: null,
+                requestError: true
+            }
+
+        case REQUEST_ACTION_TYPES.ACCEPT_REQUEST_SUCCESS:
+            return {
+                ...state,
+                requestLoading: false,
+                requestError: null
+            }
+
+        case REQUEST_ACTION_TYPES.ACCEPT_REQUEST_FAIL:
+            return {
+                ...state,
+                requestLoading: false,
+                requestError: action.payload
+            }
+
+        case REQUEST_ACTION_TYPES.REJECT_REQUEST_REQUEST:
+            return {
+                ...state,
+                requestLoading: false,
+                requestError: null
+            }
+
+        case REQUEST_ACTION_TYPES.REJECT_REQUEST_SUCCESS:
+            return {
+                ...state,
+                requestLoading: false,
+                requestError: null
+            }
+
+        case REQUEST_ACTION_TYPES.REJECT_REQUEST_FAIL:
+            return {
+                ...state,
+                requestLoading: false,
+                requestError: action.payload
+            }
+
         default:
             return state;
     }

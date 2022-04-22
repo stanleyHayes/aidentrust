@@ -23,10 +23,10 @@ import SettingsPage from "./pages/settings/settings-page";
 import StatementsPage from "./pages/settings/statements-page";
 import TransactionDetailPage from "./pages/transactions/transaction-detail-page";
 import TransactionsPage from "./pages/transactions/transactions-page";
-import MakeTransactionPage from "./pages/transactions/make-transaction-page";
 import ChangePasswordPage from "./pages/profile/change-password-page";
 import EditProfilePage from "./pages/profile/edit-profile-page";
 import ClientSignUpResponse from "./pages/auth/sign-up-page";
+import RequireAuth from "./components/shared/require-auth";
 
 function App() {
 
@@ -42,26 +42,27 @@ function App() {
         <ThemeProvider theme={THEMES.lightTheme}>
             <CssBaseline/>
             <Routes>
-                <Route element={<HomePage/>} path="/"/>
+                <Route element={<RequireAuth><HomePage/></RequireAuth>} path="/"/>
                 <Route element={<ForgotPasswordPage/>} path="/auth/forgot-password"/>
                 <Route element={<ResetPasswordPage/>} path="/auth/reset-password"/>
-                <Route element={<ChangePasswordPage/>} path="/change-password"/>
-                <Route element={<EditProfilePage/>} path="/edit-profile"/>
+                <Route element={<RequireAuth><ChangePasswordPage/></RequireAuth>} path="/change-password"/>
+                <Route element={<RequireAuth><EditProfilePage/></RequireAuth>} path="/edit-profile"/>
                 <Route element={<SignInPage/>} path="/auth/login"/>
-                <Route element={<ClientSignUpResponse/>} path="/auth/invitations/:invitationID/:code"/>
-                <Route element={<VerifyAccountPage/>} path="/auth/verify"/>
+                <Route element={<ClientSignUpResponse/>}
+                       path="/auth/requests/:requestID/:code"/>
+                <Route element={<VerifyAccountPage/>} path="/auth/verify/:token"/>
                 <Route element={<AboutPage/>} path="/about"/>
                 <Route element={<ContactPage/>} path="/contact"/>
                 <Route element={<FAQPage/>} path="/faq"/>
                 <Route element={<PrivacyPage/>} path="/privacy"/>
                 <Route element={<TermsPage/>} path="/terms"/>
-                <Route element={<ProfilePage/>} path="/profile"/>
-                <Route element={<NotificationsPage/>} path="/notifications"/>
-                <Route element={<SettingsPage/>} path="/settings"/>
-                <Route element={<StatementsPage/>} path="/statements"/>
-                <Route element={<TransactionDetailPage/>} path="/transactions/:transactionID"/>
-                <Route element={<TransactionsPage/>} path="/transactions"/>
-                <Route element={<MakeTransactionPage/>} path="/transaction/new"/>
+                <Route element={<RequireAuth><ProfilePage/></RequireAuth>} path="/profile"/>
+                <Route element={<RequireAuth><NotificationsPage/></RequireAuth>} path="/notifications"/>
+                <Route element={<RequireAuth><SettingsPage/></RequireAuth>} path="/settings"/>
+                <Route element={<RequireAuth><StatementsPage/></RequireAuth>} path="/statements"/>
+                <Route element={<RequireAuth><TransactionDetailPage/></RequireAuth>}
+                       path="/transactions/:transactionID"/>
+                <Route element={<RequireAuth><TransactionsPage/></RequireAuth>} path="/transactions"/>
             </Routes>
         </ThemeProvider>
     );
