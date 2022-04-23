@@ -20,32 +20,32 @@ import {useState} from "react";
 import {useSelector} from "react-redux";
 import {selectTransaction} from "../../../redux/transactions/transaction-reducer";
 
-const ReceiveMoneyDialog = ({open, handleClose}) => {
+const DepositDialog = ({open, handleClose}) => {
 
     const [transfer, setTransfer] = useState({});
     const [visiblePassword, setVisiblePassword] = useState(false);
     const [error, setError] = useState({});
 
     const {
-        number,
         amount,
-        routingNumber,
-        swiftCode,
-        addressLine1,
-        addressLine2,
-        city,
-        country,
-        stateOrRegionOrProvince,
-        password
+        pin
     } = transfer;
 
     const handleClick = () => {
-        if (!number) {
-            setError({error, number: 'Field required'});
+        if (!amount) {
+            setError({error, amount: 'Field required'});
             return;
         } else {
-            setError({error, number: null});
+            setError({error, amount: null});
         }
+
+        if (!pin) {
+            setError({error, pin: 'Field required'});
+            return;
+        } else {
+            setError({error, pin: null});
+        }
+
     }
 
     const handleChange = event => {
@@ -57,27 +57,16 @@ const ReceiveMoneyDialog = ({open, handleClose}) => {
     return (<Dialog open={open} onClose={handleClose}>
             {transactionLoading && <LinearProgress color="primary" variant="query"/>}
             <DialogContent>
-                {transactionError && (<Alert severity="error"><AlertTitle>{transactionError}</AlertTitle></Alert>)}
+                {transactionError && (
+                    <Alert severity="error">
+                        <AlertTitle>{transactionError}</AlertTitle>
+                    </Alert>)
+                }
                 <Typography mb={2} variant="h4" align="center">
-                    Account Information
+                    Deposit Check
                 </Typography>
 
                 <Stack my={3} spacing={2} direction="column">
-                    <TextField
-                        label="Account Number"
-                        fullWidth={true}
-                        name="number"
-                        required={true}
-                        variant="outlined"
-                        value={number}
-                        error={Boolean(error.number)}
-                        helperText={error.number}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter number"
-                        size="medium"
-                        onChange={handleChange}
-                    />
 
                     <TextField
                         label="Amount"
@@ -95,140 +84,25 @@ const ReceiveMoneyDialog = ({open, handleClose}) => {
                         onChange={handleChange}
                     />
 
-                    <TextField
-                        label="Routing Number"
-                        fullWidth={true}
-                        name="routingNumber"
-                        required={true}
-                        variant="outlined"
-                        value={routingNumber}
-                        error={Boolean(error.routingNumber)}
-                        helperText={error.routingNumber}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter routing number"
-                        size="medium"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="Swift Code"
-                        fullWidth={true}
-                        name="swiftCode"
-                        required={true}
-                        variant="outlined"
-                        value={swiftCode}
-                        error={Boolean(error.swiftCode)}
-                        helperText={error.swiftCode}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter swift code"
-                        size="medium"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="Country"
-                        fullWidth={true}
-                        name="country"
-                        required={true}
-                        variant="outlined"
-                        value={country}
-                        error={Boolean(error.country)}
-                        helperText={error.country}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter country"
-                        size="medium"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="State/Region/Province"
-                        fullWidth={true}
-                        name="stateOrRegionOrProvince"
-                        required={true}
-                        variant="outlined"
-                        value={stateOrRegionOrProvince}
-                        error={Boolean(error.stateOrRegionOrProvince)}
-                        helperText={error.stateOrRegionOrProvince}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter swift code"
-                        size="medium"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="City"
-                        fullWidth={true}
-                        name="city"
-                        required={true}
-                        variant="outlined"
-                        value={city}
-                        error={Boolean(error.city)}
-                        helperText={error.city}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter city"
-                        size="medium"
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="Address Line 1"
-                        fullWidth={true}
-                        name="text"
-                        required={true}
-                        variant="outlined"
-                        value={addressLine1}
-                        error={Boolean(error.addressLine1)}
-                        helperText={error.addressLine1}
-                        type="number"
-                        color="secondary"
-                        placeholder="Address line 1"
-                        size="medium"
-                        multiline={true}
-                        minRows={2}
-                        onChange={handleChange}
-                    />
-
-                    <TextField
-                        label="Address Line 2"
-                        fullWidth={true}
-                        name="text"
-                        required={true}
-                        variant="outlined"
-                        minRows={2}
-                        value={addressLine2}
-                        error={Boolean(error.addressLine2)}
-                        helperText={error.addressLine2}
-                        type="text"
-                        color="secondary"
-                        placeholder="Enter address line 2"
-                        size="medium"
-                        onChange={handleChange}
-                    />
-
                     <FormControl variant="outlined">
-                        <InputLabel htmlFor="password">Password</InputLabel>
+                        <InputLabel htmlFor="pin">Pin</InputLabel>
                         <OutlinedInput
-                            id="password"
-                            label="Password"
+                            id="pin"
+                            label="Pin"
                             fullWidth={true}
-                            name="password"
+                            name="pin"
                             required={true}
                             color="secondary"
-                            placeholder="Enter password"
+                            placeholder="Enter pin"
                             variant="outlined"
-                            error={Boolean(error.password)}
+                            error={Boolean(error.pin)}
                             type={visiblePassword ? 'text' : 'password'}
-                            value={password}
+                            value={pin}
                             onChange={handleChange}
                             endAdornment={<InputAdornment position="end">
                                 <IconButton
                                     sx={{color: 'secondary.main'}}
-                                    aria-label="toggle password visibility"
+                                    aria-label="toggle pin visibility"
                                     onClick={() => setVisiblePassword(!visiblePassword)}
                                     onMouseDown={() => setVisiblePassword(!visiblePassword)}
                                     edge="end"
@@ -268,10 +142,10 @@ const ReceiveMoneyDialog = ({open, handleClose}) => {
                     disableElevation={true}
                     disabled={transactionLoading}
                     variant="outlined">
-                    Get Account Information
+                    Deposit
                 </LoadingButton>
             </DialogContent>
         </Dialog>)
 }
 
-export default ReceiveMoneyDialog;
+export default DepositDialog;
