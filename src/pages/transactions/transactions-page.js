@@ -20,24 +20,23 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Visibility} from "@mui/icons-material";
 import {green, grey, purple, red} from "@mui/material/colors";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectTransaction} from "../../redux/transactions/transaction-reducer";
 import {makeStyles} from "@mui/styles";
 import {Alert, AlertTitle} from "@mui/lab";
 import moment from "moment";
-import InternationalTransferDialog from "../../components/dialogs/new/international-transfer-dialog";
 import MakePaymentDialog from "../../components/dialogs/new/make-payment-dialog";
-import LocalTransferDialog from "../../components/dialogs/new/local-transfer-dialog";
 import ReceiveMoneyDialog from "../../components/dialogs/new/receive-money-dialog";
+import {Link} from "react-router-dom";
+import {TRANSACTION_ACTION_CREATORS} from "../../redux/transactions/transaction-action-creators";
+import {selectAuth} from "../../redux/auth/auth-reducer";
 
 const TransactionsPage = () => {
 
     const [query, setQuery] = useState("");
-    const [internationalTransferDialogOpen, setInternationalTransferDialogOpen] = useState(false);
-    const [localTransferDialogOpen, setLocalTransferDialogOpen] = useState(false);
     const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
     const [receiveMoneyDialogOpen, setReceiveMoneyDialogOpen] = useState(false);
 
@@ -52,6 +51,8 @@ const TransactionsPage = () => {
     });
 
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const {token} = useSelector(selectAuth);
 
     const renderStatus = status => {
         switch (status) {
@@ -82,6 +83,10 @@ const TransactionsPage = () => {
         }
     }
 
+    useEffect(() => {
+        dispatch(TRANSACTION_ACTION_CREATORS.getTransactions(token));
+    }, [dispatch, token]);
+
     return (<Layout>
         {transactionLoading && <LinearProgress color="secondary" variant="query"/>}
         <Container className={classes.container}>
@@ -99,7 +104,7 @@ const TransactionsPage = () => {
                 justifyContent="space-between"
                 alignItems="center">
                 <Grid item={true} xs={12} md={4}>
-                    <Typography variant="h4">Transactions(0)</Typography>
+                    <Typography variant="h4">Transactions</Typography>
                 </Grid>
                 <Grid item={true} xs={12} md={6}>
                     <TextField
@@ -141,50 +146,52 @@ const TransactionsPage = () => {
             <Grid container={true} spacing={2}>
 
                 <Grid xs={6} md={3} item={true}>
-                    <Card
-                        elevation={0}
-                        sx={{cursor: 'pointer', height: '100%'}}
-                        onClick={() => setInternationalTransferDialogOpen(true)}>
-                        <CardContent>
-                            <Stack justifyContent="center" direction="row">
-                                <Avatar
-                                    variant="rounded"
-                                    src="/assets/images/international-transfer.png"
-                                    sx={{color: purple[600]}}/>
-                            </Stack>
-                            <Typography
-                                align="center"
-                                variant="body2"
-                                sx={{
-                                    fontSize: 14, color: grey[600]
-                                }}>
-                                International Transfer
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                    <Link style={{textDecoration: 'none'}} to="/transfer/international">
+                        <Card
+                            elevation={0}
+                            sx={{cursor: 'pointer', height: '100%'}}>
+                            <CardContent>
+                                <Stack mb={2} justifyContent="center" direction="row">
+                                    <Avatar
+                                        variant="rounded"
+                                        src="/assets/images/international-transfer.png"
+                                        sx={{color: purple[600]}}/>
+                                </Stack>
+                                <Typography
+                                    align="center"
+                                    variant="body2"
+                                    sx={{
+                                        fontSize: 14, color: grey[600]
+                                    }}>
+                                    International Transfer
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Link>
                 </Grid>
                 <Grid xs={6} md={3} item={true}>
-                    <Card
-                        sx={{cursor: 'pointer', height: '100%'}}
-                        elevation={0}
-                        onClick={() => setInternationalTransferDialogOpen(true)}>
-                        <CardContent>
-                            <Stack justifyContent="center" direction="row">
-                                <Avatar
-                                    variant="rounded"
-                                    src="/assets/images/local-transfer.png"
-                                    sx={{color: purple[600]}}/>
-                            </Stack>
-                            <Typography
-                                align="center"
-                                variant="body2"
-                                sx={{
-                                    fontSize: 14, color: grey[600]
-                                }}>
-                                Local Transfer
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                    <Link style={{textDecoration: 'none'}} to="/transfer/local">
+                        <Card
+                            sx={{cursor: 'pointer', height: '100%'}}
+                            elevation={0}>
+                            <CardContent>
+                                <Stack mb={2} justifyContent="center" direction="row">
+                                    <Avatar
+                                        variant="rounded"
+                                        src="/assets/images/local-transfer.png"
+                                        sx={{color: purple[600]}}/>
+                                </Stack>
+                                <Typography
+                                    align="center"
+                                    variant="body2"
+                                    sx={{
+                                        fontSize: 14, color: grey[600]
+                                    }}>
+                                    Local Transfer
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Link>
                 </Grid>
 
                 <Grid xs={6} md={3} item={true}>
@@ -194,7 +201,7 @@ const TransactionsPage = () => {
                         onClick={() => setPaymentDialogOpen(true)}>
                         <CardContent>
 
-                            <Stack justifyContent="center" direction="row">
+                            <Stack mb={2} justifyContent="center" direction="row">
                                 <Avatar
                                     variant="rounded"
                                     src="/assets/images/payment.png"
@@ -217,7 +224,7 @@ const TransactionsPage = () => {
                         elevation={0}
                         onClick={() => setReceiveMoneyDialogOpen(true)}>
                         <CardContent>
-                            <Stack justifyContent="center" direction="row">
+                            <Stack mb={2} justifyContent="center" direction="row">
                                 <Avatar
                                     src="/assets/images/receive-money.png"
                                     sx={{color: purple[600]}}
@@ -302,25 +309,11 @@ const TransactionsPage = () => {
                     </Table>
                 </TableContainer>
                 <Box sx={{backgroundColor: purple[50]}} py={5}>
-                    <Typography sx={{color: purple[600]}} variant="body2" align="center">
+                    <Typography sx={{color: purple[600]}} variant="body1" align="center">
                         No transactions available
                     </Typography>
                 </Box>
             </Box>)}
-
-            {internationalTransferDialogOpen && (
-                <InternationalTransferDialog
-                    handleClose={() => setInternationalTransferDialogOpen(false)}
-                    open={internationalTransferDialogOpen}
-                />
-            )}
-
-            {localTransferDialogOpen && (
-                <LocalTransferDialog
-                    handleClose={() => setLocalTransferDialogOpen(false)}
-                    open={localTransferDialogOpen}
-                />
-            )}
 
             {paymentDialogOpen && (
                 <MakePaymentDialog

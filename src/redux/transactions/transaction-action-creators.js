@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CONSTANTS} from "../../constants/constants";
+import {CONSTANTS} from "../../utils/constants/constants";
 import {TRANSACTIONS_ACTION_TYPES} from "./transaction-action-types";
 
 const createTransactionRequest = () => {
@@ -28,7 +28,7 @@ const createTransaction = (transaction, token) => {
             dispatch(createTransactionRequest());
             const response = await axios({
                 method: 'POST',
-                url: `${CONSTANTS.SERVER_BASE_URL}/transactions`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/transactions`,
                 data: transaction,
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -70,7 +70,7 @@ const getTransaction = (ID, token) => {
             dispatch(getTransactionRequest());
             const response = await axios({
                 method: 'GET',
-                url: `${CONSTANTS.SERVER_BASE_URL}/transactions/${ID}`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/transactions/${ID}`,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -111,7 +111,7 @@ const getTransactions = token => {
             dispatch(getTransactionsRequest());
             const response = await axios({
                 method: 'GET',
-                url: `${CONSTANTS.SERVER_BASE_URL}/transactions`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/transactions`,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -152,7 +152,7 @@ const updateTransaction = (transaction, ID, token) => {
             dispatch(updateTransactionRequest());
             const response = await axios({
                 method: 'PUT',
-                url: `${CONSTANTS.SERVER_BASE_URL}/transactions/${ID}`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/transactions/${ID}`,
                 data: transaction,
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -194,7 +194,7 @@ const deleteTransaction = (ID, token) => {
             dispatch(deleteTransactionRequest());
             const response = await axios({
                 method: 'DELETE',
-                url: `${CONSTANTS.SERVER_BASE_URL}/transactions/${ID}`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/transactions/${ID}`,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

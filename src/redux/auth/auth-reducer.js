@@ -1,11 +1,7 @@
 import {AUTH_ACTION_TYPES} from "./auth-action-types";
 
 const INITIAL_STATE = {
-    authData: {
-        email: 'dev.stanley.hayford@gmail.com',
-        phoneNumber: '+233270048319',
-        status: 'Active'
-    },
+    authData: {},
     authLoading: false,
     authError: null,
     token: null,
@@ -181,7 +177,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
                 authError: null,
                 authLoading: false,
                 token: action.payload.token,
-                authData: action.payload.data
+                authData: action.payload.data,
+                bankAccount: action.payload.bankAccount
             }
 
         case AUTH_ACTION_TYPES.GET_PROFILE_FAIL:

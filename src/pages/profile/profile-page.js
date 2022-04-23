@@ -5,6 +5,8 @@ import {Call, Contacts, Edit, Mail, Male, Map, Person} from "@mui/icons-material
 import {grey, purple} from "@mui/material/colors";
 import Info from "../../components/shared/info";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {selectAuth} from "../../redux/auth/auth-reducer";
 
 const ProfilePage = () => {
 
@@ -22,10 +24,16 @@ const ProfilePage = () => {
 
     const classes = useStyles();
 
+    const {authData, bankAccount} = useSelector(selectAuth);
+
     return (
         <Layout>
             <Container className={classes.container}>
-                <Grid alignItems="center" justifyContent="space-between" container={true}>
+                <Grid
+                    spacing={2}
+                    alignItems="center"
+                    justifyContent="space-between"
+                    container={true}>
                     <Grid item={true} xs={12} md="auto">
                         <Typography variant="h4">Profile</Typography>
                     </Grid>
@@ -37,7 +45,7 @@ const ProfilePage = () => {
                                     color: purple[600],
                                     backgroundColor: 'white',
                                     borderWidth: 2,
-                                    '&:hover':{
+                                    '&:hover': {
                                         borderWidth: 2,
                                     }
                                 }}
@@ -62,20 +70,20 @@ const ProfilePage = () => {
                                 <Stack mb={2} direction="row" justifyContent="center">
                                     <Avatar
                                         sx={{width: 100, height: 100}}
-                                        src="/assets/images/profile.jpg"
+                                        src={authData?.image}
                                     />
                                 </Stack>
                                 <Typography
                                     mb={1}
                                     variant="body1"
                                     align="center">
-                                    Stanley Hayford
+                                    {`${authData?.firstName} ${authData?.lastName}`}
                                 </Typography>
                                 <Typography
                                     mb={1}
                                     variant="body2"
                                     align="center">
-                                    Active
+                                    {authData?.status}
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -87,7 +95,7 @@ const ProfilePage = () => {
                                     justifyContent="space-between"
                                     alignItems="center">
                                     <Button variant="text" size="small" startIcon={<Person/>}>
-                                        Account Details
+                                        Bank Account Details
                                     </Button>
                                 </Stack>
 
@@ -99,35 +107,35 @@ const ProfilePage = () => {
                                     <Info
                                         icon={<Person sx={{color: grey[600]}}/>}
                                         title="Account holding name"
-                                        value="Stanley Hayford"
+                                        value={`${authData?.firstName} ${authData?.lastName}`}
 
                                     />
                                     <Info
                                         icon={<Person sx={{color: grey[600]}}/>}
                                         title="Account Number"
-                                        value="08511244783"
+                                        value={bankAccount?.number}
 
                                     />
                                     <Info
                                         icon={<Person sx={{color: grey[600]}}/>}
                                         title="Account Usage"
-                                        value="Business"
+                                        value={bankAccount?.usage}
                                     />
                                     <Info
                                         icon={<Person sx={{color: grey[600]}}/>}
                                         title="Account Type"
-                                        value="Savings"
+                                        value={bankAccount?.type}
 
                                     />
                                     <Info
                                         icon={<Person sx={{color: grey[600]}}/>}
                                         title="Balance"
-                                        value="$1,200,000.00"
+                                        value={`$${bankAccount?.balance}`}
                                     />
                                     <Info
                                         icon={<Person sx={{color: grey[600]}}/>}
                                         title="Status"
-                                        value="Active"
+                                        value={bankAccount?.status}
 
                                     />
                                 </Stack>
@@ -160,7 +168,7 @@ const ProfilePage = () => {
                                                 <Info
                                                     icon={<Person sx={{color: grey[600]}}/>}
                                                     title="First Name"
-                                                    value="Stanley"
+                                                    value={authData?.firstName}
 
                                                 />
                                             </Grid>
@@ -168,7 +176,7 @@ const ProfilePage = () => {
                                                 <Info
                                                     icon={<Person sx={{color: grey[600]}}/>}
                                                     title="Surname"
-                                                    value="Hayford"
+                                                    value={authData?.lastName}
 
                                                 />
                                             </Grid>
@@ -176,14 +184,14 @@ const ProfilePage = () => {
                                                 <Info
                                                     icon={<Male sx={{color: grey[600]}}/>}
                                                     title="Gender"
-                                                    value="Male"
+                                                    value={authData?.gender}
                                                 />
                                             </Grid>
                                             <Grid item={true} xs={12} md={6}>
                                                 <Info
                                                     icon={<Person sx={{color: grey[600]}}/>}
                                                     title="Username"
-                                                    value="sahayford"
+                                                    value={authData?.username}
 
                                                 />
                                             </Grid>
@@ -215,7 +223,7 @@ const ProfilePage = () => {
                                                 <Info
                                                     icon={<Mail sx={{color: grey[600]}}/>}
                                                     title="Email"
-                                                    value="dev.stanley.hayford@gmail.com"
+                                                    value={authData?.email}
 
                                                 />
                                             </Grid>
@@ -223,7 +231,7 @@ const ProfilePage = () => {
                                                 <Info
                                                     icon={<Call sx={{color: grey[600]}}/>}
                                                     title="Phone"
-                                                    value="+2332 7004 8319"
+                                                    value={authData?.phoneNumber}
 
                                                 />
                                             </Grid>
@@ -231,14 +239,14 @@ const ProfilePage = () => {
                                                 <Info
                                                     icon={<Call sx={{color: grey[600]}}/>}
                                                     title="Emergency Phone"
-                                                    value="+2335 5518 0048"
+                                                    value={authData?.emergencyPhoneNumber}
                                                 />
                                             </Grid>
                                             <Grid item={true} xs={12} md={6}>
                                                 <Info
                                                     icon={<Person sx={{color: grey[600]}}/>}
-                                                    title="Username"
-                                                    value="sahayford"
+                                                    title="Date of Birth"
+                                                    value={new Date(authData?.dateOfBirth).toDateString()}
 
                                                 />
                                             </Grid>
@@ -270,7 +278,7 @@ const ProfilePage = () => {
                                                 <Info
                                                     icon={<Person sx={{color: grey[600]}}/>}
                                                     title="Country"
-                                                    value="USA"
+                                                    value={authData?.address?.country}
 
                                                 />
                                             </Grid>
@@ -278,7 +286,7 @@ const ProfilePage = () => {
                                                 <Info
                                                     icon={<Person sx={{color: grey[600]}}/>}
                                                     title="State"
-                                                    value="New York"
+                                                    value={authData?.address?.state}
 
                                                 />
                                             </Grid>
@@ -286,16 +294,25 @@ const ProfilePage = () => {
                                                 <Info
                                                     icon={<Person sx={{color: grey[600]}}/>}
                                                     title="City"
-                                                    value="Bronx"
+                                                    value={authData?.address?.city}
                                                 />
                                             </Grid>
                                             <Grid item={true} xs={12} md={6}>
                                                 <Info
                                                     icon={<Person sx={{color: grey[600]}}/>}
-                                                    title="Address"
-                                                    value="468 street"
+                                                    title="Address Line 1"
+                                                    value={authData?.address?.addressLine1}
                                                 />
                                             </Grid>
+                                            {authData?.address?.addressLine2 && (
+                                                <Grid item={true} xs={12} md={6}>
+                                                    <Info
+                                                        icon={<Person sx={{color: grey[600]}}/>}
+                                                        title="Address Line 2"
+                                                        value={authData?.address?.addressLine2}
+                                                    />
+                                                </Grid>
+                                            )}
                                         </Grid>
                                     </CardContent>
                                 </Card>

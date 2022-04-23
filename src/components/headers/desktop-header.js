@@ -5,6 +5,8 @@ import {KeyboardArrowDown, Notifications} from "@mui/icons-material";
 import {useState} from "react";
 import Feint from "../shared/feint";
 import {grey, purple} from "@mui/material/colors";
+import {useSelector} from "react-redux";
+import {selectAuth} from "../../redux/auth/auth-reducer";
 
 const DesktopHeader = () => {
 
@@ -36,6 +38,8 @@ const DesktopHeader = () => {
         setAnchorEl(null);
     }
 
+    const {authData} = useSelector(selectAuth);
+
     return (
         <Toolbar
             variant="regular">
@@ -66,14 +70,14 @@ const DesktopHeader = () => {
 
                                 <Avatar
                                     sx={{backgroundColor: 'primary.main'}}
-                                    src="/assets/images/profile.jpg"
+                                    src={authData?.image}
                                     variant="rounded"
                                 />
 
                                 <Typography
-                                    sx={{fontWeight: 'bold', color: purple[600]}}
-                                    variant="body2">
-                                    {"Stanley Hayford"}
+                                    sx={{color: grey[600]}}
+                                    variant="body1">
+                                    {`${authData?.firstName} ${authData?.lastName}`}
                                 </Typography>
 
                                 <Feint

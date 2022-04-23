@@ -53,6 +53,7 @@ const SettingsPage = () => {
                 </Grid>
 
                 <Divider light={true} sx={{my: 4}}/>
+                
             </Container>
         </Layout>
     )

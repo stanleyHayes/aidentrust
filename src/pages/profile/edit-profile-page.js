@@ -63,6 +63,16 @@ const EditProfilePage = () => {
                             Update Profile
                         </Typography>
                     </Grid>
+                    <Grid item={true} xs={12} md="auto">
+                        <Button
+                            onClick={handleSubmit}
+                            sx={{backgroundColor: 'primary.main', color: 'white'}}
+                            size="large"
+                            fullWidth={true}
+                            variant="outlined">
+                            Update Profile
+                        </Button>
+                    </Grid>
                 </Grid>
 
                 <Divider light={true} variant="fullWidth" sx={{my: 4}}/>
@@ -72,9 +82,9 @@ const EditProfilePage = () => {
                     container={true}
                     justifyContent="flex-start">
                     <Grid item={true} xs={12} md={6}>
-                        <Card elevation={0}>
+                        <Card elevation={1}>
                             <CardContent>
-                                <Stack my={3} spacing={2} direction="column">
+                                <Stack spacing={2} direction="column">
                                     <TextField
                                         label="First Name"
                                         fullWidth={true}
@@ -134,7 +144,14 @@ const EditProfilePage = () => {
                                         placeholder="Enter username"
                                         onChange={handleUserChange}
                                     />
-
+                                </Stack>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item={true} xs={12} md={6}>
+                        <Card elevation={1}>
+                            <CardContent>
+                                <Stack spacing={1} direction="column">
                                     <FormControl fullWidth>
                                         <InputLabel htmlFor="gender-label">Gender</InputLabel>
                                         <Select
@@ -201,15 +218,6 @@ const EditProfilePage = () => {
                                         />
                                     </Box>
                                 </Stack>
-
-                                <Button
-                                    onClick={handleSubmit}
-                                    sx={{backgroundColor: 'primary.main', color: 'white'}}
-                                    size="large"
-                                    fullWidth={true}
-                                    variant="outlined">
-                                    Update Profile
-                                </Button>
                             </CardContent>
                         </Card>
                     </Grid>

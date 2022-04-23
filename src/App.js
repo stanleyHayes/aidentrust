@@ -27,6 +27,8 @@ import ChangePasswordPage from "./pages/profile/change-password-page";
 import EditProfilePage from "./pages/profile/edit-profile-page";
 import ClientSignUpResponse from "./pages/auth/sign-up-page";
 import RequireAuth from "./components/shared/require-auth";
+import LocalTransferPage from "./pages/transactions/local-transfer-page";
+import InternationalTransferPage from "./pages/transactions/international-transfer-page";
 
 function App() {
 
@@ -57,6 +59,9 @@ function App() {
                 <Route element={<PrivacyPage/>} path="/privacy"/>
                 <Route element={<TermsPage/>} path="/terms"/>
                 <Route element={<RequireAuth><ProfilePage/></RequireAuth>} path="/profile"/>
+                <Route element={<RequireAuth><InternationalTransferPage/></RequireAuth>}
+                       path="/transfer/international"/>
+                <Route element={<RequireAuth><LocalTransferPage/></RequireAuth>} path="/transfer/local"/>
                 <Route element={<RequireAuth><NotificationsPage/></RequireAuth>} path="/notifications"/>
                 <Route element={<RequireAuth><SettingsPage/></RequireAuth>} path="/settings"/>
                 <Route element={<RequireAuth><StatementsPage/></RequireAuth>} path="/statements"/>

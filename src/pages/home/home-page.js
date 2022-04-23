@@ -30,8 +30,6 @@ import {selectTransaction} from "../../redux/transactions/transaction-reducer";
 import TransactionItem from "../../components/shared/transaction-item";
 import {selectDashboard} from "../../redux/dashboard/dashboard-reducer";
 import {Alert, AlertTitle} from "@mui/lab";
-import InternationalTransferDialog from "../../components/dialogs/new/international-transfer-dialog";
-import LocalTransferDialog from "../../components/dialogs/new/local-transfer-dialog";
 import MakePaymentDialog from "../../components/dialogs/new/make-payment-dialog";
 import ReceiveMoneyDialog from "../../components/dialogs/new/receive-money-dialog";
 import {useState} from "react";
@@ -39,8 +37,6 @@ import {selectAuth} from "../../redux/auth/auth-reducer";
 
 const HomePage = () => {
 
-    const [internationalTransferDialogOpen, setInternationalTransferDialogOpen] = useState(false);
-    const [localTransferDialogOpen, setLocalTransferDialogOpen] = useState(false);
     const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
     const [receiveMoneyDialogOpen, setReceiveMoneyDialogOpen] = useState(false);
 
@@ -266,57 +262,58 @@ const HomePage = () => {
 
                         <Grid container={true} spacing={2}>
                             <Grid xs={6} item={true}>
-                                <Card
-                                    elevation={0}
-                                    sx={{cursor: 'pointer', height: '100%'}}
-                                    onClick={() => setInternationalTransferDialogOpen(true)}>
-                                    <CardContent>
-                                        <Stack
-                                            mb={2}
-                                            justifyContent="center"
-                                            direction="row">
-                                            <Avatar
-                                                variant="rounded"
-                                                src="/assets/images/international-transfer.png"
-                                                sx={{color: purple[600]}}/>
-                                        </Stack>
-                                        <Typography
-                                            align="center"
-                                            variant="body2"
-                                            sx={{
-                                                fontSize: 14,
-                                                color: grey[600]
-                                            }}>
-                                            International Transfer
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
+                                <Link style={{textDecoration: 'none'}} to="/transfer/international">
+                                    <Card
+                                        elevation={0}
+                                        sx={{cursor: 'pointer', height: '100%'}}>
+                                        <CardContent>
+                                            <Stack
+                                                mb={2}
+                                                justifyContent="center"
+                                                direction="row">
+                                                <Avatar
+                                                    variant="rounded"
+                                                    src="/assets/images/international-transfer.png"
+                                                    sx={{color: purple[600]}}/>
+                                            </Stack>
+                                            <Typography
+                                                align="center"
+                                                variant="body2"
+                                                sx={{
+                                                    fontSize: 14,
+                                                    color: grey[600]
+                                                }}>
+                                                International Transfer
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Link>
                             </Grid>
                             <Grid xs={6} item={true}>
-                                <Card
-                                    sx={{cursor: 'pointer', height: '100%'}}
-                                    onClick={() => setLocalTransferDialogOpen(true)}
-                                    elevation={0}>
-                                    <CardContent>
-                                        <Stack mb={2} justifyContent="center" direction="row">
-                                            <Avatar
-                                                variant="rounded"
-                                                src="/assets/images/local-transfer.png"
-                                                sx={{color: purple[600]}}/>
-                                        </Stack>
-                                        <Typography
-                                            align="center"
-                                            variant="body2"
-                                            sx={{
-                                                fontSize: 14,
-                                                color: grey[600]
-                                            }}>
-                                            Local Transfer
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
+                                <Link style={{textDecoration: 'none'}} to="/transfer/local">
+                                    <Card
+                                        sx={{cursor: 'pointer', height: '100%'}}
+                                        elevation={0}>
+                                        <CardContent>
+                                            <Stack mb={2} justifyContent="center" direction="row">
+                                                <Avatar
+                                                    variant="rounded"
+                                                    src="/assets/images/local-transfer.png"
+                                                    sx={{color: purple[600]}}/>
+                                            </Stack>
+                                            <Typography
+                                                align="center"
+                                                variant="body2"
+                                                sx={{
+                                                    fontSize: 14,
+                                                    color: grey[600]
+                                                }}>
+                                                Local Transfer
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Link>
                             </Grid>
-
                             <Grid xs={6} item={true}>
                                 <Card
                                     sx={{cursor: 'pointer', height: '100%'}}
@@ -368,20 +365,6 @@ const HomePage = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-
-                {internationalTransferDialogOpen && (
-                    <InternationalTransferDialog
-                        handleClose={() => setInternationalTransferDialogOpen(false)}
-                        open={internationalTransferDialogOpen}
-                    />
-                )}
-
-                {localTransferDialogOpen && (
-                    <LocalTransferDialog
-                        handleClose={() => setLocalTransferDialogOpen(false)}
-                        open={localTransferDialogOpen}
-                    />
-                )}
 
                 {paymentDialogOpen && (
                     <MakePaymentDialog

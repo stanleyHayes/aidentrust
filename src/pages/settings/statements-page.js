@@ -212,7 +212,7 @@ const StatementsPage = () => {
                     </Table>
                 </TableContainer>
                 <Box sx={{backgroundColor: purple[50]}} py={5}>
-                    <Typography sx={{color: purple[600]}} variant="body2" align="center">
+                    <Typography sx={{color: purple[600]}} variant="body1" align="center">
                         No transactions available
                     </Typography>
                 </Box>

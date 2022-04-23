@@ -23,18 +23,17 @@ const SidebarLink = ({active, path, label, icon}) => {
                 borderRightColor: active ? "primary.main" : 'none',
                 backgroundColor: active ? purple[50] : 'none',
                 color: active ? purple[600] : grey[600],
-                fontWeight: active ? 'bolder' : 'normal',
                 borderRadius: 0,
                 justifyContent: 'flex-start',
                 textTransform: 'capitalize',
-                fontSize: 14,
+                fontSize: 16,
                 paddingLeft: 4,
                 paddingTop: 2,
                 paddingBottom: 2,
             }}
             startIcon={icon}
             variant="text"
-            size="medium"
+            size="large"
             fullWidth={true}
             onClick={handleClick}>
             {label}

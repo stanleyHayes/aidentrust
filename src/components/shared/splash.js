@@ -5,10 +5,10 @@ const Splash = () => {
 
     return (
         <React.Fragment>
-            <LinearProgress color="secondary" variant="query"/>
+            <LinearProgress color="primary" variant="query"/>
             <Box
                 sx={{
-                    backgroundColor: 'background.default',
+                    backgroundColor: 'background.paper',
                     height: '100vh',
                     maxHeight: '100vh',
                     justifyContent: 'center',
@@ -16,8 +16,8 @@ const Splash = () => {
                     display: 'flex'
                 }}>
                 <Container>
-                    <Typography color="secondary" mb={4} gutterBottom={true} align="center" variant="h4">
-                        Birth Registry
+                    <Typography color="primary" mb={4} gutterBottom={true} align="center" variant="h4">
+                        Aiden Trust
                     </Typography>
                     <Typography mb={2} gutterBottom={true} align="center" variant="h6">
                         Setting up account
@@ -26,7 +26,7 @@ const Splash = () => {
                         Please wait...
                     </Typography>
                     <Stack direction="row" justifyContent="center">
-                        <CircularProgress color="secondary"/>
+                        <CircularProgress color="primary"/>
                     </Stack>
                 </Container>
             </Box>

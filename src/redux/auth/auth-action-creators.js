@@ -70,13 +70,13 @@ const forgotPassword = user => {
             dispatch(forgotPasswordRequest());
             const response = await axios({
                 method: 'POST',
-                url: `${CONSTANTS.URL_BASE_SERVER}/auth/forgot-password`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/auth/password/forgot`,
                 data: user
             });
             const {data, message} = response.data;
             dispatch(forgotPasswordSuccess(data, message));
         } catch (e) {
-            const {message} = e.response.data.error;
+            const {message} = e.response.data;
             dispatch(forgotPasswordFail(message));
         }
     }
@@ -109,7 +109,7 @@ const resetPassword = user => {
             dispatch(resetPasswordRequest());
             const response = await axios({
                 method: 'POST',
-                url: `${CONSTANTS.URL_BASE_SERVER}/auth/reset-password`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/auth/password/reset`,
                 data: user
             });
             const {data, message} = response.data;
@@ -148,13 +148,13 @@ const changePassword = user => {
             dispatch(changePasswordRequest());
             const response = await axios({
                 method: 'POST',
-                url: `${CONSTANTS.URL_BASE_SERVER}/auth/change-password`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/auth/password/change`,
                 data: user
             });
             const {data, message} = response.data;
             dispatch(changePasswordSuccess(data, message));
         } catch (e) {
-            const {message} = e.response.data.error;
+            const {message} = e.response.data;
             dispatch(changePasswordFail(message));
         }
     }
@@ -186,14 +186,14 @@ const updateProfile = user => {
         try {
             dispatch(updateProfileRequest());
             const response = await axios({
-                method: 'POST',
-                url: `${CONSTANTS.URL_BASE_SERVER}/auth/update-password`,
+                method: 'PUT',
+                url: `${CONSTANTS.URL_BASE_SERVER}/auth/password/update`,
                 data: user
             });
             const {data, message} = response.data;
             dispatch(updateProfileSuccess(data, message));
         } catch (e) {
-            const {message} = e.response.data.error;
+            const {message} = e.response.data;
             dispatch(updateProfileFail(message));
         }
     }
@@ -232,7 +232,7 @@ const logout = user => {
             const {data, message} = response.data;
             dispatch(logoutSuccess(data, message));
         } catch (e) {
-            const {message} = e.response.data.error;
+            const {message} = e.response.data;
             dispatch(logoutFail(message));
         }
     }
@@ -245,10 +245,10 @@ const getProfileRequest = () => {
     }
 }
 
-const getProfileSuccess = (data, token) => {
+const getProfileSuccess = (data, token, bankAccount) => {
     return {
         type: AUTH_ACTION_TYPES.GET_PROFILE_SUCCESS,
-        payload: {data, token}
+        payload: {data, token, bankAccount}
     }
 }
 
@@ -270,10 +270,11 @@ const getProfile = (token) => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            const {data, message} = response.data;
-            dispatch(getProfileSuccess(data, message));
+            const {data, bankAccount} = response.data;
+            dispatch(getProfileSuccess(data, token, bankAccount));
         } catch (e) {
-            const {message} = e.response.data.error;
+            console.log(e.message)
+            const {message} = e.response.data;
             dispatch(getProfileFail(message));
         }
     }
@@ -300,19 +301,19 @@ const verifyAccountFail = message => {
     }
 }
 
-const verifyAccount = user => {
+const verifyAccount = (user, token) => {
     return async dispatch => {
         try {
             dispatch(verifyAccountRequest());
             const response = await axios({
-                method: 'POST',
-                url: `${CONSTANTS.URL_BASE_SERVER}/auth/login`,
+                method: 'PUT',
+                url: `${CONSTANTS.URL_BASE_SERVER}/auth/profile/verify/${token}`,
                 data: user
             });
             const {data, message} = response.data;
             dispatch(verifyAccountSuccess(data, message));
         } catch (e) {
-            const {message} = e.response.data.error;
+            const {message} = e.response.data;
             dispatch(verifyAccountFail(message));
         }
     }
