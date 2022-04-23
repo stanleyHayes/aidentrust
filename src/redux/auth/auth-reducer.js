@@ -9,7 +9,8 @@ const INITIAL_STATE = {
     accountInfo: {},
     paymentInfo: {},
     bankAccountInfo: {},
-    personalInfo: {}
+    personalInfo: {},
+    message: null
 }
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -93,7 +94,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 authError: null,
-                authLoading: true
+                authLoading: true,
+                message: null
             }
 
         case AUTH_ACTION_TYPES.CHANGE_PASSWORD_SUCCESS:
@@ -101,8 +103,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 authError: null,
                 authLoading: false,
-                token: action.payload.token,
-                authData: action.payload.data
+                message: action.payload
             }
 
         case AUTH_ACTION_TYPES.CHANGE_PASSWORD_FAIL:
@@ -110,7 +111,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 authError: action.payload,
                 authLoading: false,
-                authData: null
+                authData: null,
+                message: null
             }
 
 
@@ -126,7 +128,6 @@ const authReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 authError: null,
                 authLoading: false,
-                token: action.payload.token,
                 authData: action.payload.data
             }
 
@@ -135,7 +136,6 @@ const authReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 authError: action.payload,
                 authLoading: false,
-                authData: null
             }
 
 

@@ -17,13 +17,13 @@ const Info = ({title, value, icon}) => {
                     <Stack direction="column">
                         <Typography
                             mb={1}
-                            sx={{color: grey[400], fontSize: 10}}
+                            sx={{color: grey[400], fontSize: 12}}
                             variant="body2">
                             {title}
                         </Typography>
 
                         <Typography
-                            sx={{color: grey[600], fontSize: 12}}
+                            sx={{color: grey[600], fontSize: 14}}
                             variant="body2">
                             {value}
                         </Typography>

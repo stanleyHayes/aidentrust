@@ -20,10 +20,11 @@ import {
 import {useState} from "react";
 import {Save, Visibility, VisibilityOff} from "@mui/icons-material";
 import validator from "validator";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectAuth} from "../../redux/auth/auth-reducer";
 import {LoadingButton} from "@mui/lab";
 import Layout from "../../components/layout/layout";
+import {AUTH_ACTION_CREATORS} from "../../redux/auth/auth-action-creators";
 
 const ChangePasswordPage = () => {
 
@@ -34,11 +35,13 @@ const ChangePasswordPage = () => {
     const {confirmPassword, password, currentPassword} = passwords;
     const [error, setError] = useState({});
 
-    const {authLoading, authError} = useSelector(selectAuth);
+    const {authLoading, authError, token, message} = useSelector(selectAuth);
 
     const handleChange = event => {
         setPasswords({...passwords, [event.target.name]: event.target.value});
     }
+
+    const dispatch = useDispatch();
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -77,7 +80,7 @@ const ChangePasswordPage = () => {
         } else {
             setError({error, confirmPassword: null, password: null});
         }
-        console.log(password);
+        dispatch(AUTH_ACTION_CREATORS.changePassword(passwords, token));
     }
 
 
@@ -137,6 +140,19 @@ const ChangePasswordPage = () => {
                             {authError && (<Alert sx={{my: 3}} severity="error" color="error" variant="standard">
                                 <AlertTitle>{authError}</AlertTitle>
                             </Alert>)}
+                            {message && (<Alert sx={{my: 3}} severity="success" color="success" variant="standard">
+                                <AlertTitle>{message}</AlertTitle>
+                            </Alert>)}
+                            {error.currentPassword && (<Alert sx={{my: 3}} severity="error" color="error" variant="standard">
+                                <AlertTitle>{error.currentPassword}</AlertTitle>
+                            </Alert>)}
+                            {error.password && (<Alert sx={{my: 3}} severity="error" color="error" variant="standard">
+                                <AlertTitle>{error.password }</AlertTitle>
+                            </Alert>)}
+
+                            {error.confirmPassword && (<Alert sx={{my: 3}} severity="error" color="error" variant="standard">
+                                <AlertTitle>{error.confirmPassword}</AlertTitle>
+                            </Alert>)}
                             <Stack my={3} spacing={2} direction="column">
                                 <FormControl variant="outlined">
                                     <InputLabel htmlFor="currentPassword">Current Password</InputLabel>
@@ -144,14 +160,14 @@ const ChangePasswordPage = () => {
                                         id="currentPassword"
                                         label="Current Password"
                                         fullWidth={true}
-                                        name="confirmPassword"
+                                        name="currentPassword"
                                         required={true}
                                         variant="outlined"
                                         size="medium"
                                         placeholder="Enter current password"
                                         error={Boolean(error.currentPassword)}
                                         helperText={error.currentPassword}
-                                        type={visiblePassword ? 'text' : 'password'}
+                                        type={currentVisiblePassword ? 'text' : 'password'}
                                         value={currentPassword}
                                         onChange={handleChange}
                                         endAdornment={<InputAdornment position="end">
@@ -159,8 +175,7 @@ const ChangePasswordPage = () => {
                                                 aria-label="toggle password visibility"
                                                 onClick={() => setCurrentVisiblePassword(!currentVisiblePassword)}
                                                 onMouseDown={() => setCurrentVisiblePassword(!currentVisiblePassword)}
-                                                edge="end"
-                                            >
+                                                edge="end">
                                                 {currentVisiblePassword ? <VisibilityOff/> : <Visibility/>}
                                             </IconButton>
                                         </InputAdornment>}
@@ -188,8 +203,7 @@ const ChangePasswordPage = () => {
                                                 aria-label="toggle password visibility"
                                                 onClick={() => setVisiblePassword(!visiblePassword)}
                                                 onMouseDown={() => setVisiblePassword(!visiblePassword)}
-                                                edge="end"
-                                            >
+                                                edge="end">
                                                 {visiblePassword ? <VisibilityOff/> : <Visibility/>}
                                             </IconButton>
                                         </InputAdornment>}

@@ -128,10 +128,10 @@ const changePasswordRequest = () => {
     }
 }
 
-const changePasswordSuccess = (data, token) => {
+const changePasswordSuccess = (message) => {
     return {
         type: AUTH_ACTION_TYPES.CHANGE_PASSWORD_SUCCESS,
-        payload: {data, token}
+        payload: message
     }
 }
 
@@ -142,19 +142,23 @@ const changePasswordFail = message => {
     }
 }
 
-const changePassword = user => {
+const changePassword = (user, token) => {
     return async dispatch => {
         try {
             dispatch(changePasswordRequest());
             const response = await axios({
-                method: 'POST',
+                method: 'PUT',
                 url: `${CONSTANTS.URL_BASE_SERVER}/auth/password/change`,
-                data: user
+                data: user,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
-            const {data, message} = response.data;
-            dispatch(changePasswordSuccess(data, message));
+            const {message} = response.data;
+            dispatch(changePasswordSuccess(message));
         } catch (e) {
             const {message} = e.response.data;
+            console.log(message)
             dispatch(changePasswordFail(message));
         }
     }
@@ -181,17 +185,21 @@ const updateProfileFail = message => {
     }
 }
 
-const updateProfile = user => {
+const updateProfile = (user, token, navigate) => {
     return async dispatch => {
         try {
             dispatch(updateProfileRequest());
             const response = await axios({
                 method: 'PUT',
-                url: `${CONSTANTS.URL_BASE_SERVER}/auth/password/update`,
-                data: user
+                url: `${CONSTANTS.URL_BASE_SERVER}/auth/profile`,
+                data: user,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
             const {data, message} = response.data;
             dispatch(updateProfileSuccess(data, message));
+            navigate('/profile')
         } catch (e) {
             const {message} = e.response.data;
             dispatch(updateProfileFail(message));
