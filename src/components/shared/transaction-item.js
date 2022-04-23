@@ -3,14 +3,23 @@ import {green, grey, purple} from "@mui/material/colors";
 import moment from "moment";
 
 const TransactionItem = ({transaction}) => {
-    const renderVariant = variant => {
-        switch (variant) {
-            case 'transfer':
+    const renderVariant = type => {
+        switch (type) {
+            case 'international':
                 return (
                     <Avatar variant="circular" sx={{backgroundColor: grey[100]}}>
                         <Typography
                             sx={{color: grey[600]}}
-                            variant="h6">{variant[0].toUpperCase()}
+                            variant="h6">{type[0].toUpperCase()}
+                        </Typography>
+                    </Avatar>
+                )
+            case 'local':
+                return (
+                    <Avatar variant="circular" sx={{backgroundColor: grey[100]}}>
+                        <Typography
+                            sx={{color: grey[600]}}
+                            variant="h6">{type[0].toUpperCase()}
                         </Typography>
                     </Avatar>
                 )
@@ -20,7 +29,7 @@ const TransactionItem = ({transaction}) => {
                     <Avatar variant="circular" sx={{backgroundColor: green[100]}}>
                         <Typography
                             sx={{color: green[600]}}
-                            variant="h6">{variant[0].toUpperCase()}
+                            variant="h6">{type[0].toUpperCase()}
                         </Typography>
                     </Avatar>
                 )
@@ -30,7 +39,7 @@ const TransactionItem = ({transaction}) => {
                     <Avatar variant="circular" sx={{backgroundColor: purple[100]}}>
                         <Typography
                             sx={{color: purple[600]}}
-                            variant="h6">{variant[0].toUpperCase()}
+                            variant="h6">{type[0].toUpperCase()}
                         </Typography>
                     </Avatar>
                 )
@@ -39,7 +48,7 @@ const TransactionItem = ({transaction}) => {
                     <Avatar variant="circular" sx={{backgroundColor: grey[100]}}>
                         <Typography
                             sx={{color: grey[600]}}
-                            variant="h6">{variant[0].toUpperCase()}
+                            variant="h6">{type[0].toUpperCase()}
                         </Typography>
                     </Avatar>
                 )
@@ -47,26 +56,26 @@ const TransactionItem = ({transaction}) => {
     }
     return (
         <CardHeader
-            avatar={renderVariant(transaction.variant)}
+            avatar={renderVariant(transaction.type)}
             subheader={
                 <Typography
                     variant="body2"
-                    sx={{color: grey[500], fontSize: 10}}>
-                    {transaction.variant}
+                    sx={{color: grey[500], fontSize: 12}}>
+                    {transaction.type}
                 </Typography>}
             title={
             <Grid container={true} justifyContent="space-between" alignItems="center">
                 <Grid item={true}>
                     <Typography
                         variant="body2"
-                        sx={{color: grey[600], fontSize: 12}}>
+                        sx={{color: grey[600], fontSize: 14}}>
                         ${transaction.amount}
                     </Typography>
                 </Grid>
                 <Grid item={true}>
                     <Typography
                         variant="body2"
-                        sx={{color: grey[500], fontSize: 10}}>
+                        sx={{color: grey[500], fontSize: 12}}>
                         {moment(transaction.updatedAt).fromNow()}
                     </Typography>
                 </Grid>

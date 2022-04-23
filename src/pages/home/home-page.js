@@ -357,7 +357,7 @@ const HomePage = () => {
                                                 fontSize: 14,
                                                 color: grey[600]
                                             }}>
-                                            Receive Money
+                                            Deposit Money
                                         </Typography>
                                     </CardContent>
                                 </Card>
