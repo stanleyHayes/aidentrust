@@ -16,14 +16,7 @@ import {makeStyles} from "@mui/styles";
 import Stat from "../../components/shared/stat";
 import {Link} from "react-router-dom";
 import Feint from "../../components/shared/feint";
-import {
-    Call,
-    Mail, MonetizationOn,
-    MoreHoriz,
-    Paid,
-    ShoppingCartCheckout,
-    VerifiedUser
-} from "@mui/icons-material";
+import {Call, Mail, MonetizationOn, MoreHoriz, Paid, ShoppingCartCheckout, VerifiedUser} from "@mui/icons-material";
 import {green, grey, purple, red} from "@mui/material/colors";
 import {useSelector} from "react-redux";
 import {selectTransaction} from "../../redux/transactions/transaction-reducer";
@@ -78,8 +71,9 @@ const HomePage = () => {
 
     return (
         <Layout>
-            <Container className={classes.container}>
-                {dashboardLoading && <LinearProgress color="secondary" variant="query"/>}
+            <Box sx={{pt: 8.3}}>
+            {dashboardLoading && <LinearProgress color="primary" variant="query"/>}
+            <Container sx={{py: 12}}>
                 {dashboardError && (<Alert severity="error" variant="standard">
                     <AlertTitle>Error</AlertTitle>
                     <Typography variant="h6" align="center">
@@ -380,6 +374,7 @@ const HomePage = () => {
                     />
                 )}
             </Container>
+            </Box>
         </Layout>
     )
 }

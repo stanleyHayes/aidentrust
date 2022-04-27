@@ -33,7 +33,6 @@ const Layout = ({children}) => {
                         flexGrow: 1,
                         backgroundColor: "background.default",
                         maxWidth: '100%',
-                        paddingTop: 12,
                         paddingBottom: 12,
                         maxHeight: '100vh',
                         overflowY: 'scroll',

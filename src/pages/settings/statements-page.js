@@ -15,7 +15,7 @@ import {
     TableRow,
     TextField,
     Typography,
-    Alert, AlertTitle,
+    Alert, AlertTitle, Tooltip,
 } from "@mui/material";
 import {useState} from "react";
 import {Download, Visibility} from "@mui/icons-material";
@@ -25,6 +25,7 @@ import {selectTransaction} from "../../redux/transactions/transaction-reducer";
 import {makeStyles} from "@mui/styles";
 import { DatePicker} from "@mui/lab";
 import moment from "moment";
+import {useNavigate} from "react-router";
 
 const StatementsPage = () => {
 
@@ -42,32 +43,36 @@ const StatementsPage = () => {
     });
 
     const classes = useStyles();
+    const navigate = useNavigate();
 
     const renderStatus = status => {
         switch (status) {
-            case 'pending':
+            case 'Pending':
                 return (<Button
                     disableElevation={true}
                     sx={{backgroundColor: grey[400], color: 'white', textTransform: 'capitalize'}}
                     size="small"
                     variant="contained">{status}</Button>)
-            case 'success':
+            case 'Success':
                 return (<Button
+                    fullWidth={true}
                     disableElevation={true}
-                    sx={{backgroundColor: green[400], color: 'white', textTransform: 'capitalize'}}
+                    sx={{backgroundColor: green[600], color: 'white', textTransform: 'capitalize'}}
                     size="small"
                     variant="contained">{status}</Button>);
-            case 'failed':
+            case 'Failed':
                 return (<Button
+                    fullWidth={true}
                     disableElevation={true}
                     size="small"
-                    sx={{backgroundColor: red[400], color: 'white', textTransform: 'capitalize'}}
+                    sx={{backgroundColor: red[600], color: 'white', textTransform: 'capitalize'}}
                     variant="contained">{status}</Button>);
             default:
                 return (<Button
+                    fullWidth={true}
                     disableElevation={true}
                     size="small"
-                    sx={{backgroundColor: grey[400], color: 'white', textTransform: 'capitalize'}}
+                    sx={{backgroundColor: grey[600], color: 'white', textTransform: 'capitalize'}}
                     variant="contained">{status}</Button>);
         }
     }
@@ -77,7 +82,7 @@ const StatementsPage = () => {
         <Container className={classes.container}>
             {transactionError && (<Alert severity="error" variant="standard">
                 <AlertTitle>Error</AlertTitle>
-                <Typography variant="h6" align="center">
+                <Typography variant="h6">
                     {transactionError}
                 </Typography>
             </Alert>)}
@@ -153,13 +158,13 @@ const StatementsPage = () => {
                     <Table size="small" aria-label="transactions table">
                         <TableHead>
                             <TableRow>
-                                <TableCell align="center">#</TableCell>
-                                <TableCell align="center">ID</TableCell>
-                                <TableCell align="center">Type</TableCell>
-                                <TableCell align="center">Amount</TableCell>
-                                <TableCell align="center">Status</TableCell>
-                                <TableCell align="center">Date</TableCell>
-                                <TableCell align="center">Actions</TableCell>
+                                <TableCell>#</TableCell>
+                                <TableCell>ID</TableCell>
+                                <TableCell>Type</TableCell>
+                                <TableCell>Amount</TableCell>
+                                <TableCell>Status</TableCell>
+                                <TableCell>Date</TableCell>
+                                <TableCell>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -167,25 +172,35 @@ const StatementsPage = () => {
                                 return (<TableRow
                                     hover={true}
                                     key={index}>
-                                    <TableCell align="center">{index + 1}</TableCell>
-                                    <TableCell align="center">{transaction._id}</TableCell>
-                                    <TableCell align="center">{transaction.variant}</TableCell>
-                                    <TableCell align="center">${transaction.amount}</TableCell>
-                                    <TableCell align="center">{renderStatus(transaction.status)}</TableCell>
-                                    <TableCell align="center">
+                                    <TableCell>{index + 1}</TableCell>
+                                    <TableCell>{transaction._id}</TableCell>
+                                    <TableCell>{transaction.type}</TableCell>
+                                    <TableCell>${transaction.amount}</TableCell>
+                                    <TableCell>{renderStatus(transaction.status)}</TableCell>
+                                    <TableCell>
                                         {moment(transaction.updatedAt).fromNow()}
                                     </TableCell>
                                     <TableCell>
                                         <Grid
                                             container={true}
-                                            justifyContent="center"
+                                            justifyContent="flex-start"
                                             alignItems="center"
                                             spacing={1}>
                                             <Grid item={true}>
-                                                <Visibility
-                                                    fontSize="small"
-                                                    color="primary"
-                                                />
+                                                <Tooltip title={`View transaction detail`}>
+                                                    <Visibility
+                                                        onClick={() => navigate(`/transactions/${transaction._id}`)}
+                                                        sx={{
+                                                            cursor: 'pointer',
+                                                            backgroundColor: purple[100],
+                                                            borderRadius: 0.4,
+                                                            padding: 0.5,
+                                                            fontSize: 28
+                                                        }}
+                                                        fontSize="small"
+                                                        color="primary"
+                                                    />
+                                                </Tooltip>
                                             </Grid>
                                         </Grid>
                                     </TableCell>
@@ -200,19 +215,19 @@ const StatementsPage = () => {
                     <Table size="medium" sx={{minWidth: 650}} aria-label="transactions table">
                         <TableHead>
                             <TableRow>
-                                <TableCell align="center">#</TableCell>
-                                <TableCell align="center">ID</TableCell>
-                                <TableCell align="center">Type</TableCell>
-                                <TableCell align="center">Amount</TableCell>
-                                <TableCell align="center">Status</TableCell>
-                                <TableCell align="center">Date</TableCell>
-                                <TableCell align="center">Actions</TableCell>
+                                <TableCell>#</TableCell>
+                                <TableCell>ID</TableCell>
+                                <TableCell>Type</TableCell>
+                                <TableCell>Amount</TableCell>
+                                <TableCell>Status</TableCell>
+                                <TableCell>Date</TableCell>
+                                <TableCell>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                     </Table>
                 </TableContainer>
                 <Box sx={{backgroundColor: purple[50]}} py={5}>
-                    <Typography sx={{color: purple[600]}} variant="body1" align="center">
+                    <Typography sx={{color: purple[600]}} variant="body1">
                         No transactions available
                     </Typography>
                 </Box>

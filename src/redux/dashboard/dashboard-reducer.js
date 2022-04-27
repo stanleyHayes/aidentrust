@@ -2,7 +2,7 @@ import {dashboard} from "./dashboard-data";
 
 const INITIAL_STATE = {
     dashboard: {...dashboard},
-    dashboardLoading: false,
+    dashboardLoading: true,
     dashboardError: false,
 }
 const dashboardReducer = (state = INITIAL_STATE, action) => {

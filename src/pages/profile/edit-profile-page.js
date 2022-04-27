@@ -158,11 +158,10 @@ const EditProfilePage = () => {
         }, token, navigate));
     }
 
-    console.log(gender)
-
     return (
         <Layout>
-            <Container>
+            <Box sx={{pt: 8.3}}>
+            <Container sx={{py: 8}}>
                 <Grid
                     container={true}
                     alignItems="center"
@@ -415,6 +414,7 @@ const EditProfilePage = () => {
                     </Grid>
                 </Grid>
             </Container>
+            </Box>
         </Layout>
     )
 }

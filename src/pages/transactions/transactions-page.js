@@ -26,7 +26,6 @@ import {Visibility} from "@mui/icons-material";
 import {green, grey, purple, red} from "@mui/material/colors";
 import {useDispatch, useSelector} from "react-redux";
 import {selectTransaction} from "../../redux/transactions/transaction-reducer";
-import {makeStyles} from "@mui/styles";
 import {Alert, AlertTitle} from "@mui/lab";
 import moment from "moment";
 import MakePaymentDialog from "../../components/dialogs/new/make-payment-dialog";
@@ -34,6 +33,7 @@ import DepositDialog from "../../components/dialogs/new/receive-money-dialog";
 import {Link} from "react-router-dom";
 import {TRANSACTION_ACTION_CREATORS} from "../../redux/transactions/transaction-action-creators";
 import {selectAuth} from "../../redux/auth/auth-reducer";
+import {useNavigate} from "react-router";
 
 const TransactionsPage = () => {
 
@@ -43,16 +43,9 @@ const TransactionsPage = () => {
 
     const {transactions, transactionError, transactionLoading} = useSelector(selectTransaction);
 
-    const useStyles = makeStyles(theme => {
-        return {
-            container: {
-                marginTop: 16, marginBottom: 16
-            }
-        }
-    });
-
-    const classes = useStyles();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const {token} = useSelector(selectAuth);
 
     const renderStatus = status => {
@@ -86,12 +79,13 @@ const TransactionsPage = () => {
 
     useEffect(() => {
         dispatch(TRANSACTION_ACTION_CREATORS.getTransactions(token));
-    }, [dispatch, token]);
+    }, []);
 
     return (
         <Layout>
+            <Box sx={{pt: 8.3}}>
             {transactionLoading && <LinearProgress color="primary" variant="query"/>}
-            <Container className={classes.container}>
+            <Container sx={{py: 12}}>
                 {transactionError && (<Alert severity="error" variant="standard">
                     <AlertTitle>Error</AlertTitle>
                     <Typography variant="h6" align="center">
@@ -146,7 +140,6 @@ const TransactionsPage = () => {
 
                 <Divider light={true} variant="fullWidth" sx={{my: 4}}/>
                 <Grid container={true} spacing={2}>
-
                     <Grid xs={6} md={3} item={true}>
                         <Link style={{textDecoration: 'none'}} to="/transfer/international">
                             <Card
@@ -277,13 +270,15 @@ const TransactionsPage = () => {
                                     <TableCell>
                                         <Grid
                                             container={true}
-                                            justifyContent="center"
+                                            justifyContent="flex-start"
                                             alignItems="center"
                                             spacing={1}>
                                             <Grid item={true}>
                                                 <Tooltip title={`View transaction detail`}>
                                                     <Visibility
+                                                        onClick={() => navigate(`/transactions/${transaction._id}`)}
                                                         sx={{
+                                                            cursor: 'pointer',
                                                             backgroundColor: purple[100],
                                                             borderRadius: 0.4,
                                                             padding: 0.5,
@@ -339,6 +334,7 @@ const TransactionsPage = () => {
                     />
                 )}
             </Container>
+            </Box>
         </Layout>)
 }
 
