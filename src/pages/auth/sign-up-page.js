@@ -4,7 +4,6 @@ import {
 import React from "react";
 import {useSelector} from "react-redux";
 import {useLocation, useParams} from "react-router";
-import {selectAuth} from "../../redux/auth/auth-reducer";
 import PersonalInfoForm from "../../components/shared/personal-info-form";
 import BankAccountInfoForm from "../../components/shared/bank-account-info-form";
 import PaymentInfoForm from "../../components/shared/payment-info-form";
@@ -16,10 +15,11 @@ import SignUpInstructions from "../../components/shared/sign-up-instructions";
 import Welcome from "../../components/shared/welcome";
 import AddressInfoForm from "../../components/shared/address-info-form";
 import queryString from "query-string";
+import {selectRequest} from "../../redux/requests/request-reducer";
 
 const ClientSignUpResponse = () => {
 
-    const {page} = useSelector(selectAuth);
+    const {page} = useSelector(selectRequest);
 
     const {requestID, code} = useParams();
     const {search} = useLocation();

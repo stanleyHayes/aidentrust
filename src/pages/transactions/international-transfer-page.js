@@ -17,17 +17,21 @@ import {
 } from "@mui/material";
 import {Paid, Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Layout from "../../components/layout/layout";
 import {purple} from "@mui/material/colors";
 import {selectTransaction} from "../../redux/statements/statement-reducer";
 import ConfirmDialog from "../../components/dialogs/confirm/confirm-dialog";
+import {TRANSACTION_ACTION_CREATORS} from "../../redux/transactions/transaction-action-creators";
+import {selectAuth} from "../../redux/auth/auth-reducer";
 
 const InternationalTransferPage = () => {
 
-    const [transfer, setTransfer] = useState({});
+    const [transaction, setTransfer] = useState({});
     const [visiblePassword, setVisiblePassword] = useState(false);
     const [error, setError] = useState({});
+
+    const {token} = useSelector(selectAuth);
 
     const {
         number,
@@ -36,11 +40,13 @@ const InternationalTransferPage = () => {
         swiftCode,
         addressLine1,
         addressLine2, city, country, state, name, password
-    } = transfer;
+    } = transaction;
 
     const handleChange = event => {
-        setTransfer({...transfer, [event.target.name]: event.target.name});
+        setTransfer({...transaction, [event.target.name]: event.target.name});
     }
+
+    const dispatch = useDispatch();
 
 
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
@@ -108,9 +114,11 @@ const InternationalTransferPage = () => {
         } else {
             setError({error, password: null});
         }
+
+        dispatch(TRANSACTION_ACTION_CREATORS.createTransaction(transaction, token));
     }
 
-    const {transactionLoading, transactionError} = useSelector(selectTransaction);
+    const {transactionLoading, transactionError, transactionMessage} = useSelector(selectTransaction);
 
     return (
         <Layout>
@@ -118,6 +126,10 @@ const InternationalTransferPage = () => {
             <Container sx={{my: {md: 2}}}>
                 {transactionError && (
                     <Alert severity="error"><AlertTitle>{transactionError}</AlertTitle></Alert>)}
+
+                {transactionMessage && (
+                    <Alert severity="success"><AlertTitle>{transactionMessage}</AlertTitle></Alert>)}
+
                 <Grid
                     spacing={2}
                     alignItems="center"

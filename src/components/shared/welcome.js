@@ -8,8 +8,8 @@ import {makeStyles} from "@mui/styles";
 const Welcome = () => {
 
     const {page} = useSelector(selectRequest);
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
 
     const useStyles = makeStyles(theme => {
         return {

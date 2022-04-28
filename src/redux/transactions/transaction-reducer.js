@@ -5,7 +5,8 @@ const INITIAL_STATE = {
     transactionDetail: {},
     transactionLoading: false,
     transactionError: false,
-    totalTransactions: 0
+    totalTransactions: 0,
+    transactionMessage: null
 }
 const transactionReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -46,7 +47,8 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 transactionError: null,
                 transactionLoading: false,
-                transactionDetail: action.payload
+                transactionDetail: action.payload.data,
+                transactionMessage: action.payload.message
             }
 
         case TRANSACTIONS_ACTION_TYPES.GET_TRANSACTION_FAIL:

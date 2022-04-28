@@ -8,10 +8,10 @@ const createTransactionRequest = () => {
     }
 }
 
-const createTransactionSuccess = (data) => {
+const createTransactionSuccess = (data, message) => {
     return {
         type: TRANSACTIONS_ACTION_TYPES.CREATE_TRANSACTION_SUCCESS,
-        payload: data
+        payload: {data, message}
     }
 }
 
@@ -34,8 +34,8 @@ const createTransaction = (transaction, token) => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            const {data} = response.data;
-            dispatch(createTransactionSuccess(data));
+            const {data, message} = response.data;
+            dispatch(createTransactionSuccess(data, message));
         } catch (e) {
             const {message} = e.response.data;
             dispatch(createTransactionFailure(message));

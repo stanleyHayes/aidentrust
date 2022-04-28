@@ -1,5 +1,5 @@
 import Layout from "../../components/layout/layout";
-import {Box, Button, Container, Divider, Grid, LinearProgress, Typography} from "@mui/material";
+import {Box, Button, Card, CardContent, Container, Divider, Grid, LinearProgress, Typography} from "@mui/material";
 import {Alert, AlertTitle} from "@mui/lab";
 import {useDispatch, useSelector} from "react-redux";
 import {selectTransaction} from "../../redux/transactions/transaction-reducer";
@@ -7,6 +7,7 @@ import {useEffect} from "react";
 import {selectAuth} from "../../redux/auth/auth-reducer";
 import {TRANSACTION_ACTION_CREATORS} from "../../redux/transactions/transaction-action-creators";
 import {useParams} from "react-router";
+import {purple} from "@mui/material/colors";
 
 const TransactionDetailPage = () => {
 
@@ -62,14 +63,148 @@ const TransactionDetailPage = () => {
 
                     <Divider light={true} variant="fullWidth" sx={{my: 4}}/>
 
-                    {transactionDetail && transactionDetail.type === '' ? (
-                        <Box></Box>
-                    ) : transactionDetail.type === '' ? (
-                        <Box></Box>
-                    ) : transactionDetail.type === '' ? (
-                        <Box></Box>
-                    ) : (
-                        <Box></Box>
+                    {transactionDetail && transactionDetail.type === 'international' ? (
+                        <Box>
+                            <Grid container={true} spacing={2}>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">
+                                                User Information
+                                            </Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">Transaction Information</Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">Account Information</Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    ) : transactionDetail.type === 'local' ? (
+                        <Box>
+                            <Grid container={true} spacing={2}>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">
+                                                User Information
+                                            </Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">Transaction Information</Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">Account Information</Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    ) : transactionDetail.type === 'payment' ? (
+                        <Box>
+                            <Grid container={true} spacing={2}>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">
+                                                User Information
+                                            </Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">Transaction Information</Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">Account Information</Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    ) :  transactionDetail.type === 'deposit' ?  (
+                        <Box>
+                            <Grid container={true} spacing={2}>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">
+                                                User Information
+                                            </Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">Transaction Information</Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                                <Grid item={true} xs={12} md={4}>
+                                    <Card elevation={0}>
+                                        <CardContent>
+                                            <Typography variant="h5">Account Information</Typography>
+                                            <Divider variant="fullWidth" sx={{my: 2}} light={true} />
+
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    ): (
+                        <Box sx={{backgroundColor: purple[50]}} py={5}>
+                            <Typography sx={{color: purple[600]}} variant="body1" align="center">
+                                Unknown transaction
+                            </Typography>
+                        </Box>
                     )}
                 </Container>
             </Box>
