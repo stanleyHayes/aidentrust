@@ -7,7 +7,7 @@ const INITIAL_STATE = {
     bankAccountInfo: {},
     personalInfo: {},
     addressInfo: {},
-    requestLoading: false,
+    requestLoading: true,
     requestError: null
 }
 
@@ -64,8 +64,8 @@ const requestReducer = (state = INITIAL_STATE, action) => {
         case REQUEST_ACTION_TYPES.ACCEPT_REQUEST_REQUEST:
             return {
                 ...state,
-                requestLoading: null,
-                requestError: true
+                requestLoading: true,
+                requestError: null
             }
 
         case REQUEST_ACTION_TYPES.ACCEPT_REQUEST_SUCCESS:
