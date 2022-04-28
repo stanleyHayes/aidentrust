@@ -27,6 +27,7 @@ import MakePaymentDialog from "../../components/dialogs/new/make-payment-dialog"
 import ReceiveMoneyDialog from "../../components/dialogs/new/receive-money-dialog";
 import {useState} from "react";
 import {selectAuth} from "../../redux/auth/auth-reducer";
+import {UTILS} from "../../utils/constants/utils";
 
 const HomePage = () => {
 
@@ -163,11 +164,11 @@ const HomePage = () => {
                         <Card sx={{mb: 2}} elevation={0}>
                             <CardContent>
                                 <Stack mb={2} justifyContent="center" alignItems="center">
-                                    <Avatar
-                                        variant="circular"
-                                        sx={{width: 75, height: 75}}
-                                        src="/assets/images/profile.jpg"
-                                    />
+                                    <Avatar sx={{width: 100, height: 100}}>
+                                        <Typography variant="h3">
+                                            {authData && UTILS.getInitials(`${authData?.firstName} ${authData?.lastName}`)}
+                                        </Typography>
+                                    </Avatar>
                                 </Stack>
                                 <Grid
                                     container={true}

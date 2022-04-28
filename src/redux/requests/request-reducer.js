@@ -7,7 +7,7 @@ const INITIAL_STATE = {
     bankAccountInfo: {},
     personalInfo: {},
     addressInfo: {},
-    requestLoading: true,
+    requestLoading: false,
     requestError: null
 }
 

@@ -7,6 +7,7 @@ import Info from "../../components/shared/info";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {selectAuth} from "../../redux/auth/auth-reducer";
+import {UTILS} from "../../utils/constants/utils";
 
 const ProfilePage = () => {
 
@@ -69,10 +70,11 @@ const ProfilePage = () => {
                             <Card elevation={0} sx={{mb: 2}}>
                                 <CardContent>
                                     <Stack mb={2} direction="row" justifyContent="center">
-                                        <Avatar
-                                            sx={{width: 100, height: 100}}
-                                            src={authData?.image}
-                                        />
+                                        <Avatar sx={{width: 100, height: 100}}>
+                                            <Typography variant="h3">
+                                                {authData && UTILS.getInitials(`${authData?.firstName} ${authData?.lastName}`)}
+                                            </Typography>
+                                        </Avatar>
                                     </Stack>
                                     <Typography
                                         mb={1}
