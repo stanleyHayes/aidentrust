@@ -90,9 +90,9 @@ const PaymentInfoForm = () => {
                         value={transactionID}
                         error={Boolean(error.transactionID)}
                         helperText={error.transactionID || "Enter mobile money transaction ID"}
-                        type="text"
+                        type="number"
                         color="primary"
-                        placeholder="Enter transaction name"
+                        placeholder="Enter transaction id"
                         size="medium"
                         onChange={handleChange}
                     />

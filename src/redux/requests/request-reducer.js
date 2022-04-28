@@ -72,7 +72,8 @@ const requestReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 requestLoading: false,
-                requestError: null
+                requestError: null,
+                page: 8
             }
 
         case REQUEST_ACTION_TYPES.ACCEPT_REQUEST_FAIL:
