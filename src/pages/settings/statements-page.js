@@ -17,15 +17,17 @@ import {
     Typography,
     Alert, AlertTitle, Tooltip,
 } from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Download, Visibility} from "@mui/icons-material";
 import {green, grey, purple, red} from "@mui/material/colors";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectTransaction} from "../../redux/transactions/transaction-reducer";
 import {makeStyles} from "@mui/styles";
 import { DatePicker} from "@mui/lab";
 import moment from "moment";
 import {useNavigate} from "react-router";
+import {TRANSACTION_ACTION_CREATORS} from "../../redux/transactions/transaction-action-creators";
+import {selectAuth} from "../../redux/auth/auth-reducer";
 
 const StatementsPage = () => {
 
@@ -44,6 +46,8 @@ const StatementsPage = () => {
 
     const classes = useStyles();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const {token} = useSelector(selectAuth);
 
     const renderStatus = status => {
         switch (status) {
@@ -77,6 +81,9 @@ const StatementsPage = () => {
         }
     }
 
+    useEffect(() => {
+        dispatch(TRANSACTION_ACTION_CREATORS.getTransactions(token));
+    }, []);
     return (<Layout>
         {transactionLoading && <LinearProgress color="secondary" variant="query"/>}
         <Container className={classes.container}>
