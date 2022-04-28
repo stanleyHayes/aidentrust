@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {selectAuth} from "../../redux/auth/auth-reducer";
 import {UTILS} from "../../utils/constants/utils";
+import currencyFormatter from "currency-formatter";
 
 const ProfilePage = () => {
 
@@ -133,7 +134,7 @@ const ProfilePage = () => {
                                         <Info
                                             icon={<Person sx={{color: grey[600]}}/>}
                                             title="Balance"
-                                            value={`$${bankAccount?.balance}`}
+                                            value={bankAccount && currencyFormatter.format(bankAccount.balance, {code: 'USD'})}
                                         />
                                         <Info
                                             icon={<Person sx={{color: grey[600]}}/>}

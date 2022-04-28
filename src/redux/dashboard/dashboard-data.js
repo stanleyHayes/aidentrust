@@ -1,8 +1,4 @@
 export const dashboard = {
-    stats : [
-        ["Spending", 40],
-        ["Earning", 60],
-    ],
     currentBalance: '40,000',
     income: '70,000',
     spending: '50,000',

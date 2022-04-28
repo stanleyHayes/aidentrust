@@ -36,7 +36,6 @@ const acceptRequest = (request, ID) => {
             goToPage(8);
         } catch (e) {
             const {message} = e.response.data;
-            console.log(message)
             dispatch(acceptRequestFail(message));
         }
     }

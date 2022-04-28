@@ -18,16 +18,17 @@ import {Link} from "react-router-dom";
 import Feint from "../../components/shared/feint";
 import {Call, Mail, MonetizationOn, MoreHoriz, Paid, ShoppingCartCheckout, VerifiedUser} from "@mui/icons-material";
 import {green, grey, purple, red} from "@mui/material/colors";
-import {useSelector} from "react-redux";
-import {selectTransaction} from "../../redux/transactions/transaction-reducer";
+import {useDispatch, useSelector} from "react-redux";
 import TransactionItem from "../../components/shared/transaction-item";
 import {selectDashboard} from "../../redux/dashboard/dashboard-reducer";
 import {Alert, AlertTitle} from "@mui/lab";
 import MakePaymentDialog from "../../components/dialogs/new/make-payment-dialog";
 import ReceiveMoneyDialog from "../../components/dialogs/new/receive-money-dialog";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {selectAuth} from "../../redux/auth/auth-reducer";
 import {UTILS} from "../../utils/constants/utils";
+import {DASHBOARD_ACTION_CREATORS} from "../../redux/dashboard/dashboard-action-creators";
+import currencyFormatter from "currency-formatter";
 
 const HomePage = () => {
 
@@ -50,9 +51,9 @@ const HomePage = () => {
     });
 
     const classes = useStyles();
+    const dispatch = useDispatch();
 
-    const {transactions} = useSelector(selectTransaction);
-    const {authData} = useSelector(selectAuth);
+    const {authData, token} = useSelector(selectAuth);
     const {dashboard, dashboardLoading, dashboardError} = useSelector(selectDashboard);
 
     const renderColor = color => {
@@ -69,6 +70,10 @@ const HomePage = () => {
                 return grey[600];
         }
     }
+
+    useEffect(() => {
+        dispatch(DASHBOARD_ACTION_CREATORS.getDashboard(token));
+    }, []);
 
     return (
         <Layout>
@@ -94,7 +99,7 @@ const HomePage = () => {
                                     />}
                                 color="green"
                                 title="Income"
-                                value={`$${dashboard.income}`}
+                                value={dashboard && currencyFormatter.format(dashboard.income, {code: 'USD'})}
                             />
                         </Grid>
                         <Grid item={true} xs={12} md={6} lg={4}>
@@ -104,7 +109,7 @@ const HomePage = () => {
                                     sx={{color: renderColor('red')}}
                                 />} color="red"
                                 title="Spending"
-                                value={`$${dashboard.spending}`}
+                                value={dashboard && currencyFormatter.format(dashboard.spending, {code: 'USD'})}
                             />
                         </Grid>
                         <Grid item={true} xs={12} md={6} lg={4}>
@@ -116,7 +121,7 @@ const HomePage = () => {
                                     />}
                                 color="grey"
                                 title="Balance"
-                                value={`$${dashboard.currentBalance}`}
+                                value={dashboard && currencyFormatter.format(dashboard.currentBalance, {code: 'USD'})}
                             />
                         </Grid>
                     </Grid>
@@ -133,7 +138,7 @@ const HomePage = () => {
                                         <Button variant="text">See all</Button>
                                     </Link>
                                 </Stack>
-                                {transactions && transactions.length === 0 ? (
+                                {dashboard && dashboard.recentTransactions.length === 0 ? (
                                     <Box sx={{backgroundColor: purple[50]}} py={5}>
                                         <Typography sx={{color: purple[600]}} variant="body1" align="center">
                                             No transactions available
@@ -144,7 +149,7 @@ const HomePage = () => {
                                         direction="column"
                                         divider={<Divider variant="middle" light={true}/>}>
                                         {
-                                            transactions && transactions.map((transaction, index) => {
+                                            dashboard && dashboard.recentTransactions.map((transaction, index) => {
                                                 return (
                                                     <TransactionItem
                                                         key={index}
@@ -164,8 +169,10 @@ const HomePage = () => {
                         <Card sx={{mb: 2}} elevation={0}>
                             <CardContent>
                                 <Stack mb={2} justifyContent="center" alignItems="center">
-                                    <Avatar sx={{width: 100, height: 100}}>
-                                        <Typography variant="h3">
+                                    <Avatar sx={{width: 100, height: 100, backgroundColor: purple[100]}}>
+                                        <Typography
+                                            sx={{color: purple[800]}}
+                                            variant="h3">
                                             {authData && UTILS.getInitials(`${authData?.firstName} ${authData?.lastName}`)}
                                         </Typography>
                                     </Avatar>

@@ -7,6 +7,7 @@ import Feint from "../shared/feint";
 import {grey, purple} from "@mui/material/colors";
 import {useSelector} from "react-redux";
 import {selectAuth} from "../../redux/auth/auth-reducer";
+import {UTILS} from "../../utils/constants/utils";
 
 const DesktopHeader = () => {
 
@@ -69,10 +70,12 @@ const DesktopHeader = () => {
                                 </Badge>
 
                                 <Avatar
-                                    sx={{backgroundColor: 'primary.main'}}
-                                    src={authData?.image}
-                                    variant="rounded"
-                                />
+                                sx={{backgroundColor: purple[100]}}
+                                variant="rounded">
+                                    <Typography variant="h5" sx={{color: 'primary.main'}}>
+                                        {authData && UTILS.getInitials(`${authData?.firstName} ${authData?.lastName}`)}
+                                    </Typography>
+                                </Avatar>
 
                                 <Typography
                                     sx={{color: grey[600]}}
