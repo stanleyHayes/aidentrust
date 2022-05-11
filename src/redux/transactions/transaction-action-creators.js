@@ -22,7 +22,7 @@ const createTransactionFailure = message => {
     }
 }
 
-const createTransaction = (transaction, token) => {
+const createTransaction = (transaction, token, handleClose) => {
     return async dispatch => {
         try {
             dispatch(createTransactionRequest());
@@ -36,6 +36,7 @@ const createTransaction = (transaction, token) => {
             });
             const {data, message} = response.data;
             dispatch(createTransactionSuccess(data, message));
+            handleClose();
         } catch (e) {
             const {message} = e.response.data;
             dispatch(createTransactionFailure(message));

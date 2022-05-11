@@ -6,7 +6,7 @@ const lightTheme = createTheme({
         borderRadius: 8
     },
     typography: {
-        fontFamily: 'Chakra Petch, Raleway'
+        fontFamily: 'EuclidCircularA, Chakra Petch, Raleway'
     },
     palette: {
         mode: "light",
@@ -42,7 +42,7 @@ const darkTheme = createTheme({
         borderRadius: 8
     },
     typography: {
-        fontFamily: 'Chakra Petch,Raleway'
+        fontFamily: 'EuclidCircularA, Chakra Petch,Raleway'
     },
     palette: {
         mode: "dark",

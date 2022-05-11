@@ -8,8 +8,10 @@ import {
     IconButton,
     InputAdornment,
     InputLabel,
-    LinearProgress, MenuItem,
-    OutlinedInput, Select,
+    LinearProgress,
+    MenuItem,
+    OutlinedInput,
+    Select,
     Stack,
     TextField,
     Typography
@@ -17,18 +19,21 @@ import {
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {LoadingButton} from "@mui/lab";
 import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectTransaction} from "../../../redux/transactions/transaction-reducer";
+import {TRANSACTION_ACTION_CREATORS} from "../../../redux/transactions/transaction-action-creators";
+import {selectAuth} from "../../../redux/auth/auth-reducer";
 
 const MakePaymentDialog = ({open, handleClose}) => {
 
-    const [transfer, setTransfer] = useState({});
+    const [transfer, setTransfer] = useState({type: 'payment'});
     const [visiblePassword, setVisiblePassword] = useState(false);
     const [error, setError] = useState({});
 
-    const {
-        amount, service, password
-    } = transfer;
+    const {token} = useSelector(selectAuth);
+
+    const {amount, service, pin} = transfer;
+    const dispatch = useDispatch();
 
     const handleClick = () => {
         if (!amount) {
@@ -44,10 +49,11 @@ const MakePaymentDialog = ({open, handleClose}) => {
         } else {
             setError({error, service: null});
         }
+        dispatch(TRANSACTION_ACTION_CREATORS.createTransaction(transfer, token, handleClose));
     }
 
     const handleChange = event => {
-        setTransfer({...transfer, [event.target.name]: event.target.name});
+        setTransfer({...transfer, [event.target.name]: event.target.value});
     }
 
     const {transactionLoading, transactionError} = useSelector(selectTransaction);
@@ -71,47 +77,52 @@ const MakePaymentDialog = ({open, handleClose}) => {
                     error={Boolean(error.amount)}
                     helperText={error.amount}
                     type="number"
-                    color="secondary"
+                    color="primary"
                     placeholder="Enter amount"
                     size="medium"
                     onChange={handleChange}
                 />
 
-                <Select
-                    margin="dense"
-                    name="service"
-                    onChange={handleChange}
-                    variant="outlined"
-                    size="medium"
-                    fullWidth={true}
-                    color="primary">
-                    <MenuItem value="Uber">Uber</MenuItem>
-                    <MenuItem value="McDonald">McDonald</MenuItem>
-                    <MenuItem value="Starbucks">Starbucks</MenuItem>
-                    <MenuItem value="KFC">KFC</MenuItem>
-                    <MenuItem value="Burger King">Burger King</MenuItem>
-                    <MenuItem value="Other">Other</MenuItem>
-                </Select>
+                <FormControl fullWidth={true} variant="outlined">
+                    <InputLabel htmlFor="service">Service</InputLabel>
+                    <Select
+                        margin="dense"
+                        id="service"
+                        name="service"
+                        label="Service"
+                        onChange={handleChange}
+                        variant="outlined"
+                        size="medium"
+                        fullWidth={true}
+                        color="primary">
+                        <MenuItem value="Uber">Uber</MenuItem>
+                        <MenuItem value="McDonald">McDonald</MenuItem>
+                        <MenuItem value="Starbucks">Starbucks</MenuItem>
+                        <MenuItem value="KFC">KFC</MenuItem>
+                        <MenuItem value="Burger King">Burger King</MenuItem>
+                        <MenuItem value="Other">Other</MenuItem>
+                    </Select>
+                </FormControl>
 
                 <FormControl variant="outlined">
-                    <InputLabel htmlFor="password">Password</InputLabel>
+                    <InputLabel htmlFor="pin">Pin</InputLabel>
                     <OutlinedInput
-                        id="password"
-                        label="Password"
+                        id="pin"
+                        label="Pin"
                         fullWidth={true}
-                        name="password"
+                        name="pin"
                         required={true}
-                        color="secondary"
-                        placeholder="Enter password"
+                        color="primary"
+                        placeholder="Enter pin"
                         variant="outlined"
-                        error={Boolean(error.password)}
+                        error={Boolean(error.pin)}
                         type={visiblePassword ? 'text' : 'password'}
-                        value={password}
+                        value={pin}
                         onChange={handleChange}
                         endAdornment={<InputAdornment position="end">
                             <IconButton
                                 sx={{color: 'secondary.main'}}
-                                aria-label="toggle password visibility"
+                                aria-label="toggle pin visibility"
                                 onClick={() => setVisiblePassword(!visiblePassword)}
                                 onMouseDown={() => setVisiblePassword(!visiblePassword)}
                                 edge="end"
