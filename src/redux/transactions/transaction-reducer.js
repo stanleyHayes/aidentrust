@@ -47,8 +47,7 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 transactionError: null,
                 transactionLoading: false,
-                transactionDetail: action.payload.data,
-                transactionMessage: action.payload.message
+                transactionDetail: action.payload
             }
 
         case TRANSACTIONS_ACTION_TYPES.GET_TRANSACTION_FAIL:

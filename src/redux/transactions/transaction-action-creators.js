@@ -210,4 +210,10 @@ const deleteTransaction = (ID, token) => {
 }
 
 
-export const TRANSACTION_ACTION_CREATORS = {createTransaction, deleteTransaction, updateTransaction, getTransactions, getTransaction};
+export const TRANSACTION_ACTION_CREATORS = {
+    createTransaction,
+    deleteTransaction,
+    updateTransaction,
+    getTransactions,
+    getTransaction
+};

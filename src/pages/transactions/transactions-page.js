@@ -242,7 +242,7 @@ const TransactionsPage = () => {
                 <Divider light={true} variant="fullWidth" sx={{my: 4}}/>
 
                 {transactions && transactions.length > 0 && <TableContainer component={Paper} elevation={0}>
-                    <Table size="small" aria-label="transactions table">
+                    <Table size="medium" aria-label="transactions table">
                         <TableHead>
                             <TableRow>
                                 <TableCell align="center">#</TableCell>
