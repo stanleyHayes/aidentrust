@@ -17,8 +17,10 @@ import {
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {LoadingButton} from "@mui/lab";
 import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectTransaction} from "../../../redux/transactions/transaction-reducer";
+import {selectAuth} from "../../../redux/auth/auth-reducer";
+import {TRANSACTION_ACTION_CREATORS} from "../../../redux/transactions/transaction-action-creators";
 
 const InternationalTransferDialog = ({open, handleClose}) => {
 
@@ -37,8 +39,11 @@ const InternationalTransferDialog = ({open, handleClose}) => {
         country,
         state,
         name,
-        password
+        pin
     } = transfer;
+
+    const dispatch = useDispatch();
+    const {token} = useSelector(selectAuth);
 
     const handleClick = () => {
         if (!number) {
@@ -47,6 +52,63 @@ const InternationalTransferDialog = ({open, handleClose}) => {
         } else {
             setError({error, number: null});
         }
+
+        if (!amount) {
+            setError({error, amount: 'Field required'});
+            return;
+        } else {
+            setError({error, amount: null});
+        }
+
+        if (!routingNumber) {
+            setError({error, routingNumber: 'Field required'});
+            return;
+        } else {
+            setError({error, routingNumber: null});
+        }
+
+        if (!swiftCode) {
+            setError({error, swiftCode: 'Field required'});
+            return;
+        } else {
+            setError({error, swiftCode: null});
+        }
+
+        if (!name) {
+            setError({error, name: 'Field required'});
+            return;
+        } else {
+            setError({error, name: null});
+        }
+
+        if (!country) {
+            setError({error, country: 'Field required'});
+            return;
+        } else {
+            setError({error, country: null});
+        }
+
+        if (!state) {
+            setError({error, state: 'Field required'});
+            return;
+        } else {
+            setError({error, state: null});
+        }
+
+        if (!city) {
+            setError({error, city: 'Field required'});
+            return;
+        } else {
+            setError({error, city: null});
+        }
+
+        if (!addressLine1) {
+            setError({error, addressLine1: 'Field required'});
+            return;
+        } else {
+            setError({error, addressLine1: null});
+        }
+        dispatch(TRANSACTION_ACTION_CREATORS.createTransaction({...transfer, type: 'international'}, token, handleClose))
     }
 
     const handleChange = event => {
@@ -230,24 +292,24 @@ const InternationalTransferDialog = ({open, handleClose}) => {
                 />
 
                 <FormControl variant="outlined">
-                    <InputLabel htmlFor="password">Password</InputLabel>
+                    <InputLabel htmlFor="pin">Pin</InputLabel>
                     <OutlinedInput
-                        id="password"
-                        label="Password"
+                        id="pin"
+                        label="Pin"
                         fullWidth={true}
-                        name="password"
+                        name="pin"
                         required={true}
                         color="secondary"
-                        placeholder="Enter password"
+                        placeholder="Enter pin"
                         variant="outlined"
-                        error={Boolean(error.password)}
+                        error={Boolean(error.pin)}
                         type={visiblePassword ? 'text' : 'password'}
-                        value={password}
+                        value={pin}
                         onChange={handleChange}
                         endAdornment={<InputAdornment position="end">
                             <IconButton
                                 sx={{color: 'secondary.main'}}
-                                aria-label="toggle password visibility"
+                                aria-label="toggle pin visibility"
                                 onClick={() => setVisiblePassword(!visiblePassword)}
                                 onMouseDown={() => setVisiblePassword(!visiblePassword)}
                                 edge="end"

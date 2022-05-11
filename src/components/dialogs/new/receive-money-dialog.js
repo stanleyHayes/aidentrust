@@ -17,12 +17,14 @@ import {
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {LoadingButton} from "@mui/lab";
 import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectTransaction} from "../../../redux/transactions/transaction-reducer";
+import {TRANSACTION_ACTION_CREATORS} from "../../../redux/transactions/transaction-action-creators";
+import {selectAuth} from "../../../redux/auth/auth-reducer";
 
 const DepositDialog = ({open, handleClose}) => {
 
-    const [transfer, setTransfer] = useState({});
+    const [transfer, setTransfer] = useState({type: 'deposit'});
     const [visiblePassword, setVisiblePassword] = useState(false);
     const [error, setError] = useState({});
 
@@ -30,6 +32,10 @@ const DepositDialog = ({open, handleClose}) => {
         amount,
         pin
     } = transfer;
+
+    const {token} = useSelector(selectAuth);
+
+    const dispatch = useDispatch();
 
     const handleClick = () => {
         if (!amount) {
@@ -45,11 +51,11 @@ const DepositDialog = ({open, handleClose}) => {
         } else {
             setError({error, pin: null});
         }
-
+        dispatch(TRANSACTION_ACTION_CREATORS.createTransaction(transfer, token, handleClose));
     }
 
     const handleChange = event => {
-        setTransfer({...transfer, [event.target.name]: event.target.name});
+        setTransfer({...transfer, [event.target.name]: event.target.value});
     }
 
     const {transactionLoading, transactionError} = useSelector(selectTransaction);

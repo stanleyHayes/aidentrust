@@ -23,14 +23,14 @@ import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Layout from "../../components/layout/layout";
 import {purple} from "@mui/material/colors";
-import {selectTransaction} from "../../redux/statements/statement-reducer";
 import ConfirmDialog from "../../components/dialogs/confirm/confirm-dialog";
 import {TRANSACTION_ACTION_CREATORS} from "../../redux/transactions/transaction-action-creators";
 import {selectAuth} from "../../redux/auth/auth-reducer";
+import {selectTransaction} from "../../redux/transactions/transaction-reducer";
 
 const InternationalTransferPage = () => {
 
-    const [transaction, setTransfer] = useState({});
+    const [transaction, setTransfer] = useState({type: 'international'});
     const [visiblePassword, setVisiblePassword] = useState(false);
     const [error, setError] = useState({});
 
@@ -42,11 +42,11 @@ const InternationalTransferPage = () => {
         routingNumber,
         swiftCode,
         addressLine1,
-        addressLine2, city, country, state, name, password
+        addressLine2, city, country, state, name, pin
     } = transaction;
 
     const handleChange = event => {
-        setTransfer({...transaction, [event.target.name]: event.target.name});
+        setTransfer({...transaction, [event.target.name]: event.target.value});
     }
 
     const dispatch = useDispatch();
@@ -111,11 +111,11 @@ const InternationalTransferPage = () => {
             setError({error, addressLine1: null});
         }
 
-        if (!password) {
-            setError({error, password: 'Field required'});
+        if (!pin) {
+            setError({error, pin: 'Field required'});
             return;
         } else {
-            setError({error, password: null});
+            setError({error, pin: null});
         }
 
         dispatch(TRANSACTION_ACTION_CREATORS.createTransaction(transaction, token));
@@ -255,24 +255,24 @@ const InternationalTransferPage = () => {
                                         />
 
                                         <FormControl variant="outlined">
-                                            <InputLabel htmlFor="password">Password</InputLabel>
+                                            <InputLabel htmlFor="pin">Pin</InputLabel>
                                             <OutlinedInput
-                                                id="password"
-                                                label="Password"
+                                                id="pin"
+                                                label="Pin"
                                                 fullWidth={true}
-                                                name="password"
+                                                name="pin"
                                                 required={true}
                                                 color="secondary"
-                                                placeholder="Enter password"
+                                                placeholder="Enter pin"
                                                 variant="outlined"
-                                                error={Boolean(error.password)}
+                                                error={Boolean(error.pin)}
                                                 type={visiblePassword ? 'text' : 'password'}
-                                                value={password}
+                                                value={pin}
                                                 onChange={handleChange}
                                                 endAdornment={<InputAdornment position="end">
                                                     <IconButton
                                                         sx={{color: 'primary.main'}}
-                                                        aria-label="toggle password visibility"
+                                                        aria-label="toggle pin visibility"
                                                         onClick={() => setVisiblePassword(!visiblePassword)}
                                                         onMouseDown={() => setVisiblePassword(!visiblePassword)}
                                                         edge="end"
