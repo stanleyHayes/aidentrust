@@ -1,6 +1,7 @@
 import {
     Alert,
     AlertTitle,
+    Box,
     Button,
     Card,
     CardContent,
@@ -15,8 +16,7 @@ import {
     OutlinedInput,
     Stack,
     TextField,
-    Typography,
-    Box
+    Typography
 } from "@mui/material";
 import {Paid, Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
@@ -26,6 +26,7 @@ import {purple} from "@mui/material/colors";
 import ConfirmDialog from "../../components/dialogs/confirm/confirm-dialog";
 import {TRANSACTION_ACTION_CREATORS} from "../../redux/transactions/transaction-action-creators";
 import {selectTransaction} from "../../redux/transactions/transaction-reducer";
+import {selectAuth} from "../../redux/auth/auth-reducer";
 
 const LocalTransferPage = () => {
 
@@ -47,7 +48,7 @@ const LocalTransferPage = () => {
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
     const dispatch = useDispatch();
-    const {token} = useDispatch();
+    const {token} = useSelector(selectAuth);
 
     const handleTransferConfirmation = () => {
         if (!number) {
@@ -115,7 +116,15 @@ const LocalTransferPage = () => {
             setError({error, pin: null});
         }
 
-        dispatch(TRANSACTION_ACTION_CREATORS.createTransaction(transaction, token));
+        dispatch(TRANSACTION_ACTION_CREATORS.createTransaction(transaction, token, () => setConfirmDialogOpen(false)));
+        setTransfer({
+            ...transaction,
+            number: "",
+            amount: "",
+            routingNumber: "",
+            addressLine1: "",
+            addressLine2: "", city: "", country: "", state: "", name: "", pin: ""
+        });
     }
 
     return (
@@ -178,7 +187,7 @@ const LocalTransferPage = () => {
                                             error={Boolean(error.name)}
                                             helperText={error.name}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter name"
                                             size="medium"
                                             onChange={handleChange}
@@ -194,7 +203,7 @@ const LocalTransferPage = () => {
                                             error={Boolean(error.number)}
                                             helperText={error.number}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter number"
                                             size="medium"
                                             onChange={handleChange}
@@ -210,7 +219,7 @@ const LocalTransferPage = () => {
                                             error={Boolean(error.amount)}
                                             helperText={error.amount}
                                             type="number"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter amount"
                                             size="medium"
                                             onChange={handleChange}
@@ -226,7 +235,7 @@ const LocalTransferPage = () => {
                                             error={Boolean(error.routingNumber)}
                                             helperText={error.routingNumber}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter routing number"
                                             size="medium"
                                             onChange={handleChange}
@@ -241,7 +250,7 @@ const LocalTransferPage = () => {
                                                 fullWidth={true}
                                                 name="pin"
                                                 required={true}
-                                                color="secondary"
+                                                color="primary"
                                                 placeholder="Enter pin"
                                                 variant="outlined"
                                                 error={Boolean(error.pin)}
@@ -283,7 +292,7 @@ const LocalTransferPage = () => {
                                             error={Boolean(error.country)}
                                             helperText={error.country}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter country"
                                             size="medium"
                                             onChange={handleChange}
@@ -299,7 +308,7 @@ const LocalTransferPage = () => {
                                             error={Boolean(error.state)}
                                             helperText={error.state}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter swift code"
                                             size="medium"
                                             onChange={handleChange}
@@ -315,7 +324,7 @@ const LocalTransferPage = () => {
                                             error={Boolean(error.city)}
                                             helperText={error.city}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter city"
                                             size="medium"
                                             onChange={handleChange}
@@ -324,14 +333,14 @@ const LocalTransferPage = () => {
                                         <TextField
                                             label="Address Line 1"
                                             fullWidth={true}
-                                            name="text"
+                                            name="addressLine1"
                                             required={true}
                                             variant="outlined"
                                             value={addressLine1}
                                             error={Boolean(error.addressLine1)}
                                             helperText={error.addressLine1}
-                                            type="number"
-                                            color="secondary"
+                                            type="text"
+                                            color="primary"
                                             placeholder="Address line 1"
                                             size="medium"
                                             multiline={true}
@@ -350,7 +359,7 @@ const LocalTransferPage = () => {
                                             error={Boolean(error.addressLine2)}
                                             helperText={error.addressLine2}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter address line 2"
                                             size="medium"
                                             multiline={true}

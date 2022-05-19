@@ -1,6 +1,7 @@
 import {
     Alert,
     AlertTitle,
+    Box,
     Button,
     Card,
     CardContent,
@@ -15,8 +16,7 @@ import {
     OutlinedInput,
     Stack,
     TextField,
-    Typography,
-    Box
+    Typography
 } from "@mui/material";
 import {Paid, Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
@@ -118,7 +118,16 @@ const InternationalTransferPage = () => {
             setError({error, pin: null});
         }
 
-        dispatch(TRANSACTION_ACTION_CREATORS.createTransaction(transaction, token));
+        dispatch(TRANSACTION_ACTION_CREATORS.createTransaction(transaction, token, () => setConfirmDialogOpen(false)));
+        setTransfer({
+            ...transaction,
+            number: "",
+            amount: "",
+            routingNumber: "",
+            swiftCode: "",
+            addressLine1: "",
+            addressLine2: "", city: "", country: "", state: "", name: "", pin: ""
+        });
     }
 
     const {transactionLoading, transactionError, transactionMessage} = useSelector(selectTransaction);
@@ -184,7 +193,7 @@ const InternationalTransferPage = () => {
                                             error={Boolean(error.name)}
                                             helperText={error.name}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter name"
                                             size="medium"
                                             onChange={handleChange}
@@ -200,7 +209,7 @@ const InternationalTransferPage = () => {
                                             error={Boolean(error.number)}
                                             helperText={error.number}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter number"
                                             size="medium"
                                             onChange={handleChange}
@@ -216,7 +225,7 @@ const InternationalTransferPage = () => {
                                             error={Boolean(error.amount)}
                                             helperText={error.amount}
                                             type="number"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter amount"
                                             size="medium"
                                             onChange={handleChange}
@@ -232,7 +241,7 @@ const InternationalTransferPage = () => {
                                             error={Boolean(error.routingNumber)}
                                             helperText={error.routingNumber}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter routing number"
                                             size="medium"
                                             onChange={handleChange}
@@ -248,7 +257,7 @@ const InternationalTransferPage = () => {
                                             error={Boolean(error.swiftCode)}
                                             helperText={error.swiftCode}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter swift code"
                                             size="medium"
                                             onChange={handleChange}
@@ -262,7 +271,7 @@ const InternationalTransferPage = () => {
                                                 fullWidth={true}
                                                 name="pin"
                                                 required={true}
-                                                color="secondary"
+                                                color="primary"
                                                 placeholder="Enter pin"
                                                 variant="outlined"
                                                 error={Boolean(error.pin)}
@@ -305,7 +314,7 @@ const InternationalTransferPage = () => {
                                             error={Boolean(error.country)}
                                             helperText={error.country}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter country"
                                             size="medium"
                                             onChange={handleChange}
@@ -321,7 +330,7 @@ const InternationalTransferPage = () => {
                                             error={Boolean(error.state)}
                                             helperText={error.state}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter swift code"
                                             size="medium"
                                             onChange={handleChange}
@@ -337,7 +346,7 @@ const InternationalTransferPage = () => {
                                             error={Boolean(error.city)}
                                             helperText={error.city}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter city"
                                             size="medium"
                                             onChange={handleChange}
@@ -346,14 +355,14 @@ const InternationalTransferPage = () => {
                                         <TextField
                                             label="Address Line 1"
                                             fullWidth={true}
-                                            name="text"
+                                            name="addressLine1"
                                             required={true}
                                             variant="outlined"
                                             value={addressLine1}
                                             error={Boolean(error.addressLine1)}
                                             helperText={error.addressLine1}
-                                            type="number"
-                                            color="secondary"
+                                            type="text"
+                                            color="primary"
                                             placeholder="Address line 1"
                                             size="medium"
                                             multiline={true}
@@ -372,7 +381,7 @@ const InternationalTransferPage = () => {
                                             error={Boolean(error.addressLine2)}
                                             helperText={error.addressLine2}
                                             type="text"
-                                            color="secondary"
+                                            color="primary"
                                             placeholder="Enter address line 2"
                                             size="medium"
                                             multiline={true}
