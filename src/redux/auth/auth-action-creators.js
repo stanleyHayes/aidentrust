@@ -228,17 +228,18 @@ const logoutFail = message => {
     }
 }
 
-const logout = user => {
+const logout = (token, navigate) => {
     return async dispatch => {
         try {
             dispatch(logoutRequest());
             const response = await axios({
                 method: 'POST',
                 url: `${CONSTANTS.URL_BASE_SERVER}/auth/logout`,
-                data: user
+                data: token
             });
             const {data, message} = response.data;
             dispatch(logoutSuccess(data, message));
+            navigate('/auth/login');
         } catch (e) {
             const {message} = e.response.data;
             dispatch(logoutFail(message));

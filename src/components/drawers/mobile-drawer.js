@@ -1,6 +1,6 @@
 import {Box, Button, Divider, Stack} from "@mui/material";
 import SidebarLink from "../shared/sidebar-link";
-import {useLocation} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import {
     CompareArrows,
     CompareArrowsOutlined,
@@ -17,10 +17,16 @@ import {
     PersonOutline,
 } from "@mui/icons-material";
 import {purple, grey} from "@mui/material/colors";
+import {useDispatch, useSelector} from "react-redux";
+import {selectAuth} from "../../redux/auth/auth-reducer";
+import {AUTH_ACTION_CREATORS} from "../../redux/auth/auth-action-creators";
 
 const MobileDrawer = () => {
 
     const {pathname} = useLocation();
+    const {token} = useSelector(selectAuth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     return (<Box
             sx={{
@@ -132,6 +138,7 @@ const MobileDrawer = () => {
                     />
 
                     <Button
+                        onClick={() => dispatch(AUTH_ACTION_CREATORS.logout(token, navigate))}
                         startIcon={<Logout
                             sx={{
                                 color: purple[600], padding: .1, borderRadius: .4
