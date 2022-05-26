@@ -214,10 +214,10 @@ const logoutRequest = () => {
     }
 }
 
-const logoutSuccess = (data, token) => {
+const logoutSuccess = (message) => {
     return {
         type: AUTH_ACTION_TYPES.LOGOUT_SUCCESS,
-        payload: {data, token}
+        payload: message
     }
 }
 
@@ -237,8 +237,8 @@ const logout = (token, navigate) => {
                 url: `${CONSTANTS.URL_BASE_SERVER}/auth/logout`,
                 data: token
             });
-            const {data, message} = response.data;
-            dispatch(logoutSuccess(data, message));
+            const { message} = response.data;
+            dispatch(logoutSuccess( message));
             localStorage.clear();
             navigate('/auth/login');
         } catch (e) {
