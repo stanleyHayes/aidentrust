@@ -151,8 +151,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 authError: null,
                 authLoading: false,
-                token: action.payload.token,
-                authData: action.payload.data
+                token: null,
+                authData: null
             }
 
         case AUTH_ACTION_TYPES.LOGOUT_FAIL:
