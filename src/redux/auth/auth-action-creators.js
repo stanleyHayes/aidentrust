@@ -223,7 +223,7 @@ const logoutSuccess = (message) => {
 
 const logoutFail = message => {
     return {
-        type: AUTH_ACTION_TYPES.SIGN_IN_FAIL,
+        type: AUTH_ACTION_TYPES.LOGOUT_FAIL,
         payload: message
     }
 }
@@ -237,8 +237,8 @@ const logout = (token, navigate) => {
                 url: `${CONSTANTS.URL_BASE_SERVER}/auth/logout`,
                 data: token
             });
-            const { message} = response.data;
-            dispatch(logoutSuccess( message));
+            const {message} = response.data;
+            dispatch(logoutSuccess(message));
             localStorage.clear();
             navigate('/auth/login');
         } catch (e) {
