@@ -239,6 +239,7 @@ const logout = (token, navigate) => {
             });
             const {data, message} = response.data;
             dispatch(logoutSuccess(data, message));
+            localStorage.clear();
             navigate('/auth/login');
         } catch (e) {
             const {message} = e.response.data;
