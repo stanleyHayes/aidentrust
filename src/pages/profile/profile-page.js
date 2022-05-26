@@ -134,7 +134,7 @@ const ProfilePage = () => {
                                         <Info
                                             icon={<Person sx={{color: grey[600]}}/>}
                                             title="Balance"
-                                            value={bankAccount && currencyFormatter.format(bankAccount.balance, {code: 'USD'})}
+                                            value={bankAccount && currencyFormatter.format(bankAccount.balance, {code: bankAccount.currency})}
                                         />
                                         <Info
                                             icon={<Person sx={{color: grey[600]}}/>}

@@ -162,7 +162,7 @@ const BankAccountInfoForm = () => {
                             <MenuItem value="">Select Account Currency</MenuItem>
                             <MenuItem value="USD">USD</MenuItem>
                             <MenuItem value="GHS">GHS</MenuItem>
-                            <MenuItem value="Euro">Euro</MenuItem>
+                            <MenuItem value="EUR">Euro</MenuItem>
                         </Select>
                     </FormControl>
 
