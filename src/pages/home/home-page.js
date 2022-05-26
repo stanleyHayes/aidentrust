@@ -93,7 +93,7 @@ const HomePage = () => {
                                         />}
                                     color="grey"
                                     title="Income"
-                                    value={dashboard && currencyFormatter.format(dashboard.income, {code: 'USD'})}
+                                    value={dashboard && currencyFormatter.format(dashboard.income, {code: dashboard.currency})}
                                 />
                             </Grid>
                             <Grid item={true} xs={12} md={6} lg={4}>
@@ -103,7 +103,7 @@ const HomePage = () => {
                                         sx={{color: renderColor('grey')}}
                                     />} color="grey"
                                     title="Spending"
-                                    value={dashboard && currencyFormatter.format(dashboard.spending, {code: 'USD'})}
+                                    value={dashboard && currencyFormatter.format(dashboard.spending, {code: dashboard.currency})}
                                 />
                             </Grid>
                             <Grid item={true} xs={12} md={6} lg={4}>
@@ -115,7 +115,7 @@ const HomePage = () => {
                                         />}
                                     color="grey"
                                     title="Balance"
-                                    value={dashboard && currencyFormatter.format(dashboard.currentBalance, {code: 'USD'})}
+                                    value={dashboard && currencyFormatter.format(dashboard.currentBalance, {code: dashboard.currency})}
                                 />
                             </Grid>
                         </Grid>
