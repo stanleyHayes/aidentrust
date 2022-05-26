@@ -1,4 +1,6 @@
 import {
+    Alert,
+    AlertTitle,
     Button,
     Card,
     CardContent,
@@ -59,7 +61,10 @@ const AccountInfoForm = ({code}) => {
         }
 
         if (!validator.isStrongPassword(password)) {
-            setError({error, password: 'Field required'});
+            setError({
+                error,
+                password: 'Choose a password that contains uppercase, lowercase, a digit and a special character. It must also be at least 8 characters long'
+            });
             return;
         } else {
             setError({error, password: null});
@@ -93,7 +98,12 @@ const AccountInfoForm = ({code}) => {
                     Account Information
                 </Typography>
                 <Stack my={3} spacing={2} direction="column">
-
+                    {error.password && (<Alert severity="error">
+                        <AlertTitle>{error.password}</AlertTitle>
+                    </Alert>)}
+                    {error.confirmPassword && (<Alert severity="error">
+                        <AlertTitle>{error.confirmPassword}</AlertTitle>
+                    </Alert>)}
                     <TextField
                         autoComplete="off"
                         label="Pin"
