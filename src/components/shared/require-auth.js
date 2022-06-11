@@ -7,7 +7,7 @@ import Splash from "./splash";
 
 const RequireAuth = ({children}) => {
 
-    const {token, authLoading} = useSelector(selectAuth);
+    const {token, authLoading, authError} = useSelector(selectAuth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -21,6 +21,10 @@ const RequireAuth = ({children}) => {
     }
 
     if (!authLoading && !token) {
+        return <Navigate to="/auth/login" state={{path: location.pathname}}/>
+    }
+
+    if(!authLoading && authError?.toLowerCase().includes('session expired')){
         return <Navigate to="/auth/login" state={{path: location.pathname}}/>
     }
 
