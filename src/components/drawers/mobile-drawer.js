@@ -16,7 +16,7 @@ import {
     Person,
     PersonOutline,
 } from "@mui/icons-material";
-import {purple, grey} from "@mui/material/colors";
+import {grey, purple} from "@mui/material/colors";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAuth} from "../../redux/auth/auth-reducer";
 import {AUTH_ACTION_CREATORS} from "../../redux/auth/auth-action-creators";
@@ -29,140 +29,149 @@ const MobileDrawer = () => {
     const navigate = useNavigate();
 
     return (<Box
-            sx={{
-                display: 'flex', flexDirection: 'column', mt: 3, width: '100%', height: '100%', minWidth: '80vw', maxHeight: '100vh'
-            }}>
-            <Box sx={{flex: 1}}>
-                <Stack
-                    divider={<Divider variant="fullWidth" light={true}/>}
-                    direction="column">
-                    <SidebarLink
-                        icon={pathname === '/' ? <Home
+        sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            mt: 3, width: '100%',
+            minHeight: '100%',
+            minWidth: '80vw',
+            maxHeight: '100vh'
+        }}>
+        <Box sx={{flex: 1}}>
+            <Stack
+                divider={<Divider variant="fullWidth" light={true}/>}
+                direction="column">
+                <SidebarLink
+                    icon={pathname === '/' ? <Home
+                        sx={{
+                            color: purple[600],
+                            backgroundColor: purple[200],
+                            padding: .2,
+                            borderRadius: .4,
+                            fontSize: 36
+                        }}/> : <HomeOutlined
+                        sx={{
+                            color: grey[600],
+                            backgroundColor: grey[200],
+                            padding: 0.2,
+                            borderRadius: 0.4,
+                            fontSize: 36
+                        }}/>}
+                    path="/"
+                    label="Home"
+                    active={pathname === '/'}
+                />
+                <SidebarLink
+                    icon={pathname === '/transactions' ? <CompareArrows
+                        sx={{
+                            color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
+                        }}/> : <CompareArrowsOutlined
+                        sx={{
+                            color: grey[600], backgroundColor: grey[200], padding: .1, borderRadius: .4
+                        }}/>}
+                    path="/transactions"
+                    label="Transactions"
+                    active={pathname === '/transactions'}
+                />
+
+                <SidebarLink
+                    icon={pathname === '/statements' ? <CreditCard
+                        sx={{
+                            color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
+                        }}
+                    /> : <CreditCardOutlined
+                        fontSize="large"
+                        sx={{
+                            color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
+                        }}
+                    />}
+                    path="/statements"
+                    label="Statements"
+                    active={pathname === '/statements'}
+                />
+            </Stack>
+        </Box>
+
+        <Box sx={{pb: 2}}>
+            <Stack
+                divider={<Divider variant="fullWidth" light={true}/>}
+                direction="column">
+
+                <SidebarLink
+                    icon={pathname === '/profile' ? <Person
+                        sx={{
+                            color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
+                        }}/> : <PersonOutline
+                        fontSize="large"
+                        sx={{
+                            color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
+                        }}
+                    />}
+                    path="/profile"
+                    label="Profile"
+                    active={pathname === '/profile'}
+                />
+
+                <SidebarLink
+                    icon={pathname === '/edit-profile' ? <Edit
+                        sx={{
+                            color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
+                        }}/> : <EditOutlined
+                        fontSize="large"
+                        sx={{
+                            color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
+                        }}
+                    />}
+                    path="/edit-profile"
+                    label="Edit Profile"
+                    active={pathname === '/edit-profile'}
+                />
+
+                <SidebarLink
+                    icon={pathname === '/change-password' ? <Lock
+                        sx={{
+                            color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
+                        }}/> : <LockOutlined
+                        fontSize="large"
+                        sx={{
+                            color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
+                        }}
+                    />}
+                    path="/change-password"
+                    label="Change Password"
+                    active={pathname === '/change-password'}
+                />
+
+                <Button
+                    onClick={() => dispatch(AUTH_ACTION_CREATORS.logout(token, navigate))}
+                    startIcon={
+                        <Logout
                             sx={{
                                 color: purple[600],
-                                backgroundColor: purple[200],
-                                padding: .2,
+                                padding: .1,
                                 borderRadius: .4,
-                                fontSize: 36
-                            }}/> : <HomeOutlined
-                            sx={{
-                                color: grey[600],
-                                backgroundColor: grey[200],
-                                padding: 0.2,
-                                borderRadius: 0.4,
-                                fontSize: 36
-                            }}/>}
-                        path="/"
-                        label="Home"
-                        active={pathname === '/'}
-                    />
-                    <SidebarLink
-                        icon={pathname === '/transactions' ? <CompareArrows
-                            sx={{
-                                color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
-                            }}/> : <CompareArrowsOutlined
-                            sx={{
-                                color: grey[600], backgroundColor: grey[200], padding: .1, borderRadius: .4
-                            }}/>}
-                        path="/transactions"
-                        label="Transactions"
-                        active={pathname === '/transactions'}
-                    />
-
-                    <SidebarLink
-                        icon={pathname === '/statements' ? <CreditCard
-                            sx={{
-                                color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
-                            }}
-                        /> : <CreditCardOutlined
-                            fontSize="large"
-                            sx={{
-                                color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
+                                fontSize: 20
                             }}
                         />}
-                        path="/statements"
-                        label="Statements"
-                        active={pathname === '/statements'}
-                    />
-                </Stack>
-            </Box>
+                    sx={{
+                        fontWeight: 'bold',
+                        borderRadius: 0,
+                        justifyContent: 'flex-start',
+                        textTransform: 'capitalize',
+                        fontSize: 18,
+                        paddingLeft: 4,
+                        py: 1
+                    }}
+                    color="primary"
+                    size="large"
+                    variant="text"
+                    fullWidth={true}>
+                    Logout
+                </Button>
+            </Stack>
+        </Box>
 
-            <Box sx={{pb: 2}}>
-                <Stack
-                    divider={<Divider variant="fullWidth" light={true}/>}
-                    direction="column">
-
-                    <SidebarLink
-                        icon={pathname === '/profile' ? <Person
-                            sx={{
-                                color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
-                            }}/> : <PersonOutline
-                            fontSize="large"
-                            sx={{
-                                color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
-                            }}
-                        />}
-                        path="/profile"
-                        label="Profile"
-                        active={pathname === '/profile'}
-                    />
-
-                    <SidebarLink
-                        icon={pathname === '/edit-profile' ? <Edit
-                            sx={{
-                                color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
-                            }}/> : <EditOutlined
-                            fontSize="large"
-                            sx={{
-                                color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
-                            }}
-                        />}
-                        path="/edit-profile"
-                        label="Edit Profile"
-                        active={pathname === '/edit-profile'}
-                    />
-
-                    <SidebarLink
-                        icon={pathname === '/change-password' ? <Lock
-                            sx={{
-                                color: purple[600], backgroundColor: purple[200], padding: .1, borderRadius: .4
-                            }}/> : <LockOutlined
-                            fontSize="large"
-                            sx={{
-                                color: grey[600], backgroundColor: grey[200], padding: 0.1, borderRadius: 0.4
-                            }}
-                        />}
-                        path="/change-password"
-                        label="Change Password"
-                        active={pathname === '/change-password'}
-                    />
-
-                    <Button
-                        onClick={() => dispatch(AUTH_ACTION_CREATORS.logout(token, navigate))}
-                        startIcon={<Logout
-                            sx={{
-                                color: purple[600], padding: .1, borderRadius: .4
-                            }}
-                        />}
-                        sx={{
-                            fontWeight: 'bold',
-                            borderRadius: 0,
-                            justifyContent: 'flex-start',
-                            textTransform: 'capitalize',
-                            fontSize: 14,
-                            paddingLeft: 4,
-                            py: 1
-                        }}
-                        color="primary"
-                        size="medium"
-                        variant="text"
-                        fullWidth={true}>
-                        Logout
-                    </Button>
-                </Stack>
-            </Box>
-
-        </Box>)
+    </Box>)
 }
 
 export default MobileDrawer;

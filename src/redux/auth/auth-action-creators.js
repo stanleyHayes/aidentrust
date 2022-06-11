@@ -235,7 +235,9 @@ const logout = (token, navigate) => {
             const response = await axios({
                 method: 'POST',
                 url: `${CONSTANTS.URL_BASE_SERVER}/auth/logout`,
-                data: token
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
             const {message} = response.data;
             dispatch(logoutSuccess(message));

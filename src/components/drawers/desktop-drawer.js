@@ -139,7 +139,8 @@ const DesktopDrawer = () => {
 
                     <Button
                         onClick={() => dispatch(AUTH_ACTION_CREATORS.logout(token, navigate))}
-                        startIcon={<Logout
+                        startIcon={
+                        <Logout
                             sx={{
                                 color: purple[600], padding: .1, borderRadius: .4
                             }}
@@ -149,12 +150,12 @@ const DesktopDrawer = () => {
                             borderRadius: 0,
                             justifyContent: 'flex-start',
                             textTransform: 'capitalize',
-                            fontSize: 14,
+                            fontSize: 18,
                             paddingLeft: 4,
                             py: 1
                         }}
                         color="primary"
-                        size="medium"
+                        size="large"
                         variant="text"
                         fullWidth={true}>
                         Logout
