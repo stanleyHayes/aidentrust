@@ -37,6 +37,8 @@ const StatementsPage = () => {
 
     const {transactions, transactionError, transactionLoading} = useSelector(selectTransaction);
 
+    const query = `startDate=${startDate}&endDate=${endDate}`;
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {token} = useSelector(selectAuth);
@@ -44,11 +46,12 @@ const StatementsPage = () => {
     const renderStatus = status => {
         switch (status) {
             case 'Pending':
-                return (<Button
-                    disableElevation={true}
-                    sx={{backgroundColor: grey[400], color: 'white', textTransform: 'capitalize'}}
-                    size="small"
-                    variant="contained">{status}</Button>)
+                return (
+                    <Button
+                        disableElevation={true}
+                        sx={{backgroundColor: grey[400], color: 'white', textTransform: 'capitalize'}}
+                        size="small"
+                        variant="contained">{status}</Button>)
             case 'Success':
                 return (<Button
                     fullWidth={true}
@@ -74,10 +77,12 @@ const StatementsPage = () => {
     }
 
     useEffect(() => {
-        dispatch(TRANSACTION_ACTION_CREATORS.getTransactions(token));
+        dispatch(TRANSACTION_ACTION_CREATORS.getTransactions(token, query));
     }, []);
+
+    console.log(endDate, startDate)
     return (<Layout>
-        <Box sx={{pt: 8.3}}>
+        <Box sx={{pt: {xs: 4, lg: 8.3}}}>
             {transactionLoading && <LinearProgress color="primary" variant="query"/>}
             <Container sx={{py: 12}}>
                 {transactionError && (<Alert severity="error" variant="standard">
@@ -227,7 +232,7 @@ const StatementsPage = () => {
                         </Table>
                     </TableContainer>
                     <Box sx={{backgroundColor: purple[50]}} py={5}>
-                        <Typography sx={{color: purple[600]}} variant="body1">
+                        <Typography align="center" sx={{color: purple[600]}} variant="body1">
                             No transactions available
                         </Typography>
                     </Box>

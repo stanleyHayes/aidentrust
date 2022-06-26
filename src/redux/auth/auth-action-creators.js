@@ -37,6 +37,7 @@ const signIn = (user, navigate) => {
             localStorage.setItem(CONSTANTS.AIDEN_TRUST_CLIENT_TOKEN_KEY, token);
             localStorage.setItem(CONSTANTS.AIDEN_TRUST_CLIENT_AUTH_DATA_KEY, JSON.stringify(data));
         } catch (e) {
+            console.log(e.message)
             const {message} = e.response.data;
             dispatch(signInFail(message));
         }

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/aidentrust-client.iml" filepath="$PROJECT_DIR$/.idea/aidentrust-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../windycraft/.idea/windycraft.iml" filepath="$PROJECT_DIR$/../windycraft/.idea/windycraft.iml" />
     </modules>
   </component>
 </project>

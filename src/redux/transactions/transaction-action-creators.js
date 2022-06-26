@@ -107,13 +107,13 @@ const getTransactionsFailure = message => {
     }
 }
 
-const getTransactions = token => {
+const getTransactions = (token, query) => {
     return async dispatch => {
         try {
             dispatch(getTransactionsRequest());
             const response = await axios({
                 method: 'GET',
-                url: `${CONSTANTS.URL_BASE_SERVER}/transactions`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/transactions?${query ? query : null}`,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
