@@ -113,7 +113,7 @@ const SignInPage = () => {
                             gutterBottom={true}
                             align="center"
                             variant="h3">
-                            Aideen Trust
+                            Aiden Trust
                         </Typography>
                         {authError && (<Alert sx={{my: 1}} severity="error" color="error" variant="standard">
                                 <AlertTitle>{authError}</AlertTitle>

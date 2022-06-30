@@ -91,7 +91,7 @@ const ForgotPasswordPage = () => {
                                     gutterBottom={true}
                                     align="center"
                                     variant="h4">
-                                    Aideen Trust
+                                    Aiden Trust
                                 </Typography>
                                 <Typography mb={1} gutterBottom={true} align="center" variant="body1">
                                     Forgot Password

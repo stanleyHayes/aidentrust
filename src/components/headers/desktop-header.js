@@ -57,7 +57,7 @@ const DesktopHeader = () => {
                                     pl: 4,
                                     fontWeight: 400,
                                 }} fontWeight="normal" variant="h4">
-                                Aideen Trust
+                                Aiden Trust
                             </Typography>
                         </Stack>
                     </Grid>
