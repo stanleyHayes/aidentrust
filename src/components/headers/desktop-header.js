@@ -8,6 +8,7 @@ import {grey, purple} from "@mui/material/colors";
 import {useSelector} from "react-redux";
 import {selectAuth} from "../../redux/auth/auth-reducer";
 import {UTILS} from "../../utils/constants/utils";
+import logo from "./../../assets/images/logo.png";
 
 const DesktopHeader = () => {
 
@@ -44,20 +45,28 @@ const DesktopHeader = () => {
     return (
         <Toolbar
             variant="regular">
-            <Container>
+            <Container maxWidth="xl">
                 <Grid container={true} alignItems="center" justifyContent="space-around">
-                    <Grid item={true} lg={3}>
-                        <Typography
-                            sx={{
-                                color: 'primary.main',
-                                pl: 4,
-                                fontWeight: 400,
-                            }} fontWeight="normal" variant="h4">
-                            Aideen Trust
-                        </Typography>
+                    <Grid item={true} lg={4}>
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                            <img src={logo} alt="Aideen Trust logo"
+                                 style={{width: 50, height: 50, objectFit: 'cover', objectPosition: 'center'}}/>
+                            <Typography
+                                sx={{
+                                    color: 'primary.main',
+                                    pl: 4,
+                                    fontWeight: 400,
+                                }} fontWeight="normal" variant="h4">
+                                Aideen Trust
+                            </Typography>
+                        </Stack>
                     </Grid>
-
-                    <Grid alignItems="center" container={true} lg={9} spacing={2} justifyContent="flex-end">
+                    <Grid
+                        alignItems="center"
+                        container={true}
+                        lg={8}
+                        spacing={2}
+                        justifyContent="flex-end">
                         <Grid item={true}>
                             <Stack spacing={3} direction="row" alignItems="center">
                                 <Badge badgeContent={5} color="primary" variant="dot">
@@ -70,8 +79,8 @@ const DesktopHeader = () => {
                                 </Badge>
 
                                 <Avatar
-                                sx={{backgroundColor: purple[100]}}
-                                variant="rounded">
+                                    sx={{backgroundColor: purple[100]}}
+                                    variant="rounded">
                                     <Typography variant="h5" sx={{color: 'primary.main'}}>
                                         {authData && UTILS.getInitials(`${authData?.firstName} ${authData?.lastName}`)}
                                     </Typography>

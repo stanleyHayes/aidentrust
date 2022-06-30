@@ -1,4 +1,4 @@
-import {Button, Grid, MenuItem, Toolbar, Typography, Menu as MenuComponent} from "@mui/material";
+import {Button, Grid, Menu as MenuComponent, MenuItem, Toolbar} from "@mui/material";
 import {KeyboardArrowDown, Menu} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {makeStyles} from "@mui/styles";
@@ -7,6 +7,7 @@ import UI_ACTION_CREATORS from "../../redux/ui/ui-action-creators";
 import Feint from "../shared/feint";
 import {grey, purple} from "@mui/material/colors";
 import {useState} from "react";
+import logo from "../../assets/images/logo.png";
 
 const MobileHeader = () => {
 
@@ -54,16 +55,14 @@ const MobileHeader = () => {
                 </Grid>
                 <Grid item={true}>
                     <Link to="/" className={classes.link}>
-                        <Typography
-                            sx={{
-                                color: 'primary.main',
-                                fontWeight: 700,
-                                fontSmooth: "large",
-                                fontSizeAdjust: "from-front"
-                            }}
-                            variant="h5">
-                            Aideen Trust
-                        </Typography>
+                        <img
+                            src={logo}
+                            alt="Aideen Trust logo"
+                            style={{
+                                width: 50, height: 'auto',
+                                objectFit: 'cover',
+                                objectPosition: 'center'
+                            }}/>
                     </Link>
                 </Grid>
                 <Grid item={true}>
