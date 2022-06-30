@@ -62,7 +62,7 @@ const MobileHeader = () => {
                                 fontSizeAdjust: "from-front"
                             }}
                             variant="h5">
-                            Aiden Trust
+                            Aideen Trust
                         </Typography>
                     </Link>
                 </Grid>
