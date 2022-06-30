@@ -25,6 +25,7 @@ import {AUTH_ACTION_CREATORS} from "../../redux/auth/auth-action-creators";
 import {selectAuth} from "../../redux/auth/auth-reducer";
 import {useLocation, useNavigate} from "react-router";
 import {LoadingButton} from "@mui/lab";
+import logo from "../../assets/images/logo.png";
 
 const SignInPage = () => {
     const [user, setUser] = useState({email: "", password: ""});
@@ -95,6 +96,16 @@ const SignInPage = () => {
                         }, display: 'flex', alignItems: 'center', justifyContent: 'center'
                     }}>
                     <Container maxWidth="sm">
+                        <Stack justifyContent="center" direction="row">
+                            <img
+                                src={logo}
+                                alt="Aideen Trust logo"
+                                style={{
+                                    width: 100, height: 'auto',
+                                    objectFit: 'cover',
+                                    objectPosition: 'center'
+                                }}/>
+                        </Stack>
                         <Typography
                             sx={{
                                 color: 'primary.main', fontWeight: 'bold', textTransform: 'uppercase'
