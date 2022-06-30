@@ -25,7 +25,7 @@ import {AUTH_ACTION_CREATORS} from "../../redux/auth/auth-action-creators";
 import {selectAuth} from "../../redux/auth/auth-reducer";
 import {useLocation, useNavigate} from "react-router";
 import {LoadingButton} from "@mui/lab";
-import logo from "../../assets/images/logo.png";
+import logoWithName from "../../assets/images/logoWithName.jpeg";
 
 const SignInPage = () => {
     const [user, setUser] = useState({email: "", password: ""});
@@ -98,23 +98,14 @@ const SignInPage = () => {
                     <Container maxWidth="sm">
                         <Stack justifyContent="center" direction="row">
                             <img
-                                src={logo}
+                                src={logoWithName}
                                 alt="Aideen Trust logo"
                                 style={{
-                                    width: 100, height: 'auto',
+                                    width: 250, height: 'auto',
                                     objectFit: 'cover',
                                     objectPosition: 'center'
                                 }}/>
                         </Stack>
-                        <Typography
-                            sx={{
-                                color: 'primary.main', fontWeight: 'bold', textTransform: 'uppercase'
-                            }}
-                            gutterBottom={true}
-                            align="center"
-                            variant="h3">
-                            Aiden Trust
-                        </Typography>
                         {authError && (<Alert sx={{my: 1}} severity="error" color="error" variant="standard">
                                 <AlertTitle>{authError}</AlertTitle>
                             </Alert>)}

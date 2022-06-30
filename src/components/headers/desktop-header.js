@@ -8,7 +8,7 @@ import {grey, purple} from "@mui/material/colors";
 import {useSelector} from "react-redux";
 import {selectAuth} from "../../redux/auth/auth-reducer";
 import {UTILS} from "../../utils/constants/utils";
-import logo from "./../../assets/images/logo.png";
+import logoWithName from "./../../assets/images/logoWithName.jpeg";
 
 const DesktopHeader = () => {
 
@@ -49,16 +49,8 @@ const DesktopHeader = () => {
                 <Grid container={true} alignItems="center" justifyContent="space-around">
                     <Grid item={true} lg={4}>
                         <Stack direction="row" alignItems="center" spacing={2}>
-                            <img src={logo} alt="Aideen Trust logo"
-                                 style={{width: 50, height: 50, objectFit: 'cover', objectPosition: 'center'}}/>
-                            <Typography
-                                sx={{
-                                    color: 'primary.main',
-                                    pl: 4,
-                                    fontWeight: 400,
-                                }} fontWeight="normal" variant="h4">
-                                Aiden Trust
-                            </Typography>
+                            <img src={logoWithName} alt="Aideen Trust logo"
+                                 style={{width: 250, height: 'auto', objectFit: 'cover', objectPosition: 'center'}}/>
                         </Stack>
                     </Grid>
                     <Grid
