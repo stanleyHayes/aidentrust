@@ -89,7 +89,7 @@ const Welcome = () => {
                                     fontWeight: 'bolder'
                                 }}
                                 mb={2}
-                                variant="h2">Aiden Trust</Typography>
+                                variant="h2">Aideen Trust</Typography>
                             <Typography
                                 sx={{
                                     color: 'white'
@@ -105,7 +105,7 @@ const Welcome = () => {
                                 }}
                                 mb={4}
                                 paragraph={true}>
-                                Thank you for signing up with Aiden Trust. We safe guard your money
+                                Thank you for signing up with Aideen Trust. We safe guard your money
                             </Typography>
                         </Grid>
                         <Grid

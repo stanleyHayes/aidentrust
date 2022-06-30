@@ -89,7 +89,7 @@ const ResetPasswordPage = () => {
                                 gutterBottom={true}
                                 align="center"
                                 variant="h4">
-                                Aiden Trust
+                                Aideen Trust
                             </Typography>
                             <Typography gutterBottom={true} align="center" variant="h6">
                                 Reset Password

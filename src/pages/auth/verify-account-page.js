@@ -19,7 +19,7 @@ const VerifyAccountPage = () => {
                                 gutterBottom={true}
                                 align="center"
                                 variant="h3">
-                                Aiden Trust
+                                Aideen Trust
                             </Typography>
                             <Typography gutterBottom={true} align="center" variant="h6">
                                 Reset Password
