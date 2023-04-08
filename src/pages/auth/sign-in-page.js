@@ -13,11 +13,10 @@ import {
     Typography,
     Alert,
     AlertTitle,
-    CircularProgress
+    CircularProgress, CardMedia
 } from "@mui/material";
 import {useState} from "react";
 import {Link} from "react-router-dom";
-import {makeStyles} from "@mui/styles";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import validator from "validator";
 import {useDispatch, useSelector} from "react-redux";
@@ -26,7 +25,7 @@ import {selectAuth} from "../../redux/auth/auth-reducer";
 import {useLocation, useNavigate} from "react-router";
 import {LoadingButton} from "@mui/lab";
 import logoWithName from "../../assets/images/logoWithName.jpeg";
-
+import banner from "./../../assets/images/banner.jpg";
 const SignInPage = () => {
     const [user, setUser] = useState({email: "", password: ""});
     const [visiblePassword, setVisiblePassword] = useState(false);
@@ -36,18 +35,6 @@ const SignInPage = () => {
     const handleChange = event => {
         setUser({...user, [event.target.name]: event.target.value});
     }
-
-    const useStyles = makeStyles(theme => {
-        return {
-            link: {
-                textDecoration: 'none'
-            }, auth: {
-                objectFit: 'cover', objectPosition: 'center', width: '100%', height: '100%', maxHeight: '100vh'
-            }
-        }
-    });
-
-    const classes = useStyles();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -82,146 +69,157 @@ const SignInPage = () => {
     const {authLoading, authError} = useSelector(selectAuth);
 
     return (<Box>
-            {authLoading && <LinearProgress variant="query" color="primary"/>}
+        {authLoading && <LinearProgress variant="query" color="primary"/>}
+        <Box
+            sx={{
+                display: 'flex', maxWidth: '100%', maxHeight: '100vh', height: '100vh', flexDirection: {
+                    xs: 'column', md: 'row'
+                }
+            }}>
             <Box
                 sx={{
-                    display: 'flex', maxWidth: '100%', maxHeight: '100vh', height: '100vh', flexDirection: {
-                        xs: 'column', md: 'row'
-                    }
+                    minHeight: '100%', flex: 1, backgroundColor: 'background.paper', order: {
+                        xs: 1, md: 0
+                    }, display: 'flex', alignItems: 'center', justifyContent: 'center'
                 }}>
-                <Box
-                    sx={{
-                        minHeight: '100%', flex: 1, backgroundColor: 'background.paper', order: {
-                            xs: 1, md: 0
-                        }, display: 'flex', alignItems: 'center', justifyContent: 'center'
-                    }}>
-                    <Container maxWidth="sm">
-                        <Stack justifyContent="center" direction="row">
-                            <img
-                                src={logoWithName}
-                                alt="Aideen Trust logo"
-                                style={{
-                                    width: 250, height: 'auto',
-                                    objectFit: 'cover',
-                                    objectPosition: 'center'
-                                }}/>
-                        </Stack>
-                        {authError && (<Alert sx={{my: 1}} severity="error" color="error" variant="standard">
-                                <AlertTitle>{authError}</AlertTitle>
-                            </Alert>)}
-                        <Typography
-                            sx={{color: 'text.primary'}}
-                            gutterBottom={true}
-                            align="center"
-                            variant="h6">
-                            Login
-                        </Typography>
-                        <Typography
-                            sx={{color: 'text.secondary'}}
-                            gutterBottom={true}
-                            align="center"
-                            variant="body2">
-                            Welcome back
-                        </Typography>
+                <Container maxWidth="xs">
+                    <Stack justifyContent="center" direction="row">
+                        <img
+                            src={logoWithName}
+                            alt="Aideen Trust logo"
+                            style={{
+                                width: 250, height: 'auto',
+                                objectFit: 'cover',
+                                objectPosition: 'center'
+                            }}/>
+                    </Stack>
+                    {authError && (<Alert sx={{my: 1}} severity="error" color="error" variant="standard">
+                        <AlertTitle>{authError}</AlertTitle>
+                    </Alert>)}
+                    <Typography
+                        sx={{color: 'text.primary'}}
+                        gutterBottom={true}
+                        align="center"
+                        variant="h6">
+                        Login
+                    </Typography>
+                    <Typography
+                        sx={{color: 'text.secondary'}}
+                        gutterBottom={true}
+                        align="center"
+                        variant="body2">
+                        Welcome back
+                    </Typography>
 
-                        <form onSubmit={handleSubmit}>
-                            <Stack my={3} spacing={2} direction="column">
-                                <TextField
-                                    label="Email"
-                                    fullWidth={true}
-                                    name="email"
-                                    required={true}
-                                    variant="outlined"
-                                    value={email}
-                                    error={Boolean(error.email)}
-                                    helperText={error.email}
-                                    type="email"
-                                    color="primary"
-                                    placeholder="Enter email"
-                                    size="medium"
-                                    onChange={handleChange}
-                                />
+                    <form onSubmit={handleSubmit}>
+                        <Stack my={3} spacing={2} direction="column">
+                            <TextField
+                                label="Email"
+                                fullWidth={true}
+                                name="email"
+                                required={true}
+                                variant="outlined"
+                                value={email}
+                                error={Boolean(error.email)}
+                                helperText={error.email}
+                                type="email"
+                                color="primary"
+                                placeholder="Enter email"
+                                size="medium"
+                                onChange={handleChange}
+                            />
 
-                                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                            <Stack direction="row" justifyContent="space-between" alignItems="center">
 
-                                    <Link className={classes.link} to="/auth/forgot-password">
-                                        <Button
-                                            color="primary"
-                                            sx={{textTransform: 'capitalize'}}
-                                            variant="text" size="small">
-                                            Forgot Password
-                                        </Button>
-                                    </Link>
-                                </Stack>
-
-
-                                <FormControl variant="outlined">
-                                    <InputLabel htmlFor="password">Password</InputLabel>
-                                    <OutlinedInput
-                                        id="password"
-                                        label="Password"
-                                        fullWidth={true}
-                                        name="password"
-                                        required={true}
+                                <Link style={{textDecoration: "none"}} to="/auth/forgot-password">
+                                    <Button
                                         color="primary"
-                                        placeholder="Enter password"
-                                        variant="outlined"
-                                        error={Boolean(error.password)}
-                                        type={visiblePassword ? 'text' : 'password'}
-                                        value={password}
-                                        onChange={handleChange}
-                                        endAdornment={<InputAdornment position="end">
-                                            <IconButton
-                                                sx={{color: 'primary.main'}}
-                                                aria-label="toggle password visibility"
-                                                onClick={() => setVisiblePassword(!visiblePassword)}
-                                                onMouseDown={() => setVisiblePassword(!visiblePassword)}
-                                                edge="end">
-                                                {visiblePassword ? <VisibilityOff/> : <Visibility/>}
-                                            </IconButton>
-                                        </InputAdornment>}
-                                    />
-                                </FormControl>
+                                        sx={{textTransform: 'capitalize'}}
+                                        variant="text" size="small">
+                                        Forgot Password
+                                    </Button>
+                                </Link>
                             </Stack>
 
-                            <LoadingButton
-                                sx={{
-                                    fontWeight: 'bold',
-                                    textTransform: 'capitalize',
-                                    backgroundColor: 'primary.main',
-                                    color: 'secondary.main',
-                                    py: 1.5
-                                }}
-                                size="large"
-                                startIcon={authLoading && <CircularProgress size={20} color="secondary"/>}
-                                loadingPosition="start"
-                                loading={authLoading}
-                                loadingIndicator={<CircularProgress size={20} color="secondary"/>}
-                                onSubmit={handleSubmit}
-                                onClick={handleSubmit}
-                                fullWidth={true}
-                                disableElevation={true}
-                                disabled={authLoading}
-                                variant="contained">
-                                Login
-                            </LoadingButton>
-                        </form>
-                    </Container>
-                </Box>
-                <Box
-                    sx={{
-                        display: {xs: 'none', md: 'block'},
-                        flex: 1,
-                        backgroundColor: 'background.default',
-                        minHeight: '100%',
-                        order: {
-                            xs: 0, md: 1
-                        }
-                    }}>
-                    <img className={classes.auth} src="/assets/images/auth.png" alt=""/>
-                </Box>
+
+                            <FormControl variant="outlined">
+                                <InputLabel htmlFor="password">Password</InputLabel>
+                                <OutlinedInput
+                                    id="password"
+                                    label="Password"
+                                    fullWidth={true}
+                                    name="password"
+                                    required={true}
+                                    color="primary"
+                                    placeholder="Enter password"
+                                    variant="outlined"
+                                    error={Boolean(error.password)}
+                                    type={visiblePassword ? 'text' : 'password'}
+                                    value={password}
+                                    onChange={handleChange}
+                                    endAdornment={<InputAdornment position="end">
+                                        <IconButton
+                                            sx={{color: 'primary.main'}}
+                                            aria-label="toggle password visibility"
+                                            onClick={() => setVisiblePassword(!visiblePassword)}
+                                            onMouseDown={() => setVisiblePassword(!visiblePassword)}
+                                            edge="end">
+                                            {visiblePassword ? <VisibilityOff/> : <Visibility/>}
+                                        </IconButton>
+                                    </InputAdornment>}
+                                />
+                            </FormControl>
+                        </Stack>
+
+                        <LoadingButton
+                            sx={{
+                                fontWeight: 'bold',
+                                textTransform: 'capitalize',
+                                backgroundColor: 'primary.main',
+                                color: 'secondary.main',
+                                py: 1.5
+                            }}
+                            size="large"
+                            startIcon={authLoading && <CircularProgress size={20} color="secondary"/>}
+                            loadingPosition="start"
+                            loading={authLoading}
+                            loadingIndicator={<CircularProgress size={20} color="secondary"/>}
+                            onSubmit={handleSubmit}
+                            onClick={handleSubmit}
+                            fullWidth={true}
+                            disableElevation={true}
+                            disabled={authLoading}
+                            variant="contained">
+                            Login
+                        </LoadingButton>
+                    </form>
+                </Container>
             </Box>
-        </Box>)
+            <Box
+                sx={{
+                    display: {xs: 'none', md: 'block'},
+                    flex: 1,
+                    backgroundColor: 'background.default',
+                    minHeight: '100%',
+                    order: {
+                        xs: 0, md: 1
+                    }
+                }}>
+                <CardMedia
+                    component="img"
+                    sx={{
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                        width: '100%',
+                        height: '100%',
+                        maxHeight: '100vh'
+                    }}
+                    src={banner}
+                    alt=""
+                />
+            </Box>
+        </Box>
+    </Box>)
 }
 
 export default SignInPage;
